@@ -102,7 +102,7 @@ def main():
                 os.system("cls")
                 print('Ajan secilme ekranı belirlendi.')
                 client.pregame_select_character(ajanlar['agents'][preferredAgent]) # Yazılan karakteri seç
-		            time.sleep(2)
+		time.sleep(2)
                 client.pregame_lock_character(ajanlar['agents'][preferredAgent]) # Yazılan karakteri kilitle
                 maclar.append(client.pregame_fetch_match()['ID']) # Karışmaması için bu listeye ekle 
                 print('Ajan başarıyla seçildi : \n' + preferredAgent.capitalize())
