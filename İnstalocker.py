@@ -1,13 +1,21 @@
-import sys, time, threading
-from valclient.client import *
+import sys, time, os
+from valclient import *
 from valclient.resources import regions
+from valclient.exceptions import *
+
+os.system("color a")
+
 # Debug ayarı
 debug = False
+
+
 # Oyunun tekrar tekrar seçmemesi için
 maçlar = []
+
 # Thread için yardımcı fonksiyon
 thrd = False
-# Coded By Berkwe_
+
+# Ajan listesi
 ajanlar = { 
     "jett": "add6443a-41bd-e414-f6ad-e58d267f4e95",
     "reyna": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
@@ -35,8 +43,9 @@ ajanlar = {
     "clove": "1dbf2edd-4729-0984-3115-daa5eed44993"
 }
 
+
 def yaz(yazı, yazı2=""): # Şekilli Şukullu yazılar için
-    randoms = "#*?&%+&(!=-/;.:"
+    randoms = "0101"
     for i in range(len(yazı)):
         for k in randoms:
           print((yazı[:i] + k).center(150).removesuffix(" "))
@@ -45,24 +54,9 @@ def yaz(yazı, yazı2=""): # Şekilli Şukullu yazılar için
     time.sleep(0.3)
     print(yazı2.center(150))
 
-def bozulma(): # Oyun bozulursa
-    
-    while True:
-        oyunDurumu = client.fetch_presence(client.puuid)['sessionLoopState'] # Oyunun o anki durumunu çeker
-        if (oyunDurumu == "INGAME"): # Oyuna girildimi?
-            os.system("cls")
-            yaz("İnstalocker For Valorant","By Berkwe_")
-            print("Oyun bozulmadı instalocker kapanıyor...")
-            time.sleep(3)
-            sys.exit()
-                   
 def kontrol(): # Oyuna girilip girilmediğini kontrol eder
     global thrd
     print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {ajan}")
-
-    if thrd == False:
-        threading.Thread(target=bozulma).start() # Aynı anda bozulma fonksiyonunu başlat
-        thrd = True
 
     while True:
         try:
@@ -80,13 +74,19 @@ def kontrol(): # Oyuna girilip girilmediğini kontrol eder
                 break
         except Exception as e:
                 print("Bir hata oluştu! : ",e)
-
     while True:
             oyunDurumu = client.fetch_presence(client.puuid)['sessionLoopState']
-            if  (oyunDurumu == "MENUS"): # Oyuna girilmeden menüye dönülürse
-                os.system("cls")
-                print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-                kontrol()
+            if  (oyunDurumu == "MENUS") or (oyunDurumu == "INGAME"): # Bozulma koruması
+                if oyunDurumu == "INGAME":
+                    os.system("cls")
+                    yaz("İnstalocker For Valorant","By Berkwe_")
+                    print("Oyun bozulmadı instalocker kapanıyor...")
+                    time.sleep(3)
+                    break
+                else:
+                    os.system("cls")
+                    print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
+                    kontrol()
 
 def main(): # Ana program
     global debug, client, ajan
@@ -150,4 +150,4 @@ def main(): # Ana program
 
 yaz("İnstalocker For Valorant", "By Berkwe")
 main()
-         
+       
