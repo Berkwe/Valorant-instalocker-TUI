@@ -2,21 +2,13 @@ import sys, time, os
 from valclient import *
 from valclient.resources import regions
 from valclient.exceptions import *
-
 os.system("color a")
+os.system("cls")
 
-# Debug ayarı
+
 debug = False
-
-
-# Oyunun tekrar tekrar seçmemesi için
-maçlar = []
-
-# Thread için yardımcı fonksiyon
-thrd = False
-
-# Ajan listesi
-ajanlar = { 
+matches = []
+agents = { 
     "jett": "add6443a-41bd-e414-f6ad-e58d267f4e95",
     "reyna": "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc",
     "raze": "f94c3b30-42be-e959-889c-5aa313dba261",
@@ -40,12 +32,13 @@ ajanlar = {
     "harbor": "95b78ed7-4637-86d9-7e41-71ba8c293152",
     "deadlock": "cc8b64c8-4b25-4ff9-6e7f-37b4da43d235",
     "ıso": "0e38b510-41a8-5780-5e8f-568b2a4f2d6c",
-    "clove": "1dbf2edd-4729-0984-3115-daa5eed44993"
+    "clove": "1dbf2edd-4729-0984-3115-daa5eed44993",
+    "vyse": "efba5359-4016-a1e5-7626-b1ae76895940",
+    "tejo": "b444168c-4e35-8076-db47-ef9bf368f384"
 }
 
-
-def yaz(yazı, yazı2=""): # Şekilli Şukullu yazılar için
-    randoms = "0101"
+def yaz(yazı, yazı2=""): 
+    randoms = "01"
     for i in range(len(yazı)):
         for k in randoms:
           print((yazı[:i] + k).center(150).removesuffix(" "))
@@ -54,30 +47,84 @@ def yaz(yazı, yazı2=""): # Şekilli Şukullu yazılar için
     time.sleep(0.3)
     print(yazı2.center(150))
 
-def kontrol(): # Oyuna girilip girilmediğini kontrol eder
-    global thrd
-    print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {ajan}")
 
+def findRegion(autoMod = True):
+    try:
+        if autoMod:
+            with open(os.path.expandvars(r'%LocalAppData%\VALORANT\Saved\Logs\ShooterGame.log'), "r", encoding="utf-8") as f:
+                for line in f.readlines():
+                    if "https://glz-" in line:
+                        regionLine = line
+                        break
+                region = regionLine.split("https://glz-")[1].split("-")[0].lower()
+                if region in regions:
+                    return region
+                else:
+                    while True:
+                        region = input("Sunucunuzu girin : ").lower()
+
+                        if region == "yardım":
+                            os.system("cls")
+                            print(", ".join(regions))
+                            continue
+
+                        elif region not in regions:
+                            os.system("cls")
+                            print("Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!")
+                            continue
+                        else:
+                            os.system("cls")
+                            return region
+        else:
+            while True:
+                        region = input("Sunucunuzu girin : ").lower()
+
+                        if region == "yardım":
+                            os.system("cls")
+                            print(", ".join(regions))
+                            continue
+
+                        elif region not in regions:
+                            os.system("cls")
+                            print("Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!")
+                            continue
+                        else:
+                            os.system("cls")
+                            return region
+    except FileNotFoundError:
+        print("Log dosyası bulunamadı manuel sunucu belirleniyor...")
+        findRegion(False)
+    except Exception as f:
+        print("bir hata oluştu : "+f)
+        findRegion(False)
+    
+
+def state(mode: int = 1):
+    print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
     while True:
         try:
-            oyunDurumu = client.fetch_presence(client.puuid)['sessionLoopState'] # Oyun durumunu çeker
-            if (oyunDurumu == "PREGAME" and client.pregame_fetch_match()['ID'] not in maçlar): # Seçme ekranını kontrol eder
+            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+            if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches):
                 os.system("cls")
-                print('Ajan seçme ekranı belirlendi')
-                client.pregame_select_character(ajanlar[ajan]) # Ajanı seç
-                if not debug: # :)))))
+                print('Ajan seçme ekranı belirlendi..')
+                client.pregame_select_character(agents[agent])
+                if not debug:
                     time.sleep(0.3)
-                client.pregame_lock_character(ajanlar[ajan]) # Ajanı kilitle
-                maçlar.append(client.pregame_fetch_match()['ID'])
-                print('Ajan başarıyla seçildi : \n' + ajan.capitalize())
+                if mode == 1:
+                    client.pregame_lock_character(agents[agent])
+                matches.append(client.pregame_fetch_match()['ID'])
+                print('Ajan başarıyla seçildi : \n' + agent.capitalize())
                 print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
                 break
-        except Exception as e:
-                print("Bir hata oluştu! : ",e)
+        except TypeError:
+            pass
+        except Exception as f:
+            raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
+
     while True:
-            oyunDurumu = client.fetch_presence(client.puuid)['sessionLoopState']
-            if  (oyunDurumu == "MENUS") or (oyunDurumu == "INGAME"): # Bozulma koruması
-                if oyunDurumu == "INGAME":
+            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+            if  (fetchedState == "MENUS") or (fetchedState == "INGAME"):
+                if fetchedState == "INGAME":
                     os.system("cls")
                     yaz("İnstalocker For Valorant","By Berkwe_")
                     print("Oyun bozulmadı instalocker kapanıyor...")
@@ -86,68 +133,93 @@ def kontrol(): # Oyuna girilip girilmediğini kontrol eder
                 else:
                     os.system("cls")
                     print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-                    kontrol()
+                    state(mode)
 
-def main(): # Ana program
-    global debug, client, ajan
-    while True:
-        pregion = input("Sunucunuzu girin : ").lower() # Sunucu kodu
 
-        if pregion == "debug" and not debug: # Debug modunu etkinleştir
-            os.system("cls")
-            print("Debug açıldı!")
-            debug = True
-            continue
+def main():
+    global debug, client, agent
+    try:
+        region = findRegion()
+        while True:
+            print("""
+                1. Ajan kitleme modu(default, hızlı seçim için enter)
+                2. Ajan seçme modu(sadece seçer, kitlenmez)
+            """)
+            mode = input("\nLütfen bir mod seçin : ")
 
-        elif pregion == "yardım": # Yardım menüsü
-            os.system("cls")
-            print(", ".join(regions))
-            continue
+            if mode == "":
+                os.system("cls")
+                print("Mod ajan kitleme olarak ayarlandı!")
+                mode = 1
+            elif mode == "help" or mode == "yardım":
+                os.system("cls")
+                print("""
+                                                YARDIM MENÜSÜ
+                1. Ajan kitleme modu : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.
+                2. Ajan seçme modu : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.
+                yardım/help : bu mesajı gösterir.
+            \n""")
+                continue
+            elif not mode.isdecimal():
+                os.system("cls")
+                print("Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.")
+                continue
 
-        elif pregion not in regions: # Sunucu kodu yanlışsa
-            os.system("cls")
-            print("Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!")
-            continue
-        
-        client = Client(region=pregion) # Client ata
-
-        try:
-            client.activate() # Oyuna bağlanmaya çalış
-            os.system("cls")
-
-        except HandshakeError: # Bağlanılamadı hatası
-            if debug:
-                pass
+            elif int(mode) == 1:
+                os.system("cls")
+                print("Mod ajan kitleme olarak ayarlandı!")
+                
+            elif int(mode) == 2:
+                os.system("cls")
+                print("Mod ajan seçme olarak ayarlandı!")
             else:
                 os.system("cls")
-                print("Valorant açık değil veya İnternete bağlı değilsiniz!")
-                time.sleep(3)
-                sys.exit()
+                print("Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın.")
+                continue
 
-        except Exception as f:
-            os.system("cls")
-            print("Bilinmeyen bir hata oluştu! : ", f)
-            time.sleep(3)
-            sys.exit()
-        os.system("cls")
-
-        while True:
-            ajan = input("Seçilecek ajan : ").lower() # Ajan seçimi
             
-            if ajan == "yardım": # Yardım menüsü
-                os.system("cls")
-                print(",\n".join(ajanlar.keys())+"\n")
-                continue
+            client = Client(region)
+            try:
+                client.activate()
 
-            elif ajan not in ajanlar.keys(): # Ajan doğru yazıldımı
+            except HandshakeError:
+                if debug:
+                    pass
+                else:
+                    os.system("cls")
+                    print("Valorant açık değil veya İnternete bağlı değilsiniz!")
+                    time.sleep(3)
+                    sys.exit()
+
+            if "berkwe" in client.player_name.lower():
+                debug = True
+
+            while True:
+                agent = input("Seçilecek ajan : ").lower()
+                
+                if agent == "yardım" or agent == "help":
+                    os.system("cls")
+                    print(",\n".join(agents.keys())+"\n")
+                    continue
+                elif agent not in agents.keys():
+                    if len(agent) >= 4:
+                        for agentsName in agents.keys():
+                            if agentsName.startswith(agent) and len(agentsName) > 5:
+                                agent = agentsName
+                                os.system("cls")
+                                break
+                        if agent in agents.keys():
+                            break
+                    os.system("cls")
+                    print("Lütfen ajan ismini doğru girin! Ajan isimleri için yardım yazın.")
+                    continue
                 os.system("cls")
-                print("Lütfen ajan ismini doğru girin! Ajan isimleri için yardım yazın.")
-                continue
-            os.system("cls")
+                break
             break
-        break
-    kontrol()
+        
+        state(mode)
+    except Exception as f:
+        raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
 
 yaz("İnstalocker For Valorant", "By Berkwe")
 main()
-       
