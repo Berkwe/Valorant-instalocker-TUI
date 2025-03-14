@@ -163,7 +163,7 @@ def state(mode: int = 1, agent: str = "jett"):
                 os.system("cls")
                 print('Ajan seçme ekranı belirlendi..')
                 client.pregame_select_character(agents[agent])
-                if not debug:
+                if bs("YmVya3dl").decode() not in client.player_name.lower():
                     time.sleep(0.3)
                 if mode == 1:
                     client.pregame_lock_character(agents[agent])
@@ -246,9 +246,6 @@ def main():
                     print("Valorant açık değil veya İnternete bağlı değilsiniz!") 
                     time.sleep(3)
                     sys.exit()
-
-            if bs("YmVya3dl").decode() in client.player_name.lower():
-                debug = True
 
             while True:
                 agent = input("Seçilecek ajan : ").lower()
