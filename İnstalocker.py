@@ -5,6 +5,9 @@ from base64 import b64decode as bs
 from valclient import *
 from valclient.resources import regions
 from valclient.exceptions import *
+
+# Coded by berkwe_
+
 os.system("color a")
 os.system("cls")
 
