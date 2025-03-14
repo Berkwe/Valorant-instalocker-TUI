@@ -3,13 +3,13 @@
 Valorant instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
 
 ## 🚀 Özellikler
-### 🆕 Sürüm v1.2
+### 🆕 Sürüm v1.3
 - **Optimize Edilmiş Kod:** Kod daha da optimize edildi, gereksiz birkaç detay kaldırıldı.
 - **Seçme Modu:** Ajan kitlenmeden seçilebileceği bir mod eklendi, artık küfür yemek yok!
 - **Otomatik Sunucu Algılama:** Sunucu girme zahmetinden kurtuldunuz.
 - **Ajan İsim Kısaltma Desteği:** Ajan isimleri kısaltıldı, artık zahmetsizce ajan kitlenebilecek.
 - **Daha Hızlı Uygulama Başlatma:** girişteki gereksiz açılış ekranı en temel düzeye çekildi.
-- **Yeni Ajanlar:** Vyse ve Tejo ajanları desteği eklendi.
+- **Ajan güncellemesi:** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker/edit/Newmain/README.md#--2-ad%C4%B1m-a%C5%9F%C5%9Fa%C4%9F%C4%B1daki-kodu-yap%C4%B1%C5%9Ft%C4%B1r%C4%B1n-). 
 
 ## 📦 Kurulum
 
@@ -69,12 +69,18 @@ lütfen bir ajan seçin : brim
 lütfen bir ajan seçin : reyn
 ```
 
-### **Otomatik Sunucu Algılama:**
+### 🤖 **Otomatik Sunucu Algılama:**
 - Eskiden elle girilen sunucular artık otomatik algılanıyor! Fakat bir hata olursa diye manuel olarak da girebilirsiniz.
 
-### **Yeni Eklenen Ajanlar:**
-- Vyse
-- Tejo
+### 🤖 **Otomatik ajan güncellemesi:**
+- #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim bu yüzden elle manuel olarak güncellemek gerkebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
+    #### - 1. adım :
+    - CMD(komut istemi) Uygulamasını açın.
+    #### - 2. adım, Aşşağıdaki kodu yapıştırın :
+    ####
+      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+
+
 ## 🆙 Yeni bir proje...
 - **Hiç beklenmeyen İnstalockerin arayüzlü sürümü geliyor, Çok yakında... (yaklaşık birkaç iş yılı)**
    <img src="https://github.com/user-attachments/assets/96bce6e4-a03f-4ffc-a698-3543a0a7401b" alt="Açıklama" width="500" height="200">
@@ -97,4 +103,3 @@ lütfen bir ajan seçin : reyn
 ## 📝 Lisans
 
 Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE) altında lisanslanmıştır.
-
