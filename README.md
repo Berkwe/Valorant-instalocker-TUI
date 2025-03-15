@@ -73,7 +73,7 @@ lütfen bir ajan seçin : reyn
 - Eskiden elle girilen sunucular artık otomatik algılanıyor! Fakat bir hata olursa diye manuel olarak da girebilirsiniz.
 
 ### 🤖 **Otomatik ajan güncellemesi:**
-- #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim bu yüzden elle manuel olarak güncellemek gerkebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
+- #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim bu yüzden manuel olarak güncellemek gerekebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
     #### - 1. adım :
     - CMD(komut istemi) Uygulamasını açın.
     #### - 2. adım, Aşşağıdaki kodu yapıştırın :
