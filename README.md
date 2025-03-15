@@ -9,7 +9,7 @@ Valorant instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yaray
 - **Otomatik Sunucu Algılama:** Sunucu girme zahmetinden kurtuldunuz.
 - **Ajan İsim Kısaltma Desteği:** Ajan isimleri kısaltıldı, artık zahmetsizce ajan kitlenebilecek.
 - **Daha Hızlı Uygulama Başlatma:** girişteki gereksiz açılış ekranı en temel düzeye çekildi.
-- **Ajan güncellemesi:** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker/edit/Newmain/README.md#--2-ad%C4%B1m-a%C5%9F%C5%9Fa%C4%9F%C4%B1daki-kodu-yap%C4%B1%C5%9Ft%C4%B1r%C4%B1n-). 
+- **Ajan güncellemesi:** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker?tab=readme-ov-file#-otomatik-ajan-güncellemesi). 
 
 ## 📦 Kurulum
 
