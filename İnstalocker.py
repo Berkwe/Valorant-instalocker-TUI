@@ -11,7 +11,7 @@ from valclient.exceptions import *
 os.system("color a")
 os.system("cls")
 
-agentListPath = os.path.join(os.path.expanduser("~"), r"AppData\Local\VALORANT")
+agentListPath = os.path.expandvars(r'%LocalAppData%\VALORANT')
 
 
 
@@ -82,7 +82,7 @@ def getAgentList(offline=True):
 def update():
     try:
         agents = {}
-        data = requests.get("https://valorant-api.com/v1/agents", verify=False, timeout=4)
+        data = requests.get("https://valorant-api.com/v1/agents?isPlayableCharacter=true", verify=False, timeout=4)
         dataDict = dict(data.json())
         if data.status_code == 200 and dataDict.get("status") == 200:
             for agent in dataDict.get("data"):
@@ -158,7 +158,6 @@ def findRegion(autoMod = True):
 
 def state(mode: int = 1, agent: str = "jett"):
     print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
-    print(debug)
     while True:
         try:
             fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
@@ -191,7 +190,7 @@ def state(mode: int = 1, agent: str = "jett"):
                 else:
                     os.system("cls")
                     print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-                    state(mode)
+                    state(mode, agent)
 
 
 def main():
@@ -243,10 +242,11 @@ def main():
 
             except HandshakeError:
                 if debug:
+                    print("valorant açık değil fakat debug açık olduğundan atlanıyor..")
                     pass
                 else:
                     os.system("cls")
-                    print("Valorant açık değil veya İnternete bağlı değilsiniz!") 
+                    print("Valorant açık değil, açıksa Riot Client uygulamasını tekrar açın.") 
                     time.sleep(3)
                     sys.exit()
 
