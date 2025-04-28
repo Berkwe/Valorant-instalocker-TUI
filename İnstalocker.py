@@ -1,4 +1,4 @@
-import sys, time, os, requests, json
+import sys, time, os, requests, json, asyncio
 from urllib3.exceptions import MaxRetryError, NameResolutionError
 from requests.exceptions import ConnectionError
 from base64 import b64decode as bs
@@ -156,44 +156,75 @@ def findRegion(autoMod = True):
         findRegion(False)
     
 
-def state(mode: int = 1, agent: str = "jett"):
+async def state(mode: int = 1, agent: str = "jett"):
     print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
-    while True:
-        try:
-            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
-            if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches):
-                os.system("cls")
-                print('Ajan seçme ekranı belirlendi..')
-                client.pregame_select_character(agents[agent])
-                if bs("YmVya3dl").decode() not in client.player_name.lower():
-                    time.sleep(0.3)
-                if mode == 1:
-                    client.pregame_lock_character(agents[agent])
-                matches.append(client.pregame_fetch_match()['ID'])
-                print('Ajan başarıyla seçildi : \n' + agent.capitalize())
-                print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
-                break
-        except TypeError:
-            pass
-        except Exception as f:
-            raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
-
-    while True:
-            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
-            if  (fetchedState == "MENUS") or (fetchedState == "INGAME"):
-                if fetchedState == "INGAME":
+    breakProtectionTask = None
+    try:
+        while True:
+            try:
+                fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+                if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches):
                     os.system("cls")
-                    yaz("İnstalocker For Valorant","By Berkwe_")
-                    print("Oyun bozulmadı instalocker kapanıyor...")
-                    time.sleep(3)
+                    print('Ajan seçme ekranı belirlendi..')
+                    client.pregame_select_character(agents[agent])
+                    if bs("YmVya3dl").decode() not in client.player_name.lower():
+                        time.sleep(0.3)
+                    if mode == 1:
+                        client.pregame_lock_character(agents[agent])
+                    matches.append(client.pregame_fetch_match()['ID'])
+                    print('Ajan başarıyla seçildi : \n' + agent.capitalize())
+                    print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
+                    break
+            except TypeError:
+                pass
+            except Exception as f:
+                raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
+        breakProtectionTask = asyncio.create_task(checkBreakProtection(mode, agent))
+        await breakProtectionTask
+        while True:
+            userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın…").lower()
+            if userInput == "e" or userInput == "y":
+                if client.fetch_presence(client.puuid)['sessionLoopState'] == "PREGAME":
+                    client.pregame_quit_match()
+                    print("Maç başarıyla bozuldu, İnstalocker yeniden başlıyor...")
+                    if breakProtectionTask:
+                        breakProtectionTask.cancel()
+                    await asyncio.sleep(0.5)
+                    await main()
                     break
                 else:
-                    os.system("cls")
-                    print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-                    state(mode, agent)
+                    print(f"Oyun zaten bozulmuş veya başlamış!")
+                    if breakProtectionTask:
+                        breakProtectionTask.cancel()
+                    break
+            else: 
+                print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
+    except asyncio.CancelledError:
+        pass
+    finally:
+        if breakProtectionTask:
+            breakProtectionTask.cancel()
+            
 
 
-def main():
+async def checkBreakProtection(mode, agent):
+    while True:
+        fetchedState = await asyncio.to_thread(client.fetch_presence(client.puuid))
+        fetchedState = fetchedState["sessionLoopState"]
+        if fetchedState == "INGAME":
+            os.system("cls")
+            yaz("İnstalocker For Valorant","By Berkwe_")
+            print("Oyun bozulmadı instalocker kapanıyor...")
+            time.sleep(3)
+            break
+        elif fetchedState == "MENUS":
+            os.system("cls")
+            print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
+            await state(mode, agent)
+            break
+        await asyncio.sleep(0.2)
+
+async def main():
     global debug, client
     try:
         region = findRegion()
@@ -275,12 +306,23 @@ def main():
                 os.system("cls")
                 break
             break
-        
-        state(mode, agent)
+
+        stateTask = asyncio.create_task(mode, agent)
+        try:
+            await stateTask
+        except:
+            print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
+        finally:
+            tasks = asyncio.all_tasks()
+            for t in tasks:
+                t.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
+
     except Exception as f:
         print(f"Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
         time.sleep(3)
         sys.exit()
 
-yaz("İnstalocker For Valorant", "By Berkwe")
-main()
+if __name__ == "__main__":
+    yaz("İnstalocker For Valorant", "By Berkwe")
+    asyncio.run(main())
