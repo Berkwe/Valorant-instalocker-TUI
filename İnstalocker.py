@@ -72,6 +72,10 @@ def getAgentList(offline=True):
                     sys.exit()
                 print("Varsayılan ajan listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin : 'github/Berkwe'")
                 agents = data
+    except FileNotFoundError:
+        print(f"'{agentListPath}' bulunamadı valorant indirilmemiş veya AppData kısmı erişebilir değil. Tam dosya yolunu kontrol edin klasör bulunuyorsa, programı yönetici olarak çalıştırmayı deneyin.")
+        time.sleep(3)
+        sys.exit()
     except Exception as e:
         print("Ajan listesi çekilirken bir hata oluştu! Lütfen geliştiriciye iletin : " + str(e))
         time.sleep(3)
@@ -150,7 +154,7 @@ def findRegion(autoMod = True):
                             return region
     except FileNotFoundError:
         print("Log dosyası bulunamadı manuel sunucu belirleniyor...")
-        findRegion(False)
+        return findRegion(False)
     except Exception as f:
         print("bir hata oluştu : "+str(f))
         findRegion(False)
@@ -307,13 +311,14 @@ async def main():
                 break
             break
 
-        stateTask = asyncio.create_task(mode, agent)
+        stateTask = asyncio.create_task(state(mode, agent))
         try:
             await stateTask
-        except:
+        except Exception as f:
             print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
         finally:
-            tasks = asyncio.all_tasks()
+            current_task = asyncio.current_task()
+            tasks = [t for t in asyncio.all_tasks() if t is not current_task]
             for t in tasks:
                 t.cancel()
             await asyncio.gather(*tasks, return_exceptions=True)
