@@ -264,7 +264,7 @@ async def main():
             getAgentList()
             while True:
                 print("""
-                    1. Ajan kitleme modu(default, hızlı seçim için enter)
+                    1. Ajan kitleme modu(klasik, hızlı seçim için enter)
                     2. Ajan seçme modu(sadece seçer, kitlenmez)
                 """)
                 mode = input("\nLütfen bir mod seçin : ")
