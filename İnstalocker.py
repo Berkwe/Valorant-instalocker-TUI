@@ -1,4 +1,4 @@
-import sys, time, os, requests, json, asyncio
+import time, os, requests, json, asyncio
 from urllib3.exceptions import MaxRetryError, NameResolutionError
 from requests.exceptions import ConnectionError
 from base64 import b64decode as bs
@@ -13,14 +13,14 @@ os.system("cls")
 
 agentListPath = os.path.expandvars(r'%LocalAppData%\VALORANT')
 
-
-
 debug = False
 matches = []
 agents = {}
+exitFlag = False
+userBreakedGame = False
 
 def getAgentList(offline=True):
-    global agents
+    global agents, exitFlag
     try:
         if offline:
             if not os.path.exists(agentListPath+r"\agents.json"):
@@ -33,7 +33,8 @@ def getAgentList(offline=True):
                 else:
                     print(f"Güncel ajan listesi çekilemedi, varsayılan ajan listesi '{agentListPath}' konumunda da bulunamadı. Lütfen internetinizi kontrol edin ve tekrar deneyin. Dosyayı manuel olarak da ekleyebilirsiniz, github sayfasını kontrol edin : 'github/Berkwe'. ICMP Hata kodu : "+str(agentList.get("status", "hata kodu alınamadı")))
                     time.sleep(3)
-                    sys.exit()
+                    exitFlag = True
+                    return
             else:
                 with open(agentListPath+r"\agents.json", "r", encoding="utf-8") as f:
                     data = json.load(f)
@@ -55,7 +56,8 @@ def getAgentList(offline=True):
             else:
                 print(f"Güncel ajan listesi çekilemedi, varsayılan ajan listesi '{agentListPath}' konumunda da bulunamadı. Lütfen internetinizi kontrol edin ve tekrar deneyin. Dosyayı manuel olarak da ekleyebilirsiniz, github sayfasını kontrol edin : 'github/Berkwe'. ICMP hata kodu : "+str(agentList.get("status", "hata kodu alınamadı")))
                 time.sleep(3)
-                sys.exit()
+                exitFlag = True
+                return
         else:
             if agentList.get("returned", True):
                 with open(agentListPath+r"\agents.json", "w", encoding="utf-8") as f:
@@ -69,19 +71,20 @@ def getAgentList(offline=True):
                 if "jett" not in data.keys():
                     print("Ajan listesi bozulmuş, onarmak için manuel olarak indirin veya hatanın geçmesini bekleyin. varsayılan ajan listesi yolu : " + agentListPath)
                     time.sleep(3)
-                    sys.exit()
+                    exitFlag = True
+                    return
                 print("Varsayılan ajan listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin : 'github/Berkwe'")
                 agents = data
     except FileNotFoundError:
         print(f"'{agentListPath}' bulunamadı valorant indirilmemiş veya AppData kısmı erişebilir değil. Tam dosya yolunu kontrol edin klasör bulunuyorsa, programı yönetici olarak çalıştırmayı deneyin.")
         time.sleep(3)
-        sys.exit()
+        exitFlag = True
+        return
     except Exception as e:
         print("Ajan listesi çekilirken bir hata oluştu! Lütfen geliştiriciye iletin : " + str(e))
-        time.sleep(3)
-        sys.exit()
+        exitFlag = True
+        return
     
-
 
 def update():
     try:
@@ -157,177 +160,205 @@ def findRegion(autoMod = True):
         return findRegion(False)
     except Exception as f:
         print("bir hata oluştu : "+str(f))
-        findRegion(False)
+        return findRegion(False)
     
 
 async def state(mode: int = 1, agent: str = "jett"):
-    print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
-    breakProtectionTask = None
-    try:
-        while True:
-            try:
-                fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
-                if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches):
-                    os.system("cls")
-                    print('Ajan seçme ekranı belirlendi..')
-                    client.pregame_select_character(agents[agent])
-                    if bs("YmVya3dl").decode() not in client.player_name.lower():
-                        time.sleep(0.3)
-                    if mode == 1:
-                        client.pregame_lock_character(agents[agent])
-                    matches.append(client.pregame_fetch_match()['ID'])
-                    print('Ajan başarıyla seçildi : \n' + agent.capitalize())
-                    print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
-                    break
-            except TypeError:
-                pass
-            except Exception as f:
-                raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
-        breakProtectionTask = asyncio.create_task(checkBreakProtection(mode, agent))
-        await breakProtectionTask
-        while True:
-            userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın…").lower()
-            if userInput == "e" or userInput == "y":
-                if client.fetch_presence(client.puuid)['sessionLoopState'] == "PREGAME":
-                    client.pregame_quit_match()
-                    print("Maç başarıyla bozuldu, İnstalocker yeniden başlıyor...")
-                    if breakProtectionTask:
-                        breakProtectionTask.cancel()
-                    await asyncio.sleep(0.5)
-                    await main()
-                    break
-                else:
-                    print(f"Oyun zaten bozulmuş veya başlamış!")
-                    if breakProtectionTask:
-                        breakProtectionTask.cancel()
-                    break
-            else: 
-                print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
-    except asyncio.CancelledError:
-        pass
-    finally:
-        if breakProtectionTask:
-            breakProtectionTask.cancel()
+    while not userBreakedGame and not exitFlag:
+        print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
+        breakProtectionTask = None
+        breakGameTask = None
+        try:
+            while True:
+                try:
+                    fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+                    if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches):
+                        os.system("cls")
+                        print('Ajan seçme ekranı belirlendi..')
+                        client.pregame_select_character(agents[agent])
+                        if bs("YmVya3dl").decode() not in client.player_name.lower():
+                            await asyncio.sleep(0.3)
+                        if mode == 1:
+                            client.pregame_lock_character(agents[agent])
+                        matches.append(client.pregame_fetch_match()['ID'])
+                        print('Ajan başarıyla seçildi : \n' + agent.capitalize())
+                        print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
+                        break
+                except TypeError:
+                    pass
+                except Exception as f:
+                    raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
+            breakGameTask = asyncio.create_task(breakGame())
+            breakProtectionTask = asyncio.create_task(checkBreakProtection(mode, agent, breakGameTask))
+            await asyncio.gather(breakProtectionTask, breakGameTask, return_exceptions=True)
+        except asyncio.CancelledError:
+            pass
+        finally:
+            if breakProtectionTask:
+                breakProtectionTask.cancel()
+            if breakGameTask:
+                breakGameTask.cancel()
             
-
-
-async def checkBreakProtection(mode, agent):
+       
+async def breakGame():
+    global exitFlag, userBreakedGame
     while True:
-        fetchedState = await asyncio.to_thread(client.fetch_presence(client.puuid))
+        userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın : ")
+        if userInput.lower() == "e" or userInput.lower() == "y":
+            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+            if fetchedState == "PREGAME":
+                client.pregame_quit_match()
+                print("Maç başarıyla bozuldu, İnstalocker yeniden başlıyor...")
+                await asyncio.sleep(0.5)
+                yaz("İnstalocker For Valorant", "By Berkwe")
+                userBreakedGame = True
+                exitFlag = False
+                break
+            elif fetchedState == "INGAME":
+                print(f"Oyun zaten başlamış!")
+                exitFlag = True
+                break
+            else:
+                print("Oyun zaten bozulmuş!")
+                userBreakedGame = False
+                break
+        
+        else: 
+            print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
+
+
+async def checkBreakProtection(mode, agent, breakGameTask):
+    global exitFlag, userBreakedGame
+    while True:
+        fetchedState = await asyncio.to_thread(client.fetch_presence, client.puuid)
         fetchedState = fetchedState["sessionLoopState"]
         if fetchedState == "INGAME":
             os.system("cls")
             yaz("İnstalocker For Valorant","By Berkwe_")
             print("Oyun bozulmadı instalocker kapanıyor...")
-            time.sleep(3)
+            if breakGameTask:
+                breakGameTask.cancel()
+            await asyncio.sleep(3)
+            userBreakedGame = False
+            exitFlag = True
             break
         elif fetchedState == "MENUS":
+            if userBreakedGame:
+                break
             os.system("cls")
             print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-            await state(mode, agent)
+            userBreakedGame = False
+            exitFlag = False
+            if breakGameTask:
+                breakGameTask.cancel()
             break
         await asyncio.sleep(0.2)
 
+
 async def main():
-    global debug, client
-    try:
-        region = findRegion()
-        getAgentList()
-        while True:
-            print("""
-                1. Ajan kitleme modu(default, hızlı seçim için enter)
-                2. Ajan seçme modu(sadece seçer, kitlenmez)
-            """)
-            mode = input("\nLütfen bir mod seçin : ")
+    global debug, client, exitFlag, userBreakedGame
+    while not exitFlag:
 
-            if mode == "":
-                os.system("cls")
-                print("Mod ajan kitleme olarak ayarlandı!")
-                mode = 1
-            elif mode == "help" or mode == "yardım":
-                os.system("cls")
+        try:
+            region = findRegion()
+            getAgentList()
+            while True:
                 print("""
-                                                YARDIM MENÜSÜ
-                1. Ajan kitleme modu : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.
-                2. Ajan seçme modu : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.
-                yardım/help : bu mesajı gösterir.
-            \n""")
-                continue
-            elif not mode.isdecimal():
-                os.system("cls")
-                print("Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.")
-                continue
+                    1. Ajan kitleme modu(default, hızlı seçim için enter)
+                    2. Ajan seçme modu(sadece seçer, kitlenmez)
+                """)
+                mode = input("\nLütfen bir mod seçin : ")
 
-            elif int(mode) == 1:
-                os.system("cls")
-                print("Mod ajan kitleme olarak ayarlandı!")
-                
-            elif int(mode) == 2:
-                os.system("cls")
-                print("Mod ajan seçme olarak ayarlandı!")
-            else:
-                os.system("cls")
-                print("Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın.")
-                continue
+                if mode == "":
+                    os.system("cls")
+                    print("Mod ajan kitleme olarak ayarlandı!")
+                    mode = 1
+                elif mode == "help" or mode == "yardım":
+                    os.system("cls")
+                    print("""
+                                                    YARDIM MENÜSÜ
+                    1. Ajan kitleme modu : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.
+                    2. Ajan seçme modu : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.
+                    yardım/help : bu mesajı gösterir.
+                \n""")
+                    continue
+                elif not mode.isdecimal():
+                    os.system("cls")
+                    print("Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.")
+                    continue
 
-            
-            client = Client(region)
-            try:
-                client.activate()
-
-            except HandshakeError:
-                if debug:
-                    print("valorant açık değil fakat debug açık olduğundan atlanıyor..")
-                    pass
+                elif int(mode) == 1:
+                    os.system("cls")
+                    print("Mod ajan kitleme olarak ayarlandı!")
+                    
+                elif int(mode) == 2:
+                    os.system("cls")
+                    print("Mod ajan seçme olarak ayarlandı!")
                 else:
                     os.system("cls")
-                    print("Valorant açık değil, açıksa Riot Client uygulamasını tekrar açın.") 
-                    time.sleep(3)
-                    sys.exit()
+                    print("Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın.")
+                    continue
 
-            while True:
-                agent = input("Seçilecek ajan : ").lower()
-                if agent == "yardım" or agent == "help":
-                    os.system("cls")
-                    print(",\n".join(agents.keys())+"\n")
-                    continue
-                elif agent == "güncelle" or agent == "update":
-                    os.system("cls")
-                    getAgentList(offline=False)
-                    continue
-                elif agent not in agents.keys():
-                    if len(agent) >= 4:
-                        for agentsName in agents.keys():
-                            if agentsName.startswith(agent) and len(agentsName) > 5:
-                                agent = agentsName
-                                os.system("cls")
+                
+                client = Client(region)
+                try:
+                    client.activate()
+
+                except HandshakeError:
+                    if debug:
+                        print("valorant açık değil fakat debug açık olduğundan atlanıyor..")
+                        pass
+                    else:
+                        os.system("cls")
+                        print("Valorant açık değil, açıksa Riot Client uygulamasını tekrar açın.") 
+                        time.sleep(3)
+                        exitFlag = True
+                        return
+
+                while True:
+                    agent = input("Seçilecek ajan : ").lower()
+                    if agent == "yardım" or agent == "help":
+                        os.system("cls")
+                        print(",\n".join(agents.keys())+"\n")
+                        continue
+                    elif agent == "güncelle" or agent == "update":
+                        os.system("cls")
+                        getAgentList(offline=False)
+                        continue
+                    elif agent not in agents.keys():
+                        if len(agent) >= 4:
+                            for agentsName in agents.keys():
+                                if agentsName.startswith(agent) and len(agentsName) > 5:
+                                    agent = agentsName
+                                    os.system("cls")
+                                    break
+                            if agent in agents.keys():
                                 break
-                        if agent in agents.keys():
-                            break
+                        os.system("cls")
+                        print("Lütfen ajan ismini doğru girin! Ajan isimleri için 'yardım/help' yazın, ajan listesini güncellemek için 'güncelle/update' yazın.")
+                        continue
                     os.system("cls")
-                    print("Lütfen ajan ismini doğru girin! Ajan isimleri için 'yardım/help' yazın, ajan listesini güncellemek için 'güncelle/update' yazın.")
-                    continue
-                os.system("cls")
+                    break
                 break
-            break
-
-        stateTask = asyncio.create_task(state(mode, agent))
-        try:
-            await stateTask
+            
+            stateTask = asyncio.create_task(state(mode, agent))
+            userBreakedGame = False
+            try:
+                await stateTask
+            except Exception as f:
+                print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
+            finally:
+                current_task = asyncio.current_task()
+                tasks = [t for t in asyncio.all_tasks() if t is not current_task]
+                for t in tasks:
+                    t.cancel()
+                await asyncio.gather(*tasks, return_exceptions=True)
         except Exception as f:
-            print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
-        finally:
-            current_task = asyncio.current_task()
-            tasks = [t for t in asyncio.all_tasks() if t is not current_task]
-            for t in tasks:
-                t.cancel()
-            await asyncio.gather(*tasks, return_exceptions=True)
-
-    except Exception as f:
-        print(f"Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
-        time.sleep(3)
-        sys.exit()
-
+            print(f"Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
+            time.sleep(3)
+            exitFlag = True
+            return
+        
 if __name__ == "__main__":
     yaz("İnstalocker For Valorant", "By Berkwe")
     asyncio.run(main())
