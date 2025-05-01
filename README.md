@@ -1,15 +1,17 @@
 # 🛠️ Valorant Instalocker
 
-Valorant instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
+Valorant Instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
 
 ## 🚀 Özellikler
-### 🆕 Sürüm v1.3
-- **Optimize Edilmiş Kod:** Kod daha da optimize edildi, gereksiz birkaç detay kaldırıldı.
-- **Seçme Modu:** Ajan kitlenmeden seçilebileceği bir mod eklendi, artık küfür yemek yok!
-- **Otomatik Sunucu Algılama:** Sunucu girme zahmetinden kurtuldunuz.
-- **Ajan İsim Kısaltma Desteği:** Ajan isimleri kısaltıldı, artık zahmetsizce ajan kitlenebilecek.
-- **Daha Hızlı Uygulama Başlatma:** girişteki gereksiz açılış ekranı en temel düzeye çekildi.
-- **Ajan güncellemesi:** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker?tab=readme-ov-file#-otomatik-ajan-güncellemesi). 
+### 🆕 Sürüm v1.4
+- **Derleyici değişimi :** Kodun derleyicisi değiştirildi, artık çok daha hızlı.
+- **Manuel bozma :** Artık ajan seçme ekranındayken Instalocker üzerinden tek tuşla maçı bozabileceksiniz. Oyundan çıkmadan ana menüye atar (cezalar yine de verilir).
+- **Hata düzeltmesi :** Programın akışını etkileyen kritik hatalar düzeltildi. [Daha fazla bilgi için tıkla]()
+- **Seçme Modu :** Ajan kitlenmeden seçilebileceği bir mod eklendi, artık küfür yemek yok!
+- **Otomatik Sunucu Algılama :** Sunucu girme zahmetinden kurtuldunuz.
+- **Ajan İsim Kısaltma Desteği :** Ajan isimleri kısaltıldı, artık zahmetsizce ajan kitlenebilecek.
+- **Daha Hızlı Uygulama Başlatma :** girişteki gereksiz açılış ekranı en temel düzeye çekildi.
+- **Ajan güncellemesi :** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker?tab=readme-ov-file#-otomatik-ajan-güncellemesi). 
 
 ## 📦 Kurulum
 
@@ -25,16 +27,11 @@ Valorant instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yaray
 
 #### Gereksinimler
 - **Python 3.6+**
-- **Valclient Kütüphanesi**
+- **Birkaç ek modül**
 
 #### Adımlar
 
-1. **Valclient Kütüphanesini Kurun:**
-```
-pip install valclient
-```
-
-2. **Projeyi İndirin:**
+1. **Projeyi İndirin:**
 
 - **[Zip Dosyasını İndirin](https://github.com/Berkwe/Valorant-instalocker/archive/refs/heads/main.zip)**  
   Veya  
@@ -43,6 +40,11 @@ pip install valclient
   git clone https://github.com/Berkwe/Valorant-instalocker
   cd Valorant-instalocker
   ```
+
+1. **Modülleri İndirmek için proje klasöründe çalıştırın:**
+```
+pip install -r requirements.txt
+```
 
 3. **Çalıştırın:**
 ```
@@ -54,6 +56,9 @@ python instalocker.py
 ### **Yeni mekanikler detaylı açıklama :**
 - **Ajan Kitleme Modu:** Ajanı kilitler, klasik instalock.
 - **Sadece Seçme Modu:** Ajanı seçer fakat kitlemez. Bu şekilde maç aranırken bilgisayarda olmanıza gerek yok.
+
+### **Instalocker üzerinden maç bozmak :**
+- **Ajan kitlendikden sonra konsola e veya y yazmanız yeterlidir. Bozarsanız Instalocker tekrardan başlar**
 
 ### **Ajan İsmi Kısaltmaları:**
 - Ajanların hızlı seçilebilinmesi için eklenen basit bir mekanik. artık 5 karakter üstü isimlere sahip olan ajanların isimlerini kısaltsanız bile seçebileceksiniz, fakat yazılan isim en az 4 karakter olmak zorunda. 
@@ -76,7 +81,8 @@ lütfen bir ajan seçin : reyn
 - #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim bu yüzden manuel olarak güncellemek gerekebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
     #### - 1. adım :
     - CMD(komut istemi) Uygulamasını açın.
-    #### - 2. adım, Aşşağıdaki kodu yapıştırın :
+    #### - 2. adım 
+    - Aşşağıdaki kodu yapıştırın :
     ####
       curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
 
