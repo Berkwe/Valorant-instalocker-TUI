@@ -13,7 +13,7 @@ os.system("cls")
 
 agentListPath = os.path.expandvars(r'%LocalAppData%\VALORANT')
 
-debug = True
+debug = False
 matches = []
 agents = {}
 exitFlag = False
