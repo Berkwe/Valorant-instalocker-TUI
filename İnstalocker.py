@@ -1,4 +1,4 @@
-import time, os, requests, json, asyncio
+import time, os, requests, json, asyncio, aioconsole
 from urllib3.exceptions import MaxRetryError, NameResolutionError
 from requests.exceptions import ConnectionError
 from base64 import b64decode as bs
@@ -13,7 +13,7 @@ os.system("cls")
 
 agentListPath = os.path.expandvars(r'%LocalAppData%\VALORANT')
 
-debug = False
+debug = True
 matches = []
 agents = {}
 exitFlag = False
@@ -190,7 +190,7 @@ async def state(mode: int = 1, agent: str = "jett"):
                     raise Exception(f"Ajan kitlerken bir hata oluştu geliştiriciye iletin : {f}")
             breakGameTask = asyncio.create_task(breakGame())
             breakProtectionTask = asyncio.create_task(checkBreakProtection(breakGameTask))
-            await asyncio.gather(breakProtectionTask, breakGameTask, return_exceptions=True)
+            await asyncio.gather(breakGameTask, breakProtectionTask, return_exceptions=True)
         except asyncio.CancelledError:
             pass
         finally:
@@ -198,14 +198,13 @@ async def state(mode: int = 1, agent: str = "jett"):
                 breakProtectionTask.cancel()
             if breakGameTask:
                 breakGameTask.cancel()
-            print("tüm görevler iptal edildi. exitFlag : "+ str(exitFlag), "userBreaked : "+ str(userBreakedGame))
             
        
 async def breakGame():
     global exitFlag, userBreakedGame
     while True:
         try:
-            userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın : ")
+            userInput = await aioconsole.ainput("Oyunu bozmak için e/y yazın: ")
             if userInput.lower() == "e" or userInput.lower() == "y":
                 fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
                 if fetchedState == "PREGAME":
@@ -226,6 +225,8 @@ async def breakGame():
                     break
             else: 
                 print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
+        except asyncio.CancelledError:
+            break
         except Exception as f:
             print("Manuel oyun bozucuda bir hata oluştu lütfen geliştiriciye iletin : "+ str(f))
 
@@ -233,30 +234,34 @@ async def breakGame():
 async def checkBreakProtection(breakGameTask):
     global exitFlag, userBreakedGame
     while True:
-        fetchedState = await asyncio.to_thread(client.fetch_presence, client.puuid)
-        fetchedState = fetchedState["sessionLoopState"]
-        if fetchedState == "INGAME":
-            os.system("cls")
-            yaz("İnstalocker For Valorant","By Berkwe_")
-            print("Oyun bozulmadı instalocker kapanıyor...")
-            if breakGameTask:
-                breakGameTask.cancel()
-            print("Görev iptal edildi. detay : "+ breakGameTask.result())
-            userBreakedGame = False
-            exitFlag = True
-            print("exit flag ayarlandı.")
-            await asyncio.sleep(3)
-            break
-        elif fetchedState == "MENUS":
-            if userBreakedGame:
+        try:
+            fetchedState = await asyncio.to_thread(client.fetch_presence, client.puuid)
+            fetchedState = fetchedState["sessionLoopState"]
+            if fetchedState == "INGAME":
+                os.system("cls")
+                yaz("İnstalocker For Valorant","By Berkwe_")
+                print("Oyun bozulmadı instalocker kapanıyor...")
+                await asyncio.sleep(3)
+                if breakGameTask:
+                    breakGameTask.cancel()
+                userBreakedGame = False
+                exitFlag = True
                 break
-            os.system("cls")
-            print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-            exitFlag = False
-            if breakGameTask:
-                breakGameTask.cancel()
+            elif fetchedState == "MENUS":
+                if userBreakedGame:
+                    break
+                os.system("cls")
+                print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
+                exitFlag = False
+                if breakGameTask:
+                    breakGameTask.cancel()
+                break
+            await asyncio.sleep(0.2)
+        except asyncio.CancelledError:
             break
-        await asyncio.sleep(0.2)
+        except Exception as f:
+            print("Bozulma korumasında bir hata oluştu lütfen geliştiriciye iletin : "+ str(f))
+
 
 
 async def main():
@@ -348,16 +353,19 @@ async def main():
             userBreakedGame = False
             try:
                 await stateTask
+            except asyncio.CancelledError:
+                pass
             except Exception as f:
                 print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
+            
             finally:
-                print("State task bitti.")
                 current_task = asyncio.current_task()
                 tasks = [t for t in asyncio.all_tasks() if t is not current_task]
                 for t in tasks:
                     t.cancel()
                 await asyncio.gather(*tasks, return_exceptions=True)
-                print("Tüm görevler iptal edildi çıkılıyor.. exitFlag : "+ str(exitFlag))
+        except asyncio.CancelledError:
+            pass
         except Exception as f:
             print(f"Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
             await asyncio.sleep(3)
