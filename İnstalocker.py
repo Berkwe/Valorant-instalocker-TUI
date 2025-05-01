@@ -187,9 +187,9 @@ async def state(mode: int = 1, agent: str = "jett"):
                 except TypeError:
                     pass
                 except Exception as f:
-                    raise Exception(f"Bir hata oluştu geliştiriciye iletin : {f}")
+                    raise Exception(f"Ajan kitlerken bir hata oluştu geliştiriciye iletin : {f}")
             breakGameTask = asyncio.create_task(breakGame())
-            breakProtectionTask = asyncio.create_task(checkBreakProtection(mode, agent, breakGameTask))
+            breakProtectionTask = asyncio.create_task(checkBreakProtection(breakGameTask))
             await asyncio.gather(breakProtectionTask, breakGameTask, return_exceptions=True)
         except asyncio.CancelledError:
             pass
@@ -198,36 +198,39 @@ async def state(mode: int = 1, agent: str = "jett"):
                 breakProtectionTask.cancel()
             if breakGameTask:
                 breakGameTask.cancel()
+            print("tüm görevler iptal edildi. exitFlag : "+ str(exitFlag), "userBreaked : "+ str(userBreakedGame))
             
        
 async def breakGame():
     global exitFlag, userBreakedGame
     while True:
-        userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın : ")
-        if userInput.lower() == "e" or userInput.lower() == "y":
-            fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
-            if fetchedState == "PREGAME":
-                client.pregame_quit_match()
-                print("Maç başarıyla bozuldu, İnstalocker yeniden başlıyor...")
-                await asyncio.sleep(0.5)
-                yaz("İnstalocker For Valorant", "By Berkwe")
-                userBreakedGame = True
-                exitFlag = False
-                break
-            elif fetchedState == "INGAME":
-                print(f"Oyun zaten başlamış!")
-                exitFlag = True
-                break
-            else:
-                print("Oyun zaten bozulmuş!")
-                userBreakedGame = False
-                break
-        
-        else: 
-            print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
+        try:
+            userInput = await asyncio.to_thread(input, "\nOyunu bozmak için e/y yazın : ")
+            if userInput.lower() == "e" or userInput.lower() == "y":
+                fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+                if fetchedState == "PREGAME":
+                    client.pregame_quit_match()
+                    print("Maç başarıyla bozuldu, İnstalocker yeniden başlıyor...")
+                    await asyncio.sleep(0.5)
+                    yaz("İnstalocker For Valorant", "By Berkwe")
+                    userBreakedGame = True
+                    exitFlag = False
+                    break
+                elif fetchedState == "INGAME":
+                    print(f"Oyun zaten başlamış!")
+                    exitFlag = True
+                    break
+                else:
+                    print("Oyun zaten bozulmuş!")
+                    userBreakedGame = False
+                    break
+            else: 
+                print("Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.")
+        except Exception as f:
+            print("Manuel oyun bozucuda bir hata oluştu lütfen geliştiriciye iletin : "+ str(f))
 
 
-async def checkBreakProtection(mode, agent, breakGameTask):
+async def checkBreakProtection(breakGameTask):
     global exitFlag, userBreakedGame
     while True:
         fetchedState = await asyncio.to_thread(client.fetch_presence, client.puuid)
@@ -238,16 +241,17 @@ async def checkBreakProtection(mode, agent, breakGameTask):
             print("Oyun bozulmadı instalocker kapanıyor...")
             if breakGameTask:
                 breakGameTask.cancel()
-            await asyncio.sleep(3)
+            print("Görev iptal edildi. detay : "+ breakGameTask.result())
             userBreakedGame = False
             exitFlag = True
+            print("exit flag ayarlandı.")
+            await asyncio.sleep(3)
             break
         elif fetchedState == "MENUS":
             if userBreakedGame:
                 break
             os.system("cls")
             print("Oyun bozuldu, İnstalocker aynı ajanı tekrardan seçiyor.")
-            userBreakedGame = False
             exitFlag = False
             if breakGameTask:
                 breakGameTask.cancel()
@@ -258,7 +262,6 @@ async def checkBreakProtection(mode, agent, breakGameTask):
 async def main():
     global debug, client, exitFlag, userBreakedGame
     while not exitFlag:
-
         try:
             region = findRegion()
             getAgentList()
@@ -311,7 +314,7 @@ async def main():
                     else:
                         os.system("cls")
                         print("Valorant açık değil, açıksa Riot Client uygulamasını tekrar açın.") 
-                        time.sleep(3)
+                        await asyncio.sleep(3)
                         exitFlag = True
                         return
 
@@ -348,14 +351,16 @@ async def main():
             except Exception as f:
                 print(f"StateTask oluşturulurken Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
             finally:
+                print("State task bitti.")
                 current_task = asyncio.current_task()
                 tasks = [t for t in asyncio.all_tasks() if t is not current_task]
                 for t in tasks:
                     t.cancel()
                 await asyncio.gather(*tasks, return_exceptions=True)
+                print("Tüm görevler iptal edildi çıkılıyor.. exitFlag : "+ str(exitFlag))
         except Exception as f:
             print(f"Bir hata oluştu lütfen geliştiriciye iletin : "+str(f))
-            time.sleep(3)
+            await asyncio.sleep(3)
             exitFlag = True
             return
         
