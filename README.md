@@ -3,14 +3,14 @@
 Valorant Instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
 
 ## 🚀 Özellikler
-### 🆕 Sürüm v1.4
+### 🆕 Sürüm v1.5
 - **Derleyici değişimi :** Kodun derleyicisi değiştirildi, artık çok daha hızlı.
 - **Manuel bozma :** Artık ajan seçme ekranındayken Instalocker üzerinden tek tuşla maçı bozabileceksiniz. Oyundan çıkmadan ana menüye atar (cezalar yine de verilir).
-- **Hata düzeltmesi :** Programın akışını etkileyen kritik hatalar düzeltildi. [Daha fazla bilgi için tıkla](https://github.com/Berkwe/Valorant-instalocker/releases/tag/1.4)
+- **Yeni komutlar :** Yeni komutlar ile birkaç işlevsel metot eklendi.
+- **Log sistemi :** Log sistemi ile kullanıcılar hata aldıklarında log dosyasını göndererek geliştirme hızını arttırabilecekler.
 - **Seçme Modu :** Ajan kitlenmeden seçilebileceği bir mod eklendi, artık küfür yemek yok!
 - **Otomatik Sunucu Algılama :** Sunucu girme zahmetinden kurtuldunuz.
 - **Ajan İsim Kısaltma Desteği :** Ajan isimleri kısaltıldı, artık zahmetsizce ajan kitlenebilecek.
-- **Daha Hızlı Uygulama Başlatma :** girişteki gereksiz açılış ekranı en temel düzeye çekildi.
 - **Ajan güncellemesi :** Artık ajanlar sunucudan otomatik olarak çekilebilecek, kullanıcının sürekli uygulamayı güncellemesine gerek kalmayacak [Daha fazla bilgi için tıklayın](https://github.com/Berkwe/Valorant-instalocker?tab=readme-ov-file#-otomatik-ajan-güncellemesi). 
 
 ## 📦 Kurulum
