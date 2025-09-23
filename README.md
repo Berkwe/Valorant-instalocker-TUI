@@ -1,7 +1,7 @@
 # 🛠️ Valorant Instalocker
 
 Valorant Instalocker, valorant apisini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
-
+ 
 ## 🚀 Özellikler
 ### 🆕 Sürüm v1.5
 - **Derleyici değişimi :** Kodun derleyicisi değiştirildi, artık çok daha hızlı.
