@@ -1,4 +1,6 @@
 requests
-aioconsole
-valclient
+Pillow
 urllib3
+valclient
+pywin32
+aioconsole
