@@ -365,7 +365,7 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se√
         breakGameTask = None
         questShortCutTask = None
         if not isShortcut:
-            questShortCutTask = asyncio.create_task(questShortCut({"agent": agent, "mode": mode, "region": region}))
+            questShortCutTask = await asyncio.create_task(questShortCut({"agent": agent, "mode": mode, "region": region}))
         try:
             while True:
                 try:
