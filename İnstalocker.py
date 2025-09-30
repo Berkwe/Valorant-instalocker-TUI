@@ -1,4 +1,6 @@
 import time, os, requests, json, asyncio, aioconsole, inspect, argparse
+from io import BytesIO
+from PIL import Image
 from urllib3.exceptions import MaxRetryError, NameResolutionError
 from requests.exceptions import ConnectionError
 from base64 import b64decode as bs
@@ -32,10 +34,10 @@ agentListPath = os.path.join(os.path.expandvars(r"%LocalAppData%\VALORANT"), "ag
 logPath = os.path.join(os.path.expandvars(r'%LocalAppData%\VALORANT'), "Instalocker.log")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("agent", help="ajan ismi")
-parser.add_argument("mode", help="seçim modu lock/select")
-parser.add_argument("region", help="region idsi (eu,na vb)")
-parser.add_argument("debug", help="hata ayıklama için true/false")
+parser.add_argument("--agent", help="ajan ismi")
+parser.add_argument("--mode", help="seçim modu lock/select")
+parser.add_argument("--region", help="region idsi (eu,na vb)")
+parser.add_argument("--debug", help="hata ayıklama için true/false", type=bool)
 
 debug = False
 rebootFlag = False
@@ -68,20 +70,56 @@ def writeLog(message: str, level = "debug"): # ? Logları tutar
         with open(logPath, "a", encoding="utf-8") as f:
             f.write(f"[{now.tm_mon}/{now.tm_mday}:{now.tm_hour}:{now.tm_min}:{now.tm_sec}] - [{frame.f_code.co_name}:{frame.f_lineno}]:[{level.upper()}] : {message}\n")
     except FileNotFoundError:
-        pass
+        with open(logPath, "w", encoding="utf-8") as f:
+            writeLog(message, level)
     except Exception as f:
         exitFlag = True
         print("Loglar yazılırken bir hata oluştu Lütfen geliştiriciye iletin : ", str(f))
         time.sleep(4)
 
 
-def createShortCut(array): # ? Kısayol oluşturur
-    writeLog("createShortCut task'ı başlatıldı", level="ınfo")
+def createShortCut(array: dict): # ? Kısayol oluşturur
+    global exitFlag
     try:
-        pass
-    except:
-        pass
-    pass
+        userDir = os.path.join(os.path.expanduser("~"), "Desktop")
+        current_file = os.path.abspath(__file__)
+
+        agent = array.get("agent")
+        mode = array.get("mode")
+        region = array.get("region")
+
+        shortcutDir = os.path.join(userDir, f"{agent}_{("kilitle" if mode == 0 else "göster")}.lnk")
+        iconFolder = os.path.join(os.path.dirname(agentListPath), "agentImages")
+        iconDir = os.path.join(iconFolder ,f"{agent}.ico")
+        shell = Dispatch("WScript.Shell")
+        shortcut = shell.CreateShortCut(str(shortcutDir))
+        shortcut.Targetpath = str(current_file)
+        shortcut.Arguments = f"--agent {agent} --mode {mode} --region {region}"+(f" --debug {debug}" if debug else "")
+        if not os.path.exists(iconDir):
+            url = ("https://valorant-api.com/v1/agents/"+agents.get(agent))
+            response = requests.get(url)
+            if response.status_code == 200:
+                agentInfoDict = dict(response.json())
+                agentInfo = agentInfoDict.get("data")
+                agentImage = agentInfo.get("displayIcon")
+                agentImageResponse = requests.get(agentImage)
+                img = Image.open(BytesIO(agentImageResponse.content))
+                if not os.path.exists(iconFolder):
+                    os.makedirs(iconFolder)
+                img.save(str(iconDir))
+                shortcut.IconLocation = str(iconDir)
+            else:
+                shortcut.IconLocation = str(current_file)
+        else:
+            shortcut.IconLocation = str(iconDir)
+        shortcut.save()
+        print(f"Kısayol '{os.path.dirname(shortcutDir)}' konumuna oluşturuldu.")
+    except Exception as e:
+        exitFlag = True
+        writeLog("Kısayol oluşturulurken bir hata oluştu : "+str(e), "error")
+        print("Kısayol oluşturulurken bir hata oluştu lütfen geliştiriciye iletin : "+str(e), "error")
+        time.sleep(4)
+
 
 
 async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullanıcıya sorar
@@ -93,6 +131,7 @@ async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullan�
             writeLog(f"Kullanıcı ShortCut için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
                 createShortCut(agentInfo)
+                break
             elif userInput.lower() == "h" or userInput.lower() == "n":
                 break
     except Exception as e:
@@ -291,12 +330,14 @@ def findRegion(autoMod = True): # ? Kullanıcının sunucusunu algılar
             return findRegion(False)
 
 
-async def state(mode: int = 1, agent: str = "jett"): # ? Seçim ekranı durum kontrolü için
+async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Seçim ekranı durum kontrolü için
     while not userBreakedGame and not exitFlag:
         writeLog(f"State fonksiyonu çalıştı. Mod: {'Seç ve Kilitle' if mode == 1 else 'Sadece Seç'}, Ajan: {agent.capitalize()}", level="ınfo") 
         print(f"Ajan seçme ekranı bekleniyor, seçilecek ajan : {agent}\nMod : {"seç ve kilitle" if mode == 1 else "sadece seç"}")
         breakProtectionTask = None
         breakGameTask = None
+        if not isShortcut:
+            await questShortCut({"agent": agent, "mode": mode, "region": region})
         try:
             while True:
                 try:
@@ -318,6 +359,9 @@ async def state(mode: int = 1, agent: str = "jett"): # ? Seçim ekranı durum ko
                         print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
                         writeLog("Bozulma koruması (breakGame ve checkBreakProtection task'ları) başlatılacak.")
                         break
+                except KeyError:
+                    if debug:
+                        pass
                 except TypeError:
                     writeLog("State döngüsünde TypeError.")
                     pass
@@ -332,7 +376,6 @@ async def state(mode: int = 1, agent: str = "jett"): # ? Seçim ekranı durum ko
             breakProtectionTask = asyncio.create_task(checkBreakProtection(breakGameTask))
             await asyncio.gather(breakGameTask, breakProtectionTask, return_exceptions=True)
             writeLog("breakGame ve checkBreakProtection task'ları tamamlandı veya iptal edildi.")
-
         except asyncio.CancelledError:
             writeLog("State fonksiyonu iptal edildi.", level="ınfo")
             pass
@@ -446,7 +489,7 @@ async def checkBreakProtection(breakGameTask): # ? Oyunun bozulup bozulmadığı
 
 
 async def main(): # ? Ana işlev fonksiyonu
-    global debug, client, exitFlag, userBreakedGame, rebootFlag, isClientLoggedIn
+    global debug, client, exitFlag, userBreakedGame, rebootFlag, isClientLoggedIn, isShortcut
     region = None
     while not exitFlag:
         writeLog("Ana döngü başlatılıyor.", level="ınfo")
@@ -499,6 +542,7 @@ async def main(): # ? Ana işlev fonksiyonu
                 if modeInput == "debug":
                     debug = True
                     os.system("cls")
+                    writeLog("Debug mod açıldı.", "ınfo")
                     continue
                 if modeInput == "":
                     os.system("cls")
@@ -623,7 +667,7 @@ async def main(): # ? Ana işlev fonksiyonu
                 os.system("cls")
                 continue
             writeLog(f"State task'ı ajan '{selectedAgent}' ve mod '{mode}' ile oluşturuluyor.")
-            stateTask = asyncio.create_task(state(mode, selectedAgent))
+            stateTask = asyncio.create_task(state(mode, selectedAgent, region))
             userBreakedGame = False
             
             try:
