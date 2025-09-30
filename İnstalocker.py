@@ -1,4 +1,4 @@
-import time, os, requests, json, asyncio, aioconsole, inspect, argparse
+import time, os, requests, json, asyncio, aioconsole, inspect, argparse, sys
 from io import BytesIO
 from PIL import Image
 from urllib3.exceptions import MaxRetryError, NameResolutionError
@@ -50,13 +50,24 @@ isShortcut = False
 
 
 def controlShortcut(): # ? Kısayol kontrolü
+    writeLog("controlShortcut fonksiyonu çağrıldı argüman kontrolü yapılıyor", "ınfo")
     args = parser.parse_args()
     dict_args = vars(args)
+    writeLog(f"Argümanlar parse edildi: {dict_args}")
     if len(dict_args.keys()) == 0:
-        return
+        writeLog("Hiçbir argüman bulunamadı kısayol modunda değil", "ınfo")
+        return None
     else:
+        # Tüm değerlerin None olup olmadığını kontrol et
+        has_values = any(value is not None for value in dict_args.values())
+        
+        if not has_values:
+            writeLog("Argümanlar var ama hepsi None kısayol modunda değil", "ınfo")
+            return None
+        
+        writeLog(f"Kısayol modu tespit edildi. Parametreler: Agent={dict_args.get('agent')}, Mode={dict_args.get('mode')}, Region={dict_args.get('region')}, Debug={dict_args.get('debug')}", "ınfo")
         return dict_args
-  
+
 
 def writeLog(message: str, level = "debug"): # ? Logları tutar
     try:
@@ -81,45 +92,78 @@ def writeLog(message: str, level = "debug"): # ? Logları tutar
 def createShortCut(array: dict): # ? Kısayol oluşturur
     global exitFlag
     try:
+        writeLog("createShortCut fonksiyonu başlatıldı", "ınfo")
         userDir = os.path.join(os.path.expanduser("~"), "Desktop")
-        current_file = os.path.abspath(__file__)
+        current_file = os.path.abspath(sys.executable)
 
         agent = array.get("agent")
         mode = array.get("mode")
         region = array.get("region")
-
-        shortcutDir = os.path.join(userDir, f"{agent}_{("kilitle" if mode == 0 else "göster")}.lnk")
+        writeLog(f"Kısayol parametreleri alındı - Ajan: {agent}, Mod: {mode}, Bölge: {region}")
+        
+        mode_text = "göster" if mode == 2 else "kilitle"
+        shortcutDir = os.path.join(userDir, f"{agent}_{mode_text}.lnk")
+        writeLog(f"Kısayol hedef yolu belirlendi: {shortcutDir}")
+        
         iconFolder = os.path.join(os.path.dirname(agentListPath), "agentImages")
-        iconDir = os.path.join(iconFolder ,f"{agent}.ico")
+        iconDir = os.path.join(iconFolder, f"{agent}.ico")
+        writeLog(f"İkon klasörü: {iconFolder}, İkon dosyası: {iconDir}")
+        writeLog(f"Hedef exe dosyası: {current_file}")
+        
         shell = Dispatch("WScript.Shell")
-        shortcut = shell.CreateShortCut(str(shortcutDir))
-        shortcut.Targetpath = str(current_file)
+        writeLog("WScript.Shell COM nesnesi oluşturuldu")
+        shortcut = shell.CreateShortcut(str(shortcutDir))
+        writeLog("Kısayol nesnesi oluşturuldu")
+        
+        shortcut.TargetPath = str(current_file)
         shortcut.Arguments = f"--agent {agent} --mode {mode} --region {region}"+(f" --debug {debug}" if debug else "")
+        writeLog(f"Kısayol argümanları ayarlandı: {shortcut.Arguments}")
+        
         if not os.path.exists(iconDir):
+            writeLog(f"İkon dosyası bulunamadı, API'den indiriliyor: {iconDir}")
             url = ("https://valorant-api.com/v1/agents/"+agents.get(agent))
+            writeLog(f"API isteği gönderiliyor: {url}")
             response = requests.get(url)
+            writeLog(f"API yanıtı alındı. Status code: {response.status_code}")
+            
             if response.status_code == 200:
                 agentInfoDict = dict(response.json())
                 agentInfo = agentInfoDict.get("data")
                 agentImage = agentInfo.get("displayIcon")
+                writeLog(f"Ajan görseli URL'si alındı: {agentImage}")
+                
                 agentImageResponse = requests.get(agentImage)
+                writeLog(f"Ajan görseli indirildi. Boyut: {len(agentImageResponse.content)} bytes")
+                
                 img = Image.open(BytesIO(agentImageResponse.content))
+                writeLog(f"Görsel PIL ile açıldı. Format: {img.format}, Boyut: {img.size}")
+                
                 if not os.path.exists(iconFolder):
                     os.makedirs(iconFolder)
+                    writeLog(f"İkon klasörü oluşturuldu: {iconFolder}")
+                
                 img.save(str(iconDir))
+                writeLog(f"İkon dosyası kaydedildi: {iconDir}")
                 shortcut.IconLocation = str(iconDir)
+                writeLog("Kısayol ikonu özel ikon olarak ayarlandı")
             else:
+                writeLog(f"API isteği başarısız, varsayılan ikon kullanılacak. Status: {response.status_code}", "warn")
                 shortcut.IconLocation = str(current_file)
+                writeLog("Kısayol ikonu exe dosyası olarak ayarlandı")
         else:
+            writeLog(f"İkon dosyası zaten mevcut: {iconDir}")
             shortcut.IconLocation = str(iconDir)
+            writeLog("Mevcut ikon dosyası kısayola atandı")
+        
         shortcut.save()
-        print(f"Kısayol '{os.path.dirname(shortcutDir)}' konumuna oluşturuldu.")
+        writeLog(f"Kısayol başarıyla kaydedildi: {shortcutDir}", "ınfo")
+        print(f"Kısayol '{shortcutDir}' konumuna oluşturuldu.")
+        return 0
     except Exception as e:
-        exitFlag = True
-        writeLog("Kısayol oluşturulurken bir hata oluştu : "+str(e), "error")
-        print("Kısayol oluşturulurken bir hata oluştu lütfen geliştiriciye iletin : "+str(e), "error")
-        time.sleep(4)
-
+        writeLog(f"Kısayol oluşturulurken hata: {str(e)}", "error")
+        writeLog(f"Hata detayları - Ajan: {array.get('agent')}, Mod: {array.get('mode')}, Bölge: {array.get('region')}", "error")
+        print("Kısayol oluşturulurken bir hata oluştu : "+str(e))
+        return 1
 
 
 async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullanıcıya sorar
@@ -130,8 +174,9 @@ async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullan�
             userInput = await aioconsole.ainput("Bu ajan için masaüstüne kısayol oluşturmak istermisiniz? E/H : ")
             writeLog(f"Kullanıcı ShortCut için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
-                createShortCut(agentInfo)
-                break
+                returnedVal = createShortCut(agentInfo)
+                if returnedVal == 0:
+                    break
             elif userInput.lower() == "h" or userInput.lower() == "n":
                 break
     except Exception as e:
