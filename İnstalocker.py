@@ -1,4 +1,4 @@
-import time, os, requests, json, asyncio, aioconsole, inspect, argparse, sys
+import time, os, requests, json, asyncio, aioconsole, inspect, argparse, sys, winreg
 from io import BytesIO
 from PIL import Image
 from urllib3.exceptions import MaxRetryError, NameResolutionError
@@ -90,7 +90,13 @@ def createShortCut(array: dict): # ? Kısayol oluşturur
     global exitFlag
     try:
         writeLog("createShortCut fonksiyonu başlatıldı", "ınfo")
-        userDir = os.path.join(os.path.expanduser("~"), "Desktop")
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders") as reg_key:
+            desktop_path, _ = winreg.QueryValueEx(reg_key, "Desktop")
+        
+        userDir = os.path.expandvars(desktop_path)
+        if not os.path.exists(userDir):
+            userDir = os.path.expanduser("~")
+        writeLog(f"Masaüstü konumu çekildi : {userDir}")
         current_file = sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__)
         agent = array.get("agent")
         mode = array.get("mode")
@@ -157,7 +163,7 @@ async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullan�
     writeLog("questShortCut task'ı başlatıldı", level="ınfo")
     try:
         while True:
-            userInput = await aioconsole.ainput("Bu ajan için masaüstüne kısayol oluşturmak istermisiniz? E/H : ")
+            userInput = await aioconsole.ainput("Bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ")
             writeLog(f"Kullanıcı ShortCut için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
                 returnedVal = createShortCut(agentInfo)

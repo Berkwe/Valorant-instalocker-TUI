@@ -54,7 +54,7 @@ new.py --- IGNORE ---
 # Translations
 *.mo
 *.pot
-
+Instalocker.log
 # Django stuff:
 *.log
 local_settings.py
