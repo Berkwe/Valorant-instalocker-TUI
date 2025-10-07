@@ -134,7 +134,6 @@ def createShortCut(array: dict): # ? Kısayol oluşturur
                 if not os.path.exists(iconFolder):
                     os.makedirs(iconFolder)
                     writeLog(f"İkon klasörü oluşturuldu: {iconFolder}")
-                
                 img.save(str(iconDir))
                 writeLog(f"İkon dosyası kaydedildi: {iconDir}")
                 shortcut.IconLocation = str(iconDir)
@@ -371,12 +370,13 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
         breakGameTask = None
         questShortCutTask = None
         if not isShortcut:
-            questShortCutTask = await asyncio.create_task(questShortCut({"agent": agent, "mode": mode, "region": region}))
+            questShortCutTask = asyncio.create_task(questShortCut({"agent": agent, "mode": mode, "region": region})) # en son burdaki sorunu çözüodun
         try:
             while True:
                 try:
                     # * writeLog("Oyun durumu (sessionLoopState) çekiliyor.") kiltlemenin yavaşlayacağından dolayı kaldırdım
                     fetchedState = client.fetch_presence(client.puuid)['sessionLoopState']
+                    await asyncio.sleep(0) # ! Bu eleman yüzünden 2 gün uğraştım asyncioyu awaitlemek lazım
                     # * writeLog(f"Mevcut oyun durumu: {fetchedState}") aynı şekil
                     if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches and isClientLoggedIn):
                         os.system("cls")
@@ -387,7 +387,6 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
                         if mode == 1:
                             client.pregame_lock_character(agents.get(agent))
                         writeLog(f"Ajan '{agent.capitalize()}' (UUID: {agents.get(agent)}) kilitlendi.", level="ınfo")
-                        
                         matches.append(client.pregame_fetch_match()['ID'])
                         print('Ajan başarıyla seçildi : \n' + agent.capitalize())
                         print("Bozulma koruması devrede, oyuna girilince instalocker kapanacak.")
@@ -429,6 +428,7 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
         if userBreakedGame or exitFlag :
             writeLog(f"State fonksiyonu sonlanıyor. userBreakedGame: {userBreakedGame}, exitFlag: {exitFlag}", level="ınfo")
             break
+        
 
 
 async def breakGame(): # ? Oyunu bozar

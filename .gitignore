@@ -53,7 +53,8 @@ cover/
 new.py --- IGNORE ---
 # Translations
 *.mo
-*.pot
+*.pott
+test.py
 Instalocker.log
 # Django stuff:
 *.log
