@@ -1,60 +1,66 @@
+<p align="center">
+      🌐 English | <a href=https://github.com/Berkwe/Valorant-instalocker/blob/Newmain/readme.tr.md>Türkçe</a>
+</p>
+
 # 🛠️ Valorant Instalocker
 
-Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
+Valorant Instalocker is an application that uses the Valorant API to quickly lock agents. It runs from the console and its core dependency is the [valclient](https://github.com/colinhartigan/valclient.py) module.
 
 ---
 
-## 🆕 Yeni Özellikler v1.6
+## 🆕 New Features v1.6
 
-* **Masaüstü Kısayol Oluşturma:** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
-
----
-
-## 🚀 Öne Çıkan Özellikler
-
-* **Ajan Kilitleme Modu:** Seçilen ajanı kilitler, klasik instalock.
-* **Sadece Seçme Modu:** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
-* **Bozma Mekaniği:** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
-* **Ajan İsim Kısaltma:** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
-* **Otomatik Ajan Güncellemesi:** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
-* **Log Sistemi:** Hataları kaydeder ve geliştiriciye bildirme kolaylığı sağlar.
+* **Desktop Shortcut Creation:** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows a quick instalock.
 
 ---
 
-## 📦 Kurulum
+## 🚀 Key Features
 
-### 💾 Exe ile:
+* **Agent Lock Mode:** Locks the selected agent — classic instalock behavior.
+* **Pick Only Mode:** Selects the agent without locking. You do not need to be at the computer while the match is being found.
+* **Match Cancel Mechanic:** After an agent is locked, you can cancel the match with a single key press and return to the main menu.
+* **Agent Name Shortening:** Shortens long agent names so they can be selected quickly.
+* **Automatic Agent Updates:** New agents are added automatically when released.
+* **Logging System:** Records errors and makes it easy to report them to the developer.
 
-1. **Exe'yi İndirin:**
+---
+
+## 📦 Installation
+
+### 💾 With the EXE:
+
+1. **Download the EXE:**
    [Instalocker.exe](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker.exe)
-2. **Çalıştırın:** İki kez tıkla ve çalıştır?
+2. **Run it:** Double-click to start.
 
-### 🐍 Python ile:
+### 🐍 With Python:
 
-#### Gereksinimler
+#### Requirements
 
 * Python 3.9+
-* Ek modüller (requirements.txt)
-* **_Not : Bazı özellikler çalışmayabilir_**
-#### Adımlar
+* Additional packages (see requirements.txt)
+* ***Note: Some features may not work***
 
-1. **Projeyi İndirin:**
+#### Steps
 
-   - **[Zip Dosyasını İndirin](https://github.com/Berkwe/Valorant-instalocker/archive/refs/heads/main.zip)**  
+1. **Download the project:**
 
-   **VEYA**  
+   * **Download the ZIP file:** [Main branch ZIP](https://github.com/Berkwe/Valorant-instalocker/archive/refs/heads/main.zip)
 
-   - **Git ile Klonlayın:**
-   ```
-   git clone https://github.com/Berkwe/Valorant-instalocker
-   cd Valorant-instalocker
-   ```
-2. **Modülleri Kurun:**
+   **OR**
+
+   * **Clone with Git:**
+
+     ```bash
+     git clone https://github.com/Berkwe/Valorant-instalocker
+     cd Valorant-instalocker
+     ```
+2. **Install dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
-3. **Çalıştırın:**
+3. **Run:**
 
    ```bash
    python instalocker.py
@@ -62,78 +68,83 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
 
 ---
 
-## 🛠️ Kullanım
+## 🛠️ Usage
 
-### Ajan Seçimi ve Modlar
+### Agent Selection and Modes
 
-- **Ajan Kitleme Modu:** Ajanı kilitler, klasik instalock.
+* **Agent Lock Mode:** Locks the agent — classic instalock.
+* **Pick Only Mode:** Picks the agent but does not lock it. This allows the match to be found while you are away from the computer.
+* **Manual Match Cancel:** Type e/y in the console to cancel.
 
-- **Sadece Seçme Modu:** Ajanı seçer fakat kitlemez. Bu şekilde maç aranırken bilgisayarda olmanıza gerek yok.
-- **Manuel Maç Bozma:** Konsola e/y yazmanız yeterlidir.
+### ⏩ Using Shortcuts
 
-### ⏩ Kısayol Kullanımı
+* To create a desktop shortcut, type E/H at the agent selection screen.
+* A shortcut will appear on the desktop according to the agent name and the chosen mode.
 
-* Masaüstüne kısayol oluşturmak için ajan seçim ekranında E/H yazın.
-* Masaüstünde ajan isminize ve kullanım modunuza göre bir kısayol belirir.
+### 🚫 Canceling a match through Instalocker:
 
-### 🚫 **Instalocker üzerinden maç bozmak :**
-- **Ajan kitlendikden sonra konsola e veya y yazmanız yeterlidir. Bozarsanız Instalocker tekrardan başlar**
+* After the agent is locked, type e or y in the console to cancel. If you cancel, Instalocker restarts.
 
-### ✂️ Ajan İsim Kısaltmaları
-- Ajanların hızlı seçilebilinmesi için eklenen basit bir mekanik. artık 5 karakter üstü isimlere sahip olan ajanların isimlerini kısaltsanız bile seçebileceksiniz, fakat yazılan isim en az 4 karakter olmak zorunda. 
+### ✂️ Agent Name Shortening
 
-### Kafan mı karıştı? işte bir örnek : 
+* A simple mechanic was added so agents can be selected quickly. You may shorten agent names longer than 5 characters, but the typed name must be at least 4 characters.
 
+Example:
 
-  ```text
-  ✅ brim → geçerli
-  ❌ reyn → geçersiz
-  ```
+```text
+✅ brim → valid
+❌ reyn → invalid
+```
 
-### 🔄 Sunucu algılama
+### 🔄 Server Detection
 
-* **Sunucu otomatik algılanır, manuel giriş olağanüstü durumlarda etkinleşir.(ne olduğunu anlamadıysan bak geç)**
+* **Server is detected automatically; manual input is available for exceptional cases.** (If this is unclear, skip it.)
 
-### Otomatik ajan güncellemesi:
-- #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim, bu yüzden manuel olarak güncellemek gerekebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
-    #### - 1. adım :
-    - **CMD(komut istemi) Uygulamasını açın.**
-    #### - 2. adım 
-    - **Aşşağıdaki kodu yapıştırın :**
-    ####
-      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+### Automatic Agent Updates
 
----
+* Instalocker now continuously updates the agent list automatically. However, since this is done by a human, mistakes may occur — in that case, manual update may be required. If so, follow the steps below:
 
+  #### Step 1:
 
-## ⓘ Performans ve Geri Bildirim
+  * Open the CMD (Command Prompt).
 
-* **Performans sorunları veya önerileriniz için** [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) **sayfasını kullanabilirsiniz.**
+  #### Step 2:
 
----
+  * Paste the following command:
 
-## 🖤 Ayrıca Teşekkürler
-- **Projeye direkt katkısı olmasada valorant apisini [dökümanlaştıran](https://github.com/techchrism/valorant-api-docs) [techchrism'e](https://github.com/techchrism) ve bu apiyi modülleştiren [colinhartigan'a](https://github.com/colinhartigan) teşekkürler.**
+    ```bash
+    curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+    ```
 
 ---
 
-## 🌟 Diğer Projelerim
+## ⓘ Performance and Feedback
+
+* For performance issues or suggestions, please use the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) page.
+
+---
+
+## 🖤 Acknowledgements
+
+* I would like to thank [techchrism](https://github.com/techchrism) for documenting the Valorant API and [colinhartigan](https://github.com/colinhartigan) for packaging this API into a module, even though they did not contribute directly to the project.
+---
+
+## 🌟 Other Projects
 
 * [ADB Brute-Force](https://github.com/Berkwe/ADB-bruteforce)
 * [Audio Converter](https://github.com/Berkwe/Audio-converter)
 
 ---
 
-## 📞 İletişim
+## 📞 Contact
 
 <a href="https://discord.gg/Xagnh5aYSy" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="Berkwe" height="30" width="40" /></a>
 
 ---
 
-## 📝 Lisans
+## 📝 License
 
-Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE) altında lisanslanmıştır.
+This project is licensed under the [MIT License](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE).
 
-### 🔑 Anahtar kelimeler
+### 🔑 Keywords
 valorant instalocker, valorant auto lock, valorant instant lock, valorant agent locker, valorant instalock tool, valorant instalock script, valorant quick lock, valorant agent picker, valorant fast pick, valorant instalocker github, valorant instalocker exe, valorant instalocker python, valorant instalocker download, valorant locker, valorant character locker, valorant agent auto select, valorant instalock program, valorant agent auto picker, valorant pick bot, valorant instalock bot, valorant instalocker gui
-
