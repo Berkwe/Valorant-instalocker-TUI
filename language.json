@@ -1,0 +1,150 @@
+{
+    "turkish": {
+        "errors": {
+            "language_file_download_failed": "Dil dosyası çekilemedi, internet bağlantınızı kontrol edin.",
+            "request_error": "Request hatası oluştu: {req_err}",
+            "update_language_file_error": "updateLanguageFile sırasında hata oluştu: {e}",
+            "language_file_load_failed": "Dil dosyası alınamadı. HTTP code: {status_code}",
+            "language_file_read_error": "Dil dosyası okunurken bir hata oluştu: {e}",
+            "log_write_error": "Loglar yazılırken bir hata oluştu. Lütfen geliştiriciye iletin",
+            "shortcut_creation_error": "Kısayol oluşturulurken bir hata oluştu. Lütfen geliştiriciye iletin",
+            "valorant_folder_not_found": "'{path}' bulunamadı, Valorant indirilmemiş veya AppData kısmı erişilebilir değil. Klasör bulunuyorsa, Instalocker'ı yönetici olarak çalıştırmayı deneyin.",
+            "agent_list_load_failed": "Ajan listesi yüklenemedi. Instalocker kapatılacak.",
+            "state_task_error": "HATA: StateTask çalışırken bir sorun oluştu: {error}. Lütfen geliştiriciye iletin.",
+            "main_program_error": "Ana programda bir sorun oluştu, lütfen geliştiriciye iletin: {error}",
+            "startup_error": "Instalocker başlatılırken hata oluştu. Lütfen geliştiriciye log dosyasını iletin: {error}",
+            "general_error": "Hata oluştu: {e}"
+        },
+        "success": {
+            "language_file_updated": "Language file başarıyla güncellendi.",
+            "language_file_loaded": "Dil dosyası başarıyla yüklendi.",
+            "agents_loaded": "Ajanlar başarıyla yüklendi",
+            "agent_list_updated": "Ajan listesi başarıyla güncellendi.",
+            "agent_list_updated_short": "Ajan listesi güncellendi.",
+            "agent_list_default_updated": "Varsayılan ajan listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin: 'github/Berkwe'",
+            "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu."
+        },
+        "prompts": {
+            "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
+            "language_help": "neyin yardımını istiyon amk",
+            "invalid_language": "Dili yanlış yazdınız, sadece ingilizce/english/EN, türkçe/turkish/TR",
+            "language_attempts_exceeded": "5 kez yanlış girildi, Instalocker kapanıyor...",
+            "INPUT_select_server": "Sunucunuzu girin : ",
+            "invalid_server": "Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!",
+            "INPUT_select_agent": "Seçilecek ajan : ",
+            "invalid_agent": "Lütfen ajan ismini doğru girin! Ajan isimleri ve diğer komutlar için 'yardım/help' yazın.",
+            "disrupt_game_prompt": "Oyunu bozmak için e/y yazın: ",
+            "invalid_disrupt_command": "Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.",
+            "enter_number": "Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.",
+            "enter_1_or_2": "Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın."
+        },
+        "info": {
+            "language_file_downloading": "Dil dosyası bulunamadı, uzaktan indiriliyor...",
+            "agent_list_updating": "Ajan listesi güncelleniyor...",
+            "agent_list_corrupted": "Varsayılan ajan listesi bozuk. Güncelleme başlatılıyor..",
+            "agent_file_not_found": "Local ajan dosyası bulunamadı, API'den güncelleniyor.",
+            "log_file_not_found": "Log dosyası bulunamadı manuel sunucu belirleniyor...",
+            "restarting": "Yeniden başlatılıyor..."
+        },
+        "game": {
+            "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
+            "selection_screen_detected": "Ajan seçme ekranı belirlendi..",
+            "agent_selected": "Ajan başarıyla seçildi:\n{agent}",
+            "crash_protection_active": "Bozulma koruması devrede, oyuna girilince instalocker kapanacak.",
+            "match_disrupted": "Maç başarıyla bozuldu, Instalocker yeniden başlıyor...",
+            "game_already_started": "Oyun zaten başlamış!",
+            "game_already_disrupted": "Oyun zaten bozulmuş!",
+            "game_not_disrupted": "Oyun bozulmadı, Instalocker kapanıyor...",
+            "game_disrupted_reselecting": "Oyun bozuldu, Instalocker aynı ajanı tekrardan seçiyor."
+        },
+        "mode": {
+            "options_header": "Mod seçenekleri : ",
+            "INPUT_get_mode": "Lütfen bir mod seçin : ",
+            "options": "\n1. Ajan kitleme modu(klasik, hızlı seçim için enter)\n2. Ajan seçme modu(sadece seçer, kitlenmez)\n",
+            "set_to_lock": "Mod ajan kitleme olarak ayarlandı!",
+            "set_to_select": "Mod ajan seçme olarak ayarlandı!"
+        },
+        "help": {
+            "agent_select_message": "-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-güncelle/update : Ajan listesini günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler\n",
+            "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.\n- 3 yardım/help : bu mesajı gösterir.\n"
+        },
+        "debug": {
+            "valorant_not_open_skipping": "Valorant açık değil fakat debug açık olduğundan atlanıyor..",
+            "valorant_not_open": "Valorant açık değil, açıksa Riot Client uygulamasını tekrar açın."
+        }
+    },
+    "english": {
+        "errors": {
+            "language_file_download_failed": "Language file could not be retrieved, check your internet connection.",
+            "request_error": "Request error occurred: {req_err}",
+            "update_language_file_error": "Error occurred during updateLanguageFile: {e}",
+            "language_file_load_failed": "Failed to retrieve language file. HTTP code: {status_code}",
+            "language_file_read_error": "Error occurred while reading language file: {e}",
+            "log_write_error": "An error occurred while writing logs. Please report to the developer",
+            "shortcut_creation_error": "An error occurred while creating the shortcut. Please report to the developer",
+            "valorant_folder_not_found": "'{path}' not found, Valorant may not be installed or AppData inaccessible. If folder exists, try running Instalocker as administrator.",
+            "agent_list_load_failed": "Failed to load agent list. Instalocker will close.",
+            "state_task_error": "ERROR: Issue occurred while running StateTask: {error}. Please report to the developer.",
+            "main_program_error": "An issue occurred in the main program, please report to the developer: {error}",
+            "startup_error": "Error occurred while starting Instalocker, please report the log file to the developer: {error}",
+            "general_error": "An error occurred: {e}"
+        },
+        "success": {
+            "language_file_updated": "Language file updated successfully.",
+            "language_file_loaded": "Language file loaded successfully.",
+            "agents_loaded": "Agents loaded successfully.",
+            "agent_list_updated": "Agent list updated successfully.",
+            "agent_list_updated_short": "Agent list has been updated.",
+            "agent_list_default_updated": "Default agent list updated successfully, see help to view content, check github for manual updates: 'github/Berkwe'",
+            "shortcut_created": "Shortcut created at '{path}'."
+        },
+        "prompts": {
+            "select_language": "Language (ingilizce/english/EN, türkçe/turkish/TR): ",
+            "language_help": "What kind of help do you want?",
+            "invalid_language": "You wrote the language incorrectly, only english/EN or turkish/TR are allowed.",
+            "language_attempts_exceeded": "Entered incorrectly 5 times, Instalocker is closing...",
+            "INPUT_select_server": "Enter your server : ",
+            "invalid_server": "Please enter a valid server, type 'help' if you don't know the codes!",
+            "INPUT_select_agent": "Agent to select : ",
+            "invalid_agent": "Please enter the agent name correctly! Type 'help' for agent names and other commands.",
+            "disrupt_game_prompt": "Type e/y to disrupt the game: ",
+            "invalid_disrupt_command": "Unknown command, please type e or y. Leave blank if you don't want to disrupt.",
+            "enter_number": "Please enter a number, type help for description and assistance.",
+            "enter_1_or_2": "Please enter only 1 or 2, type help for description and assistance."
+        },
+        "info": {
+            "language_file_downloading": "Language file not found, downloading remotely...",
+            "agent_list_updating": "Updating agent list...",
+            "agent_list_corrupted": "Default agent list is corrupted. Updating...",
+            "agent_file_not_found": "Local agent file not found, updating from API.",
+            "log_file_not_found": "Log file not found, manually selecting server...",
+            "restarting": "Restarting..."
+        },
+        "game": {
+            "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
+            "selection_screen_detected": "Agent selection screen determined.",
+            "agent_selected": "Agent successfully selected:\n{agent}",
+            "crash_protection_active": "Crash protection active, Instalocker will close when the game starts.",
+            "match_disrupted": "Match successfully disrupted, Instalocker restarting...",
+            "game_already_started": "Game has already started!",
+            "game_already_disrupted": "Game has already been disrupted!",
+            "game_not_disrupted": "Game not disrupted, closing Instalocker...",
+            "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent."
+        },
+        "mode": {
+            "options_header": "Mode options : ",
+            "INPUT_get_mode": "Please select a mode : ",
+            "options": "\n1. Agent lock mode (classic, quick select with enter)\n2. Agent select mode (just select, no lock)\n\n",
+            "set_to_lock": "Mode set to agent lock!",
+            "set_to_select": "Mode set to agent select!"
+        },
+        "help": {
+            "agent_select_message": "-agents : Returns the list of agents in a readable format.\n-agents-l : Returns the list of agents in 'list' format.\n-update : Updates the agent list.\n-re : Quickly restarts the application.\n-agents-folder : Returns the location of the agent list.\n-logs-folder : Returns the location of the log files.\n-help : Displays this message\n",
+            "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2 : Only selects the agent without locking it. This allows you to stay away from your computer during the agent selection phase in competitive matches.\n- 3 help : Displays this message.\n"
+        },
+        "debug": {
+            "valorant_not_open_skipping": "Valorant is not open but debug is enabled, skipping...",
+            "valorant_not_open": "Valorant is not open, if it is, restart the Riot Client application."
+        }
+    }
+}
