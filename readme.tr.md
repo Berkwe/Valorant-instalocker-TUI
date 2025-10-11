@@ -2,6 +2,8 @@
       🌐 <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/README.md>English</a>  |  Türkçe
 </p>
 
+# ❗IMPORTANT
+**Bu sürüm hala deneme aşamasındadır hatalarınız  [sorunlar](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından iletin lütfen.**
 
 # 🛠️ Valorant Instalocker
 
@@ -140,6 +142,7 @@ Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant instant lock, valorant agent locker, valorant instalock tool, valorant instalock script, valorant quick lock, valorant agent picker, valorant fast pick, valorant instalocker github, valorant instalocker exe, valorant instalocker python, valorant instalocker download, valorant locker, valorant character locker, valorant agent auto select, valorant instalock program, valorant agent auto picker, valorant pick bot, valorant instalock bot, valorant instalocker gui
+
 
 
 
