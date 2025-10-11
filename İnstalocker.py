@@ -141,7 +141,7 @@ def getUserLang(autoMode : bool = True): # ? kullanıcının dilini belirler
 
 
 def getLanguageFile():  # ? dil dosyasını localden çeker
-    global languageFile
+    global languageFile, exitFlag
     if not hasattr(getLanguageFile, "decodeErrorCount"):
         getLanguageFile.decodeErrorCount = 0
 
@@ -178,8 +178,10 @@ def getLanguageFile():  # ? dil dosyasını localden çeker
             getLanguageFile()
         else:
             writeLog("JSONDecodeError iki kez tekrarlandı, program sonlandırılıyor.", "critical")
-            print("Dil dosyası iki kez hatalı bulundu, program sonlandırılıyor.")
-            sys.exit(1)
+            print("The language file was found to be incorrect twice, the program is terminating.")
+            time.sleep(4)
+            exitFlag = True
+            return
 
     except Exception as e:
         print(f"An error occurred while reading the language file : {e}")
@@ -712,7 +714,7 @@ async def checkBreakProtection(breakGameTask): # ? Oyunun bozulup bozulmadığı
 
 
 async def main(): # ? Ana işlev fonksiyonu
-    global debug, client, exitFlag, userBreakedGame, rebootFlag, isClientLoggedIn, isShortcut
+    global debug, client, exitFlag, userBreakedGame, rebootFlag, isClientLoggedIn, isShortcut, language
     region = None
     getUserLang()
     getLanguageFile()
@@ -873,6 +875,16 @@ async def main(): # ? Ana işlev fonksiyonu
                     writeLog(f"Ajan '{selectedAgent.capitalize()}' olarak ayarlandı.", level="info")
                     os.system("cls")
                     break
+                elif agentInput == "english":
+                    language = "english"
+                    os.system("cls")
+                    printLang("info.language_changed", language)
+                    continue
+                elif agentInput == "türkçe":
+                    language = "turkish"
+                    os.system("cls")
+                    printLang("info.language_changed", language)
+                    continue
                 else:
                     os.system("cls")
                     printLang("prompt.invalid_agent")

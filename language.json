@@ -65,7 +65,7 @@
             "set_to_select": "Mod ajan seçme olarak ayarlandı!"
         },
         "help": {
-            "agent_select_message": "-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-güncelle/update : Ajan listesini günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler\n",
+            "agent_select_message": "-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-güncelle/update : Ajan listesini ve dil dosyasını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler\n-türkçe/english : Dili İngilizce veya Türkçe şeklinde değiştirir.",
             "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.\n- 3 yardım/help : bu mesajı gösterir.\n"
         },
         "debug": {
@@ -139,7 +139,7 @@
             "set_to_select": "Mode set to agent select!"
         },
         "help": {
-            "agent_select_message": "-agents : Returns the list of agents in a readable format.\n-agents-l : Returns the list of agents in 'list' format.\n-update : Updates the agent list.\n-re : Quickly restarts the application.\n-agents-folder : Returns the location of the agent list.\n-logs-folder : Returns the location of the log files.\n-help : Displays this message\n",
+            "agent_select_message": "-ajanlar/agents : Returns the list of agents in a readable format.\n-ajanlar-l/agents-l : Returns the list of agents in 'list' format.\n-güncelle/update : Updates the agent list and language file.\n-yb/re : Quickly restarts the application.\n-liste-konumu/agents-folder : Returns the location of the agent list.\n-kayıt-konumu/logs-folder : Returns the location of the log file.\n-yardım/help : Displays this message.\n-türkçe/english : Changes the language to English or Turkish.\n",
             "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2 : Only selects the agent without locking it. This allows you to stay away from your computer during the agent selection phase in competitive matches.\n- 3 help : Displays this message.\n"
         },
         "debug": {
