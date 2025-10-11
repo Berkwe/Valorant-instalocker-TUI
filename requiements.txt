@@ -1,6 +1,7 @@
 requests
+asyncio
+aioconsole
 Pillow
 urllib3
 valclient
 pywin32
-aioconsole
