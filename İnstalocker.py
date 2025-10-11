@@ -58,12 +58,11 @@ def updateLanguageFile(): # ? dil dosyasını internet ile günceller
             returnedArray = {"response": False, "data": data}
             return returnedArray
 
-        writeLog("Language file başarıyla çekildi.", "info")
-
+        writeLog(f"Language file başarıyla çekildi.\n\n{data}\n\n", "info")
+        
         with open(languageFilePath, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
         writeLog(f"Language file {languageFilePath} içine yazıldı.", "info")
-
         returnedArray = {"response": True, "data": data}
         return returnedArray
 
