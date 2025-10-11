@@ -44,7 +44,9 @@
             "agent_list_corrupted": "Varsayılan ajan listesi bozuk. Güncelleme başlatılıyor..",
             "agent_file_not_found": "Local ajan dosyası bulunamadı, API'den güncelleniyor.",
             "log_file_not_found": "Log dosyası bulunamadı manuel sunucu belirleniyor...",
-            "restarting": "Yeniden başlatılıyor..."
+            "restarting": "Yeniden başlatılıyor...",
+            "language_changed": "Dil başarıyla değiştirildi : {language}",
+            "language_file_manuel_updated": "Dil dosyası başarıyla güncellendi"
         },
         "game": {
             "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
@@ -118,7 +120,9 @@
             "agent_list_corrupted": "Default agent list is corrupted. Updating...",
             "agent_file_not_found": "Local agent file not found, updating from API.",
             "log_file_not_found": "Log file not found, manually selecting server...",
-            "restarting": "Restarting..."
+            "restarting": "Restarting...",
+            "language_changed": "The language has been successfully changed : {language}",
+            "language_file_manuel_updated": "Language file successfully updated"
         },
         "game": {
             "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",

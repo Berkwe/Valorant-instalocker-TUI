@@ -190,13 +190,7 @@ def getLanguageFile():  # ? dil dosyasını localden çeker
 
 
 def printLang(key_path: str, **kwargs):
-    """
-    Nokta notasyonuyla dil dosyasından mesaj alır.
-    
-    Args:
-        key_path: "errors.request_error" gibi nokta ile ayrılmış yol
-        **kwargs: Format parametreleri
-    """
+    global exitFlag
     try:
         inline = False
         if not languageFile:
@@ -212,7 +206,15 @@ def printLang(key_path: str, **kwargs):
             text = text.get(key)
             if text is None:
                 writeLog(f"printLang: '{key_path}' bulunamadı!", "error")
-                print(f"Key not found: {key_path}")
+                print(f"There's a problem with printing, probably because the language file is outdated and is being updated. Key : {key_path}")
+                response = updateLanguageFile()
+                if response.get("response"):
+                    getLanguageFile()
+                    print("The language file successfully updated.")
+                else:
+                    print("The language file could not be retrieved. Please forward the log file to the developer. The program is closing...")
+                    writeLog(f"Dil dosyası eskiyken çekilemedi response : {response}")
+                    exitFlag = True
                 return
         
         if kwargs:
@@ -251,6 +253,7 @@ def controlShortcut(): # ? Kısayol kontrolü
 
 
 def writeLog(message: str, level = "debug"): # ? Logları tutar
+    global exitFlag
     try:
         if level.lower() == "debug" and not debug:
             return
@@ -557,7 +560,10 @@ def findRegion(autoMod = True): # ? Kullanıcının sunucusunu algılar
 async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Seçim ekranı durum kontrolü için
     while not userBreakedGame and not exitFlag:
         writeLog(f"State fonksiyonu çalıştı. Mod: {'Seç ve Kilitle' if mode == 1 else 'Sadece Seç'}, Ajan: {agent.capitalize()}", level="info") 
-        mode_text = "seç ve kilitle" if mode == 1 else "sadece seç"
+        if language == "english": # ? dil dosyasına eklemeye fenasal üşendim
+            mode_text = "select and lock" if mode == 1 else "only select"
+        else:
+            mode_text = "seç ve kilitle" if mode == 1 else "sadece seç"
         printLang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
         breakProtectionTask = None
         breakGameTask = None
@@ -838,6 +844,10 @@ async def main(): # ? Ana işlev fonksiyonu
                         writeLog("Ajan listesi güncellenirken hata oluştu, ana döngüden çıkılıyor.", level="error")
                         break
                     printLang("success.agent_list_updated")
+                    response = updateLanguageFile()
+                    if response.get("response"):
+                        printLang("info.language_file_manuel_updated")
+                        getLanguageFile()
                     continue
                 elif agentInput == "yb" or agentInput == "re":
                     rebootFlag = True
@@ -878,16 +888,16 @@ async def main(): # ? Ana işlev fonksiyonu
                 elif agentInput == "english":
                     language = "english"
                     os.system("cls")
-                    printLang("info.language_changed", language)
+                    printLang("info.language_changed", language=language)
                     continue
                 elif agentInput == "türkçe":
                     language = "turkish"
                     os.system("cls")
-                    printLang("info.language_changed", language)
+                    printLang("info.language_changed", language=language)
                     continue
                 else:
                     os.system("cls")
-                    printLang("prompt.invalid_agent")
+                    printLang("prompts.invalid_agent")
                     writeLog(f"Geçersiz ajan adı girildi veya bulunamadı: '{agentInput}'")
                     continue
             if exitFlag:
@@ -906,7 +916,7 @@ async def main(): # ? Ana işlev fonksiyonu
                 writeLog("Main iptal edildi.")
             except Exception as f_state_task:
                 writeLog(f"StateTask çalıştırılırken bir hata oluştu: {str(f_state_task)}", level="error")
-                printLang("errors.state_task_error", str(f_state_task))
+                printLang("errors.state_task_error", error=str(f_state_task))
                 exitFlag = True 
             if userBreakedGame:
                 writeLog("Oyun kullanıcı tarafından bozuldu, Instalocker yeniden başlatılıyor.", level="info")
@@ -947,6 +957,6 @@ if __name__ == "__main__":
         asyncio.run(main())
     except Exception as e_run_main:
         writeLog(f"asyncio.run(main) seviyesinde 'beklenmedik' bir hata oluştu : {str(e_run_main)}", level="critical")
-        printLang("errors.startup_error", str(e_run_main))
+        printLang("errors.startup_error", error=str(e_run_main))
     finally:
         writeLog("Instalocker tüm işlemler tamamladı.", level="info")
