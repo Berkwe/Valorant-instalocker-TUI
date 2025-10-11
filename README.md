@@ -2,6 +2,8 @@
       🌐 English | <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md>Türkçe</a>
 </p>
 
+# ❗IMPORTANT
+**This version is still in the testing phase. Please report any [issues](https://github.com/Berkwe/Valorant-instalocker/issues) you encounter in the issues section.**
 
 # 🛠️ Valorant Instalocker
 
