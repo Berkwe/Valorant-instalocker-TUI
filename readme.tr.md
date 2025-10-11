@@ -1,5 +1,5 @@
 <p align="center">
-      🌐 <a href=https://github.com/Berkwe/Valorant-instalocker/blob/Newmain/README.md>English</a>  |  Türkçe
+      🌐 <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/README.md>English</a>  |  Türkçe
 </p>
 
 
@@ -105,7 +105,7 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
     #### - 2. adım 
     - **Aşşağıdaki kodu yapıştırın :**
     ####
-      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
 
 ---
 

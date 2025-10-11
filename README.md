@@ -1,5 +1,5 @@
 <p align="center">
-      🌐 English | <a href=https://github.com/Berkwe/Valorant-instalocker/blob/Newmain/readme.tr.md>Türkçe</a>
+      🌐 English | <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md>Türkçe</a>
 </p>
 
 
@@ -116,7 +116,7 @@ Example:
   * Paste the following command:
 
     ```bash
-    curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+    curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
     ```
 
 ---

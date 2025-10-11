@@ -23,7 +23,7 @@ shooterLogFilePath = os.path.expandvars(r'%LocalAppData%\VALORANT\Saved\Logs\Sho
 languageFilePath = os.path.join(valorantPath, "language.json")
 
 valorantAPI = "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
-languageFileURL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/Newmain/language.json"
+languageFileURL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/language.json"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--agent", help="ajan ismi")
