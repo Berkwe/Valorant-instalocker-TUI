@@ -9,7 +9,7 @@ Valorant Instalocker is an application that uses the Valorant API to quickly loc
 
 ---
 
-## 🆕 New Features v1.6
+## 🆕 New Features v1.7
 
 * **Desktop Shortcut Creation:** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows a quick instalock.
 * **Language Support:** Instalocker now supports multiple languages. However, this is an experimental feature, so please report any bugs in the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.  
