@@ -9,10 +9,11 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
 
 ---
 
-## 🆕 Yeni Özellikler v1.6
+## 🆕 Yeni Özellikler v1.7
 
 * **Masaüstü Kısayol Oluşturma:** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
-
+* **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından bildirebilirsiniz.
+* **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de belirli komutlarla değiştirebilirsiniz.
 ---
 
 ## 🚀 Öne Çıkan Özellikler
@@ -72,9 +73,7 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
 ### Ajan Seçimi ve Modlar
 
 - **Ajan Kitleme Modu:** Ajanı kilitler, klasik instalock.
-
 - **Sadece Seçme Modu:** Ajanı seçer fakat kitlemez. Bu şekilde maç aranırken bilgisayarda olmanıza gerek yok.
-- **Manuel Maç Bozma:** Konsola e/y yazmanız yeterlidir.
 
 ### ⏩ Kısayol Kullanımı
 
@@ -82,7 +81,7 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
 * Masaüstünde ajan isminize ve kullanım modunuza göre bir kısayol belirir.
 
 ### 🚫 **Instalocker üzerinden maç bozmak :**
-- **Ajan kitlendikden sonra konsola e veya y yazmanız yeterlidir. Bozarsanız Instalocker tekrardan başlar**
+- Ajan kitlendikden sonra konsola e veya y yazmanız yeterlidir. Bozarsanız Instalocker tekrardan başlar, cezalar yine de verilir.
 
 ### ✂️ Ajan İsim Kısaltmaları
 - Ajanların hızlı seçilebilinmesi için eklenen basit bir mekanik. artık 5 karakter üstü isimlere sahip olan ajanların isimlerini kısaltsanız bile seçebileceksiniz, fakat yazılan isim en az 4 karakter olmak zorunda. 
@@ -97,7 +96,7 @@ Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yara
 
 ### 🔄 Sunucu algılama
 
-* **Sunucu otomatik algılanır, manuel giriş olağanüstü durumlarda etkinleşir.(ne olduğunu anlamadıysan bak geç)**
+* Sunucu otomatik algılanır, manuel giriş olağanüstü durumlarda etkinleşir.(ne olduğunu anlamadıysan bak geç)
 
 ### Otomatik ajan güncellemesi:
 - #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim, bu yüzden manuel olarak güncellemek gerekebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
@@ -141,5 +140,8 @@ Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant instant lock, valorant agent locker, valorant instalock tool, valorant instalock script, valorant quick lock, valorant agent picker, valorant fast pick, valorant instalocker github, valorant instalocker exe, valorant instalocker python, valorant instalocker download, valorant locker, valorant character locker, valorant agent auto select, valorant instalock program, valorant agent auto picker, valorant pick bot, valorant instalock bot, valorant instalocker gui
+
+
+
 
 

@@ -61,7 +61,7 @@ def updateLanguageFile(): # ? dil dosyasını internet ile günceller
         writeLog("Language file başarıyla çekildi.", "info")
 
         with open(languageFilePath, "w", encoding="utf-8") as f:
-            f.write(str(data))
+            json.dump(data, f, ensure_ascii=False, indent=4)
         writeLog(f"Language file {languageFilePath} içine yazıldı.", "info")
 
         returnedArray = {"response": True, "data": data}
@@ -140,15 +140,18 @@ def getUserLang(autoMode : bool = True): # ? kullanıcının dilini belirler
         return
 
 
-def getLanguageFile(): # ? dil dosyasını localden çeker
+def getLanguageFile():  # ? dil dosyasını localden çeker
     global languageFile
+    if not hasattr(getLanguageFile, "decodeErrorCount"):
+        getLanguageFile.decodeErrorCount = 0
+
     try:
         writeLog("getLanguageFile() çağrıldı.", "info")
 
         if not os.path.exists(languageFilePath):
             print("Language file not found, downloading remotely...")
             writeLog("Dil dosyası mevcut değil, updateLanguageFile() çağrılıyor.", "warning")
-            
+
             response = updateLanguageFile()
             writeLog(f"updateLanguageFile() dönüşü: {response}", "debug")
 
@@ -163,9 +166,25 @@ def getLanguageFile(): # ? dil dosyasını localden çeker
             languageFile = json.loads(readedText)
             writeLog("Dil dosyası başarıyla yüklendi.", "info")
 
+        getLanguageFile.decodeErrorCount = 0
+
+    except json.JSONDecodeError as e:
+        getLanguageFile.decodeErrorCount += 1
+        writeLog(f"JSONDecodeError yakalandı, deneme sayısı: {getLanguageFile.decodeErrorCount}", "warning")
+
+        if getLanguageFile.decodeErrorCount == 1:
+            os.remove(languageFilePath)
+            writeLog("Bozuk dil dosyası silindi, yeniden indiriliyor...", "warning")
+            getLanguageFile()
+        else:
+            writeLog("JSONDecodeError iki kez tekrarlandı, program sonlandırılıyor.", "critical")
+            print("Dil dosyası iki kez hatalı bulundu, program sonlandırılıyor.")
+            sys.exit(1)
+
     except Exception as e:
         print(f"An error occurred while reading the language file : {e}")
         writeLog(f"Dil dosyası okunurken hata: {e}", "error")
+    
 
 
 def printLang(key_path: str, **kwargs):

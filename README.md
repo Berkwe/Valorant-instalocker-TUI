@@ -2,6 +2,7 @@
       🌐 English | <a href=https://github.com/Berkwe/Valorant-instalocker/blob/Newmain/readme.tr.md>Türkçe</a>
 </p>
 
+
 # 🛠️ Valorant Instalocker
 
 Valorant Instalocker is an application that uses the Valorant API to quickly lock agents. It runs from the console and its core dependency is the [valclient](https://github.com/colinhartigan/valclient.py) module.
@@ -11,6 +12,8 @@ Valorant Instalocker is an application that uses the Valorant API to quickly loc
 ## 🆕 New Features v1.6
 
 * **Desktop Shortcut Creation:** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows a quick instalock.
+* **Language Support:** Instalocker now supports multiple languages. However, this is an experimental feature, so please report any bugs in the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.  
+* **Automatic Language Detection:** The language support includes automatic detection, which may vary depending on your Valorant settings. You can still change it manually using specific commands.
 
 ---
 
@@ -83,7 +86,7 @@ Valorant Instalocker is an application that uses the Valorant API to quickly loc
 
 ### 🚫 Canceling a match through Instalocker:
 
-* After the agent is locked, type e or y in the console to cancel. If you cancel, Instalocker restarts.
+* After the agent is locked, type e or y in the console to cancel. If you cancel, Instalocker restarts. After the agent is locked, simply type e or y on the console. If you break it, Instalocker will restart, and penalties will still be imposed.
 
 ### ✂️ Agent Name Shortening
 
