@@ -7,7 +7,7 @@
 
 # 🛠️ Valorant Instalocker
 
-Valorant Instalocker is an application that uses the Valorant API to quickly lock agents. It runs from the console and its core dependency is the [valclient](https://github.com/colinhartigan/valclient.py) module.
+Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ Valorant. Often called a Valorant instalock tool or agent picker, it automatically selects and locks your chosen agent using the official Valorant API. The program is written in Python, includes a simple CLI, and works as a lightweight instalocker script that speeds up the agent selection phase dramatically.
 
 ---
 
