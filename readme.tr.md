@@ -7,7 +7,7 @@
 
 # 🛠️ Valorant Instalocker
 
-Valorant Instalocker, Valorant API'sini kullanarak hızlıca ajan kitlemeye yarayan bir uygulamadır. Konsol üzerinden çalışır ve temel ihtiyacı [valclient](https://github.com/colinhartigan/valclient.py) modülüdür.
+Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir bir otomatik ajan kilitleme aracıdır. Genellikle Valorant instalock aracı veya ajan seçici olarak adlandırılır. Seçtiğiniz ajanı resmi Valorant API’sini kullanarak otomatik olarak seçer ve kilitler. Program Python ile yazılmıştır, basit bir CLI (konsol arayüzü) içerir ve ajan seçme aşamasını önemli ölçüde hızlandıran hafif bir instalocker betiği olarak çalışır. (ve evet bu yazı ai ile yazıldı)
 
 ---
 
@@ -142,6 +142,7 @@ Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant instant lock, valorant agent locker, valorant instalock tool, valorant instalock script, valorant quick lock, valorant agent picker, valorant fast pick, valorant instalocker github, valorant instalocker exe, valorant instalocker python, valorant instalocker download, valorant locker, valorant character locker, valorant agent auto select, valorant instalock program, valorant agent auto picker, valorant pick bot, valorant instalock bot, valorant instalocker gui
+
 
 
 
