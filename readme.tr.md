@@ -13,20 +13,20 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ## 🆕 Yeni Özellikler v1.7
 
-* **Masaüstü Kısayol Oluşturma:** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
+* **[Masaüstü Kısayol Oluşturma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-k%C4%B1sayol-kullan%C4%B1m%C4%B1):** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
 * **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından bildirebilirsiniz.
-* **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de belirli komutlarla değiştirebilirsiniz.
+* **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de [belirli komutlarla](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#a%C5%9Fa%C4%9F%C4%B1daki-komutlar%C4%B1-ajan-ismi-belirleme-k%C4%B1sm%C4%B1nda-kullanabilirsiniz-) değiştirebilirsiniz.
 ---
 
 ## 🚀 Öne Çıkan Özellikler
 
-* **[Komutlar](https://github.com/Berkwe/Valorant-instalocker/tree/main#%EF%B8%8F-komutlar):** Instalocker bazı özel komutların kullanılmasına izin verir.
-* **Ajan Kilitleme Modu:** Seçilen ajanı kilitler, klasik instalock.
-* **Sadece Seçme Modu:** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
-* **Bozma Mekaniği:** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
-* **Ajan İsim Kısaltma:** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
-* **Otomatik Ajan Güncellemesi:** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
-* **Log Sistemi:** Hataları kaydeder ve geliştiriciye bildirme kolaylığı sağlar.
+* **[Komutlar](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-komutlar):** Instalocker bazı özel komutların kullanılmasına izin verir.
+* **[Ajan Kilitleme Modu](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-se%C3%A7imi-ve-modlar):** Seçilen ajanı kilitler, klasik instalock.
+* **[Sadece Seçme Modu](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-se%C3%A7imi-ve-modlar):** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
+* **[Bozma Mekaniği](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-instalocker-%C3%BCzerinden-ma%C3%A7-bozmak-):** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
+* **[Ajan İsim Kısaltma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-i%CC%87sim-k%C4%B1saltmalar%C4%B1):** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
+* **[Otomatik Ajan Güncellemesi](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-otomatik-ajan-g%C3%BCncellemesi):** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
+* **[Log Sistemi](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-log-sistemi):** Hataları kaydeder ve geliştiriciye bildirme kolaylığı sağlar.
 
 ---
 
@@ -145,7 +145,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 * Sunucu otomatik algılanır, manuel giriş olağanüstü durumlarda etkinleşir.(ne olduğunu anlamadıysan bak geç)
 
-### Otomatik ajan güncellemesi:
+### ⬇️ Otomatik ajan güncellemesi:
 - #### İnstalocker Artık ajan listesini otomatik olarak sürekli güncelliyor. Fakat bir insan evladı olduğumdan ben de hata yapabilirim, bu yüzden manuel olarak güncellemek gerekebilir. Böyle bir durum olursa aşşağıdaki adımları uygulayın : 
     #### - 1. adım :
     - **CMD(komut istemi) Uygulamasını açın.**
@@ -198,6 +198,7 @@ Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker gui
+
 
 
 
