@@ -20,6 +20,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ## 🚀 Öne Çıkan Özellikler
 
+* **[Komutlar](https://github.com/Berkwe/Valorant-instalocker/tree/main#%EF%B8%8F-komutlar):** Instalocker bazı özel komutların kullanılmasına izin verir.
 * **Ajan Kilitleme Modu:** Seçilen ajanı kilitler, klasik instalock.
 * **Sadece Seçme Modu:** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
 * **Bozma Mekaniği:** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
@@ -72,18 +73,62 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ## 🛠️ Kullanım
 
-### Ajan Seçimi ve Modlar
+### ⚙️ Ajan Seçimi ve Modlar
 
 - **Ajan Kitleme Modu:** Ajanı kilitler, klasik instalock.
+  
 - **Sadece Seçme Modu:** Ajanı seçer fakat kitlemez. Bu şekilde maç aranırken bilgisayarda olmanıza gerek yok.
 
 ### ⏩ Kısayol Kullanımı
 
 * Masaüstüne kısayol oluşturmak için ajan seçim ekranında E/H yazın.
+  
 * Masaüstünde ajan isminize ve kullanım modunuza göre bir kısayol belirir.
 
 ### 🚫 **Instalocker üzerinden maç bozmak :**
 - Ajan kitlendikden sonra konsola e veya y yazmanız yeterlidir. Bozarsanız Instalocker tekrardan başlar, cezalar yine de verilir.
+
+### ⚙️ Komutlar
+#### **Aşağıdaki komutları mod seçimi kısmında kullanabilirsiniz :**
+
+```
+- 1 : Ajanı seçer ve kilitler, normal (varsayılan) moddur. 
+      Hızlı geçmek için Enter’a basabilirsiniz.
+
+- 2 : Ajanı sadece seçer, kilitlemez. 
+      Rekabetçi maçlarda veya dereceli modlarda, seçim ekranında bilgisayar başında olmanıza gerek kalmaz.
+
+- 3 yardım / help : Bu yardım mesajını gösterir.
+```
+#### **Aşağıdaki komutları ajan ismi belirleme kısmında kullanabilirsiniz :**
+```
+- ajanlar / agents
+  → Ajan listesini okunaklı biçimde döndürür.
+
+- ajanlar-l / agents-l
+  → Ajan listesini 'liste' biçiminde döndürür.
+
+- güncelle / update
+  → Ajan listesini ve dil dosyasını günceller.
+
+- yb / re
+  → Uygulamayı hızlıca yeniden başlatır.
+
+- liste-konumu / agents-folder
+  → Ajan listesinin konumunu döndürür.
+
+- kayıt-konumu / logs-folder
+  → Kayıt dosyasının konumunu döndürür.
+
+- yardım / help
+  → Bu yardım mesajını görüntüler.
+
+- türkçe / english
+  → Dili Türkçe veya İngilizce olarak değiştirir.
+```
+
+
+
 
 ### ✂️ Ajan İsim Kısaltmaları
 - Ajanların hızlı seçilebilinmesi için eklenen basit bir mekanik. artık 5 karakter üstü isimlere sahip olan ajanların isimlerini kısaltsanız bile seçebileceksiniz, fakat yazılan isim en az 4 karakter olmak zorunda. 
@@ -108,6 +153,17 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
     - **Aşşağıdaki kodu yapıştırın :**
     ####
       curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+
+### 🪲 Log Sistemi
+
+* **Instalocker, hata ayıklama ve yönetimi kolaylaştırmak için sürekli olarak log (kayıt) tutar. Logları ayrıntılı hale getirmek için, mod seçimi ekranındayken konsola ‘debug’ yazabilirsiniz. Bu sayede log dosyasını geliştiriciye gönderdiğinizde hatanın anlaşılması daha kolay olacaktır.**
+
+* **Instalocker.log dosyasını bulmak için Windows+R tuş kombinasyonu ile açılan ‘Çalıştır’ penceresine aşağıdaki komutu girebilirsiniz.**
+
+* ```
+  %LOCALAPPDATA%/VALORANT
+  ```
+
 
 ---
 
@@ -142,6 +198,7 @@ Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker gui
+
 
 
 
