@@ -22,11 +22,11 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ## 🚀 Key Features
 
-* **Agent Lock Mode:** Locks the selected agent — classic instalock behavior.
-* **Pick Only Mode:** Selects the agent without locking. You do not need to be at the computer while the match is being found.
-* **Match Cancel Mechanic:** After an agent is locked, you can cancel the match with a single key press and return to the main menu.
-* **Agent Name Shortening:** Shortens long agent names so they can be selected quickly.
-* **Automatic Agent Updates:** New agents are added automatically when released.
+* **[Agent Lock Mode](https://github.com/Berkwe/Valorant-instalocker#agent-selection-and-modes):** Locks the selected agent — classic instalock behavior. 
+* **[Pick Only Mode](https://github.com/Berkwe/Valorant-instalocker#agent-selection-and-modes):** Selects the agent without locking. You do not need to be at the computer while the match is being found.
+* **[Match Cancel Mechanic](https://github.com/Berkwe/Valorant-instalocker#-canceling-a-match-through-instalocker):** After an agent is locked, you can cancel the match with a single key press and return to the main menu.
+* **[Agent Name Shortening](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-name-shortening):** Shortens long agent names so they can be selected quickly.
+* **[Automatic Agent Updates](https://github.com/Berkwe/Valorant-instalocker#automatic-agent-updates):** New agents are added automatically when released.
 * **Logging System:** Records errors and makes it easy to report them to the developer.
 
 ---
@@ -76,7 +76,7 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ## 🛠️ Usage
 
-### Agent Selection and Modes
+### ⚙️ Agent Selection and Modes
 
 * **Agent Lock Mode:** Locks the agent — classic instalock.
 * **Pick Only Mode:** Picks the agent but does not lock it. This allows the match to be found while you are away from the computer.
@@ -106,7 +106,7 @@ Example:
 
 * **Server is detected automatically; manual input is available for exceptional cases.** (If this is unclear, skip it.)
 
-### Automatic Agent Updates
+### ⬇️ Automatic Agent Updates
 
 * Instalocker now continuously updates the agent list automatically. However, since this is done by a human, mistakes may occur — in that case, manual update may be required. If so, follow the steps below:
 
@@ -122,6 +122,17 @@ Example:
     curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
     ```
 
+
+### 🪲 Log system
+* **Instalocker continuously logs to facilitate debugging and management. To detail the logs, type ‘debug’ in the console while in the mode selection section. This way, if you send the log file to the developer, it will be easier to understand the error.**
+  
+* **You can find the Instalocker.log file by entering the following command in the ‘Run’ program opened with the Windows+R combination.**
+  
+* ```
+      %localappdata%/VALORANT
+  ```
+
+  
 ---
 
 ## ⓘ Performance and Feedback
