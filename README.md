@@ -14,7 +14,7 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ## 🆕 New Features v1.7
 
-* **Desktop Shortcut Creation:** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows a quick instalock.
+* **[Desktop Shortcut Creation](https://github.com/Berkwe/Valorant-instalocker#-using-shortcuts):** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows a quick instalock.
 * **Language Support:** Instalocker now supports multiple languages. However, this is an experimental feature, so please report any bugs in the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.  
 * **Automatic Language Detection:** The language support includes automatic detection, which may vary depending on your Valorant settings. You can still change it manually using specific commands.
 
@@ -22,12 +22,12 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ## 🚀 Key Features
 
-* **[Agent Lock Mode](https://github.com/Berkwe/Valorant-instalocker#agent-selection-and-modes):** Locks the selected agent — classic instalock behavior. 
-* **[Pick Only Mode](https://github.com/Berkwe/Valorant-instalocker#agent-selection-and-modes):** Selects the agent without locking. You do not need to be at the computer while the match is being found.
+* **[Agent Lock Mode](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-selection-and-modes):** Locks the selected agent — classic instalock behavior. 
+* **[Pick Only Mode](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-selection-and-modes):** Selects the agent without locking. You do not need to be at the computer while the match is being found.
 * **[Match Cancel Mechanic](https://github.com/Berkwe/Valorant-instalocker#-canceling-a-match-through-instalocker):** After an agent is locked, you can cancel the match with a single key press and return to the main menu.
 * **[Agent Name Shortening](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-name-shortening):** Shortens long agent names so they can be selected quickly.
-* **[Automatic Agent Updates](https://github.com/Berkwe/Valorant-instalocker#automatic-agent-updates):** New agents are added automatically when released.
-* **Logging System:** Records errors and makes it easy to report them to the developer.
+* **[Automatic Agent Updates](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-automatic-agent-updates):** New agents are added automatically when released.
+* **[Logging System](https://github.com/Berkwe/Valorant-instalocker#-log-system):** Records errors and makes it easy to report them to the developer.
 
 ---
 
@@ -90,6 +90,55 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 ### 🚫 Canceling a match through Instalocker:
 
 * After the agent is locked, type e or y in the console to cancel. If you cancel, Instalocker restarts. After the agent is locked, simply type e or y on the console. If you break it, Instalocker will restart, and penalties will still be imposed.
+
+
+### ⚙️ Commands 
+
+####  **You can use the following commands in the mode selection section :**
+  
+```
+- 1 : Selects and locks the agent. This is the normal (default) mode. 
+      Press Enter to skip quickly.
+
+- 2 : Selects the agent but does not lock it. 
+      Useful for Competitive or Ranked games — you don’t need to be at your computer during the agent selection screen.
+
+- 3 yardım / help : Displays this help message.
+
+```
+
+
+####  **You can use the following commands in the agent name determination section :**
+
+```
+- ajanlar / agents
+  → Returns the agent list in a readable format.
+
+- ajanlar-l / agents-l
+  → Returns the agent list in a 'list' format.
+
+- güncelle / update
+  → Updates the agent list and language file.
+
+- yb / re
+  → Quickly restarts the application.
+
+- liste-konumu / agents-folder
+  → Returns the location of the agent list.
+
+- kayıt-konumu / logs-folder
+  → Returns the location of the log files.
+
+- yardım / help
+  → Displays this help message.
+
+- türkçe / english
+  → Changes the language to Turkish or English.
+
+```
+
+
+
 
 ### ✂️ Agent Name Shortening
 
