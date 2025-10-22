@@ -79,12 +79,13 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 ### ⚙️ Agent Selection and Modes
 
 * **Agent Lock Mode:** Locks the agent — classic instalock.
+  
 * **Pick Only Mode:** Picks the agent but does not lock it. This allows the match to be found while you are away from the computer.
-* **Manual Match Cancel:** Type e/y in the console to cancel.
 
 ### ⏩ Using Shortcuts
 
 * To create a desktop shortcut, type E/H at the agent selection screen.
+  
 * A shortcut will appear on the desktop according to the agent name and the chosen mode.
 
 ### 🚫 Canceling a match through Instalocker:
@@ -178,7 +179,7 @@ Example:
 * **You can find the Instalocker.log file by entering the following command in the ‘Run’ program opened with the Windows+R combination.**
   
 * ```
-      %localappdata%/VALORANT
+  %LOCALAPPDATA%/VALORANT
   ```
 
   
