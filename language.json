@@ -33,10 +33,11 @@
             "invalid_server": "Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!",
             "INPUT_select_agent": "Seçilecek ajan : ",
             "invalid_agent": "Lütfen ajan ismini doğru girin! Ajan isimleri ve diğer komutlar için 'yardım/help' yazın.",
-            "disrupt_game_prompt": "Oyunu bozmak için e/y yazın: ",
             "invalid_disrupt_command": "Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.",
             "enter_number": "Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.",
-            "enter_1_or_2": "Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın."
+            "enter_1_or_2": "Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın.",
+            "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
+            "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : "
         },
         "info": {
             "language_file_downloading": "Dil dosyası bulunamadı, uzaktan indiriliyor...",
@@ -109,10 +110,11 @@
             "invalid_server": "Please enter a valid server, type 'help' if you don't know the codes!",
             "INPUT_select_agent": "Agent to select : ",
             "invalid_agent": "Please enter the agent name correctly! Type 'help' for agent names and other commands.",
-            "disrupt_game_prompt": "Type e/y to disrupt the game: ",
             "invalid_disrupt_command": "Unknown command, please type e or y. Leave blank if you don't want to disrupt.",
             "enter_number": "Please enter a number, type help for description and assistance.",
-            "enter_1_or_2": "Please enter only 1 or 2, type help for description and assistance."
+            "enter_1_or_2": "Please enter only 1 or 2, type help for description and assistance.",
+            "INPUT_quest_shortcut": "Would you like to create a shortcut on your desktop for this agent? Y/N : ",
+            "INPUT_quest_breakgame": "Would you like to break game? Y/N : "
         },
         "info": {
             "language_file_downloading": "Language file not found, downloading remotely...",
@@ -129,11 +131,11 @@
             "selection_screen_detected": "Agent selection screen determined.",
             "agent_selected": "Agent successfully selected:\n{agent}",
             "crash_protection_active": "Crash protection active, Instalocker will close when the game starts.",
-            "match_disrupted": "Match successfully disrupted, Instalocker restarting...",
+            "match_disrupted": "Match successfully breaked, Instalocker restarting...",
             "game_already_started": "Game has already started!",
-            "game_already_disrupted": "Game has already been disrupted!",
-            "game_not_disrupted": "Game not disrupted, closing Instalocker...",
-            "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent."
+            "game_already_disrupted": "Game has already been breaked!",
+            "game_not_disrupted": "Game not breaked, closing Instalocker...",
+            "game_disrupted_reselecting": "Game breaked, Instalocker is reselecting the same agent."
         },
         "mode": {
             "options_header": "Mode options : ",

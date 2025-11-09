@@ -279,35 +279,38 @@ def createShortCut(array: dict): # ? Kısayol oluşturur
     global exitFlag
     try:
         writeLog("createShortCut fonksiyonu başlatıldı", "info")
-        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders") as reg_key:
-            desktop_path, _ = winreg.QueryValueEx(reg_key, "Desktop")
+        with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders") as reg_key: # ? windows reg defterinden kayıtları alıyor
+            desktop_path, _ = winreg.QueryValueEx(reg_key, "Desktop") # ? masaüstünün konumunu çekiyor
         
-        userDir = os.path.expandvars(desktop_path)
+        userDir = os.path.expandvars(desktop_path) # ? masaüstünün tam konumunu alıyor
+
         if not os.path.exists(userDir):
-            userDir = os.path.expanduser("~")
+            userDir = os.path.expanduser("~") # ? kayıt konumunu kullanıcı konumuna atıyor
         writeLog(f"Masaüstü konumu çekildi : {userDir}")
-        current_file = sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__)
+        current_file = sys.executable if getattr(sys, 'frozen', False) else os.path.abspath(__file__) # ? eğer exeye dönüştürülmüşse exeyi değilse o anki py dosyasını baz alır
         agent = array.get("agent")
         mode = array.get("mode")
         region = array.get("region")
-        writeLog(f"Kısayol parametreleri alındı - Ajan: {agent}, Mod: {mode}, Bölge: {region}")
-        mode_text = "göster" if mode == 2 else "kilitle"
-        shortcutDir = os.path.join(userDir, f"{agent}_{mode_text}.lnk")
+        writeLog(f"Kısayol parametreleri alındı - Ajan: {agent}, Mod: {mode}, Bölge: {region}", "info")
+
+        if language == "turkish":
+            modeText = "kilitle" if mode == 1 else "göster"
+
+        else:
+            modeText = "lock" if mode == 1 else "select"
+        shortcutDir = os.path.join(userDir, f"{agent}_{modeText}.lnk")
         writeLog(f"Kısayol hedef yolu belirlendi: {shortcutDir}")
         iconFolder = os.path.join(os.path.dirname(agentListPath), "agentImages")
         iconDir = os.path.join(iconFolder, f"{agent}.ico")
         writeLog(f"İkon klasörü: {iconFolder}, İkon dosyası: {iconDir}")
         writeLog(f"Hedef exe dosyası: {current_file}")
         shell = Dispatch("WScript.Shell")
-        writeLog("WScript.Shell COM nesnesi oluşturuldu")
         shortcut = shell.CreateShortcut(str(shortcutDir))
-        writeLog("Kısayol nesnesi oluşturuldu")
         shortcut.TargetPath = str(current_file)
         shortcut.Arguments = f"--agent {agent} --mode {mode} --region {region}"+(f" --debug {debug}" if debug else "")
-        writeLog(f"Kısayol argümanları ayarlandı: {shortcut.Arguments}")
         if not os.path.exists(iconDir):
-            writeLog(f"İkon dosyası bulunamadı, API'den indiriliyor: {iconDir}")
-            url = (valorantAPI+agents.get(agent))
+            writeLog(f"İkon dosyası bulunamadı, API'den indiriliyor: {iconDir}", "info")
+            url = (valorantAPI.split("?")[0] + "/" + agents.get(agent)) # ? api urllnden argümanı kaldırıp uuidyi aratır
             writeLog(f"API isteği gönderiliyor: {url}")
             response = requests.get(url)
             writeLog(f"API yanıtı alındı. Status code: {response.status_code}")
@@ -352,7 +355,8 @@ async def questShortCut(agentInfo: dict): # ? Kısayol oluşturmak için kullan�
     writeLog("questShortCut task'ı başlatıldı", level="info")
     try:
         while True:
-            userInput = await aioconsole.ainput("Bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ")
+            printLang("prompts.INPUT_quest_shortcut")
+            userInput = await aioconsole.ainput("")
             writeLog(f"Kullanıcı ShortCut için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
                 returnedVal = createShortCut(agentInfo)
@@ -557,6 +561,7 @@ def findRegion(autoMod = True): # ? Kullanıcının sunucusunu algılar
 
 
 async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Seçim ekranı durum kontrolü için
+    global exitFlag
     while not userBreakedGame and not exitFlag:
         writeLog(f"State fonksiyonu çalıştı. Mod: {'Seç ve Kilitle' if mode == 1 else 'Sadece Seç'}, Ajan: {agent.capitalize()}", level="info") 
         if language == "english": # ? dil dosyasına eklemeye fenasal üşendim
@@ -572,8 +577,8 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
         try:
             while True:
                 try:
-                    fetchedState = client.fetch_presence(client.puuid)['matchPresenceData']['sessionLoopState']
                     await asyncio.sleep(0)
+                    fetchedState = client.fetch_presence(client.puuid)['matchPresenceData']['sessionLoopState']
                     if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches and isClientLoggedIn):
                         os.system("cls")
                         printLang("game.selection_screen_detected")
@@ -588,12 +593,14 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
                         printLang("game.crash_protection_active")
                         writeLog("Bozulma koruması (breakGame ve checkBreakProtection task'ları) başlatılacak.")
                         break
-                except KeyError:
+                except TypeError:
                     if debug:
                         pass
-                except TypeError:
-                    writeLog("State döngüsünde TypeError.")
-                    pass
+                    else:
+                        printLang("debug.valorant_not_open")
+                        exitFlag = True
+                        time.sleep(4)
+                        break
                 except Exception as e:
                     writeLog(f"Ajan kitlerken bir hata oluştu (iç döngü): {str(e)}", level="error")
                     raise Exception(f"Ajan kitlerken bir hata oluştu geliştiriciye iletin : {e}")        
@@ -632,7 +639,7 @@ async def breakGame(): # ? Oyunu bozar
     writeLog("breakGame task'ı başlatıldı.", level="info")
     try:
         while True:
-            userInput = await aioconsole.ainput("Oyunu bozmak için e/y yazın: ")
+            userInput = await aioconsole.ainput("")
             writeLog(f"Kullanıcı breakGame için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
                 writeLog("Kullanıcı oyunu bozuyor.", level="info")
@@ -721,6 +728,7 @@ async def checkBreakProtection(breakGameTask): # ? Oyunun bozulup bozulmadığı
 async def main(): # ? Ana işlev fonksiyonu
     global debug, client, exitFlag, userBreakedGame, rebootFlag, isClientLoggedIn, isShortcut, language
     region = None
+    mode = 0
     getUserLang()
     getLanguageFile()
     while not exitFlag:
@@ -761,7 +769,6 @@ async def main(): # ? Ana işlev fonksiyonu
                 exitFlag = True
                 break
             writeLog(f"Ajan listesi yüklendi. {len(agents.keys())} ajan bulundu.", level="info")
-            mode = 0
             while not isShortcut:
                 printLang("mode.options_header")
                 printLang("mode.options")
