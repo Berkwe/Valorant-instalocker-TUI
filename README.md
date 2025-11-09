@@ -24,6 +24,7 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 * **[Commands](https://github.com/Berkwe/Valorant-instalocker/tree/main#%EF%B8%8F-commands):** Instalocker allows you to use some customized commands.
 * **[Agent Lock Mode](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-selection-and-modes):** Locks the selected agent — classic instalock behavior. 
 * **[Pick Only Mode](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-selection-and-modes):** Selects the agent without locking. You do not need to be at the computer while the match is being found.
+* **[Break Game Protection](https://isnamedescriptive?.com):** If the match is breaked, Instalocker detects this and selects the same agent in the same mode again.
 * **[Match Cancel Mechanic](https://github.com/Berkwe/Valorant-instalocker#-canceling-a-match-through-instalocker):** After an agent is locked, you can cancel the match with a single key press and return to the main menu.
 * **[Agent Name Shortening](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-agent-name-shortening):** Shortens long agent names so they can be selected quickly.
 * **[Automatic Agent Updates](https://github.com/Berkwe/Valorant-instalocker#%EF%B8%8F-automatic-agent-updates):** New agents are added automatically when released.

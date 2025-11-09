@@ -23,6 +23,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 * **[Komutlar](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-komutlar):** Instalocker bazı özel komutların kullanılmasına izin verir.
 * **[Ajan Kilitleme Modu](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-se%C3%A7imi-ve-modlar):** Seçilen ajanı kilitler, klasik instalock.
 * **[Sadece Seçme Modu](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-se%C3%A7imi-ve-modlar):** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
+* **[Oyun Bozulma Koruması](https://ismiyeterinceaciklayici?.com):** Maç bozulursa Instalocker, aynı ajan ve modu tekrardan seçecektir.
 * **[Bozma Mekaniği](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-instalocker-%C3%BCzerinden-ma%C3%A7-bozmak-):** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
 * **[Ajan İsim Kısaltma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-i%CC%87sim-k%C4%B1saltmalar%C4%B1):** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
 * **[Otomatik Ajan Güncellemesi](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-otomatik-ajan-g%C3%BCncellemesi):** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
