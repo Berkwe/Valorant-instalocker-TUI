@@ -561,7 +561,7 @@ def findRegion(autoMod = True): # ? Kullanıcının sunucusunu algılar
 
 
 async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Seçim ekranı durum kontrolü için
-    global exitFlag
+    global exitFlag, isClientLoggedIn
     while not userBreakedGame and not exitFlag:
         writeLog(f"State fonksiyonu çalıştı. Mod: {'Seç ve Kilitle' if mode == 1 else 'Sadece Seç'}, Ajan: {agent.capitalize()}", level="info") 
         if language == "english": # ? dil dosyasına eklemeye fenasal üşendim
@@ -572,14 +572,20 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
         breakProtectionTask = None
         breakGameTask = None
         questShortCutTask = None
+        fetchID = None
         if not isShortcut:
             questShortCutTask = asyncio.create_task(questShortCut({"agent": agent, "mode": mode, "region": region}))
         try:
             while True:
                 try:
-                    await asyncio.sleep(0)
-                    fetchedState = client.fetch_presence(client.puuid)['matchPresenceData']['sessionLoopState']
-                    if (fetchedState == "PREGAME" and client.pregame_fetch_match()['ID'] not in matches and isClientLoggedIn):
+                    if debug:
+                        fetchedState = {"matchPresenceData": {"sessionLoopState": "PREGAME"}}["matchPresenceData"]['sessionLoopState']
+                        fetchID = "debug-match-id"
+                        isClientLoggedIn = True
+                    else:
+                        fetchedState = client.fetch_presence(client.puuid)['matchPresenceData']['sessionLoopState']
+                        fetchID = client.pregame_fetch_match()['ID']
+                    if (fetchedState == "PREGAME" and fetchID not in matches and isClientLoggedIn):
                         os.system("cls")
                         printLang("game.selection_screen_detected")
                         client.pregame_select_character(agents.get(agent))
@@ -593,6 +599,7 @@ async def state(mode: int = 1, agent: str = "jett", region: str = "eu"): # ? Se�
                         printLang("game.crash_protection_active")
                         writeLog("Bozulma koruması (breakGame ve checkBreakProtection task'ları) başlatılacak.")
                         break
+                    await asyncio.sleep(0)
                 except TypeError:
                     if debug:
                         pass
@@ -639,6 +646,7 @@ async def breakGame(): # ? Oyunu bozar
     writeLog("breakGame task'ı başlatıldı.", level="info")
     try:
         while True:
+            printLang("prompts.INPUT_quest_breakgame")
             userInput = await aioconsole.ainput("")
             writeLog(f"Kullanıcı breakGame için giriş yaptı: '{userInput}'")
             if userInput.lower() == "e" or userInput.lower() == "y":
