@@ -11,11 +11,13 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ---
 
-## 🆕 Yeni Özellikler v1.7
+## 🆕 Yeni Özellikler v1.8
 
-* **[Masaüstü Kısayol Oluşturma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-k%C4%B1sayol-kullan%C4%B1m%C4%B1):** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
-* **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından bildirebilirsiniz.
-* **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de [belirli komutlarla](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#a%C5%9Fa%C4%9F%C4%B1daki-komutlar%C4%B1-ajan-ismi-belirleme-k%C4%B1sm%C4%B1nda-kullanabilirsiniz-) değiştirebilirsiniz.
+* **Genel Buglar Düzeltildi**
+* **Kaynak Kod Düzenlendi**
+* **Kod Modüler Hale Getirilip Global Değişkenlerden Bağımsız Hale Getirildi**
+* **Kısaca Sadece Kaynak Kod Düzenlendi Ve Buglar Düzeltildi Hiçbir Özellik Eklenmedi (Yazacak Bir Şey Bulamadığımdan Uzun Uzun Detay Verdim...)**
+
 ---
 
 ## 🚀 Öne Çıkan Özellikler
@@ -25,6 +27,9 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 * **[Sadece Seçme Modu](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-se%C3%A7imi-ve-modlar):** Ajanı seçer fakat kilitlemez. Maç sırasında bilgisayar başında olmanıza gerek yok.
 * **[Oyun Bozulma Koruması](https://ismiyeterinceaciklayici?.com):** Maç bozulursa Instalocker, aynı ajan ve modu tekrardan seçecektir.
 * **[Bozma Mekaniği](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-instalocker-%C3%BCzerinden-ma%C3%A7-bozmak-):** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
+* **[Masaüstü Kısayol Oluşturma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-k%C4%B1sayol-kullan%C4%B1m%C4%B1):** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
+* **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından bildirebilirsiniz.
+* **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de [belirli komutlarla](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#a%C5%9Fa%C4%9F%C4%B1daki-komutlar%C4%B1-ajan-ismi-belirleme-k%C4%B1sm%C4%B1nda-kullanabilirsiniz-) değiştirebilirsiniz.
 * **[Ajan İsim Kısaltma](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-ajan-i%CC%87sim-k%C4%B1saltmalar%C4%B1):** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
 * **[Otomatik Ajan Güncellemesi](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#%EF%B8%8F-otomatik-ajan-g%C3%BCncellemesi):** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
 * **[Log Sistemi](https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md#-log-sistemi):** Hataları kaydeder ve geliştiriciye bildirme kolaylığı sağlar.
