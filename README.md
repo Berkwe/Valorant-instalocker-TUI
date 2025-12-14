@@ -12,7 +12,7 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ---
 
-## 🆕 Yeni Özellikler v1.8
+## 🆕 Whats New v1.8
 
 * **General Bugs Fixed**
 * **Source Code Refactored**
