@@ -209,7 +209,8 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE) altında lisanslanmıştır.
 
 ### 🔑 Anahtar kelimeler
-valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker gui
+valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker tui
+
 
 
 
