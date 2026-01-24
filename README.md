@@ -224,4 +224,4 @@ Example:
 This project is licensed under the [MIT License](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE).
 
 ### 🔑 Keywords
-valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker gui
+valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker tui
