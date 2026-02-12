@@ -164,7 +164,7 @@ class InstalockerApp:
                         self.i18n.print_lang("info.last_update_check", day=last.days)
                     self.i18n.print_lang("prompts.INPUT_select_agent")
                     agent_input = input("").lower()
-                    
+                    self.logger.write(f"Ajan inputu : {agent_input}", "info")
                     if agent_input in ("yardım", "help"):
                         os.system("cls")
                         self.i18n.print_lang("help.agent_select_message")
@@ -192,7 +192,7 @@ class InstalockerApp:
                         os.system("cls")
                         agent_list = list(self.agent_service.agents.keys())
                         agent_list.remove("lastCheck")
-                        print(agent_list+"\n\n")
+                        print(agent_list, "\n\n")
                         continue
                     elif agent_input in ("liste-konumu", "agents-folder"):
                         os.system("cls")
@@ -201,7 +201,12 @@ class InstalockerApp:
                     elif agent_input in ("kayıt-konumu", "logs-folder"):
                         os.system("cls")
                         print(Constants.LOG_PATH, "\n\n")
-
+                        continue
+                    elif agent_input in ("english", "türkçe"):
+                        self.config.language = "english" if agent_input == "english" else "turkish"
+                        os.system("cls")
+                        self.i18n.print_lang("info.language_changed", language=self.config.language)
+                        continue
                     selected_agent = ""
                     if agent_input in self.agent_service.agents and agent_input != "lastCheck":
                         selected_agent = agent_input
@@ -211,17 +216,11 @@ class InstalockerApp:
                                 selected_agent = name
                                 os.system("cls")
                                 break
-                    
                     if selected_agent:
                         self.config.agent = selected_agent
                         self.logger.write(f"Ajan seçildi: {selected_agent}")
                         os.system("cls")
                         break
-                    elif agent_input in ("english", "türkçe"):
-                         self.config.language = "english" if agent_input == "english" else "turkish"
-                         os.system("cls")
-                         self.i18n.print_lang("info.language_changed", language=self.config.language)
-                         continue
                     else:
                         os.system("cls")
                         self.i18n.print_lang("prompts.invalid_agent")
