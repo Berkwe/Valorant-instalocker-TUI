@@ -5,6 +5,10 @@
 
 # 🛠️ Valorant Instalocker
 
+## Promotional Video
+<video src="https://github.com/user-attachments/assets/ff1e1677-f2c0-43a8-bd70-e4cf0cd09c0b" autoplay loop muted playsinline></video>
+<a href="https://www.youtube.com/watch?v=BUttrI9untI">**FULL VIDEO**</a>
+
 Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ Valorant. Often called a Valorant instalock tool or agent picker, it automatically selects and locks your chosen agent using the official Valorant API. The program is written in Python, includes a simple CLI, and works as a lightweight instalocker script that speeds up the agent selection phase dramatically.
 
 # ❗IMPORTANT
@@ -12,7 +16,7 @@ Valorant Instalocker is a fast and reliable auto agent locker for Riot Games’ 
 
 ---
 
-## 🆕 Yeni Özellikler v1.8
+## 🆕 Whats New v1.8
 
 * **General Bugs Fixed**
 * **Source Code Refactored**
@@ -220,4 +224,4 @@ Example:
 This project is licensed under the [MIT License](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE).
 
 ### 🔑 Keywords
-valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker gui
+valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker tui
