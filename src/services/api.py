@@ -33,8 +33,8 @@ class AgentService:
                     self.logger.write(f"API'den ajan eklendi: {display_name} - {uuid}")
                 
                 self.logger.write(f"API'den {len(agents_temp)} ajan başarıyla çekildi.", level="info")
-                self.lastCheck = self.dt.today()
-                agents_temp["lastCheck"] = self.lastCheck.strftime("%d.%m.%Y")
+                self.lastCheck = self.dt.today().strftime("%d.%m.%Y")
+                agents_temp["lastCheck"] = self.lastCheck
                 return agents_temp
             else:
                 self.logger.write(f"Valorant API hatası, HTTP Status: {data.status_code}, API Status: {data_dict.get('status')}", level="error")
