@@ -7,6 +7,7 @@ from src.core.i18n import LanguageManager
 from src.services.api import AgentService
 from src.utils.shortcuts import ShortcutManager
 from src.utils.utils import AnimateText
+from src.utils.version import Version
 from src.game.client import GameSession
 from src.game.controller import GameController
 from valclient.resources import regions
@@ -22,6 +23,7 @@ class InstalockerApp:
         self.write_animated_text = AnimateText().write_animated_text
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
+        self.version = Version()
         self.parser.add_argument("--agent", help="ajan ismi")
         self.parser.add_argument("--mode", help="seçim modu lock/select")
         self.parser.add_argument("--region", help="region idsi (eu,na vb)")
@@ -111,6 +113,9 @@ class InstalockerApp:
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
 
                 while not self.config.is_shortcut:
+                    versionResponse = self.version.versionControl()
+                    if versionResponse.get("isOld"):
+                        self.i18n.print_lang("info.update_app_warn", version=versionResponse.get("apiVersion"))
                     self.i18n.print_lang("mode.options_header")
                     self.i18n.print_lang("mode.options")
                     self.i18n.print_lang("mode.INPUT_get_mode")

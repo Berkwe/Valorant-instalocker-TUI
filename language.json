@@ -48,7 +48,8 @@
             "restarting": "Yeniden başlatılıyor...",
             "language_changed": "Dil başarıyla değiştirildi : {language}",
             "language_file_manuel_updated": "Dil dosyası başarıyla güncellendi",
-            "last_update_check": "Ajan listesini yaklaşık {day} gün önce güncellemişsiniz; güncelleme önerilir. Güncellemek için 'güncelle' yazın.\n"
+            "last_update_check": "Ajan listesini yaklaşık {day} gün önce güncellemişsiniz; güncelleme önerilir. Güncellemek için 'güncelle' yazın.\n",
+            "update_app_warn": "Instalocker sürümünüz eski, lütfen en güncel sürümü githubdan indirin. Güncel sürüm : {version}"
         },
         "game": {
             "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
@@ -126,7 +127,8 @@
             "restarting": "Restarting...",
             "language_changed": "The language has been successfully changed : {language}",
             "language_file_manuel_updated": "Language file successfully updated",
-            "last_update_check": "You updated the agent list approximately {day} days ago; an update is recommended. To update, type ‘update’.\n"
+            "last_update_check": "You updated the agent list approximately {day} days ago; an update is recommended. To update, type ‘update’.\n",
+            "update_app_warn": "Your version of Instalocker is outdated. Please download the latest version from GitHub. Current version: {version}"
         },
         "game": {
             "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
