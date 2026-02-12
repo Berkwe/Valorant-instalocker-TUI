@@ -21,6 +21,7 @@ class InstalockerApp:
         self.session = GameSession(self.config, self.logger, self.i18n)
         self.write_animated_text = AnimateText().write_animated_text
         self.parser = argparse.ArgumentParser()
+        self.dt = self.agent_service.dt
         self.parser.add_argument("--agent", help="ajan ismi")
         self.parser.add_argument("--mode", help="seçim modu lock/select")
         self.parser.add_argument("--region", help="region idsi (eu,na vb)")
@@ -158,6 +159,9 @@ class InstalockerApp:
                     break
                     
                 while not self.config.is_shortcut:
+                    last = self.dt.today() - self.dt.strptime(self.agent_service.lastCheck, "%d.%m.%Y")
+                    if last.days > 3:
+                        self.i18n.print_lang("info.last_update_check", day=last.days)
                     self.i18n.print_lang("prompts.INPUT_select_agent")
                     agent_input = input("").lower()
                     
@@ -179,11 +183,13 @@ class InstalockerApp:
                         time.sleep(0.5)
                         break
                     elif agent_input in ("ajanlar", "agents"):
-                         print(", ".join(self.agent_service.agents.keys()))
-                         continue
-                    
+                        os.system("cls")
+                        agent_list = list(self.agent_service.agents.keys())
+                        agent_list.remove("lastCheck")
+                        print(", ".join(agent_list)+"\n\n")
+                        continue
                     selected_agent = ""
-                    if agent_input in self.agent_service.agents:
+                    if agent_input in self.agent_service.agents and agent_input != "lastCheck":
                         selected_agent = agent_input
                     elif len(agent_input) >= 4:
                         for name in self.agent_service.agents:

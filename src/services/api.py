@@ -1,4 +1,5 @@
 import requests, json, os, time
+from datetime import date
 from requests.exceptions import ConnectionError
 from src.core.constants import Constants
 from src.core.logger import Logger
@@ -11,6 +12,8 @@ class AgentService:
         self.logger = logger
         self.i18n = i18n
         self.agents = {}
+        self.lastCheck = ""
+        self.dt = date
 
     def update_apidata(self):
         """API den ajanları çeker"""
@@ -30,6 +33,8 @@ class AgentService:
                     self.logger.write(f"API'den ajan eklendi: {display_name} - {uuid}")
                 
                 self.logger.write(f"API'den {len(agents_temp)} ajan başarıyla çekildi.", level="info")
+                self.lastCheck = self.dt.today()
+                agents_temp["lastCheck"] = self.lastCheck.strftime("%d.%m.%Y")
                 return agents_temp
             else:
                 self.logger.write(f"Valorant API hatası, HTTP Status: {data.status_code}, API Status: {data_dict.get('status')}", level="error")
@@ -75,11 +80,12 @@ class AgentService:
                 else:
                     with open(Constants.AGENT_LIST_PATH, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        if "jett" not in data.keys() or "kayo" not in data.keys(): 
+                        if "jett" not in data.keys() or "kayo" not in data.keys() or "lastCheck" not in data.keys(): # ? yalandan bi kontrol
                             self.logger.write("Varsayılan ajan listesi bozuk. Güncelleniyor.", level="error")
                             self.i18n.print_lang("info.agent_list_corrupted")
                             self.load_agents(offline=False)
                             return
+                        self.lastCheck = data.get("lastCheck", "1.1.1")
                         self.agents = data
                         self.logger.write("Ajanlar offline olarak lokal agents.json dosyasından başarıyla çekildi.", level="info")
                         return
@@ -109,7 +115,7 @@ class AgentService:
                  with open(Constants.AGENT_LIST_PATH, "r", encoding="utf-8") as f:
                      data = json.load(f)
                  
-                 if "jett" not in data.keys():
+                 if "jett" not in data.keys() or "lastCheck" not in data.keys():
                      self.logger.write("Varsayılan ajan listesi de bozuk.", "error")
                      self.config.exit_flag = True
                      return

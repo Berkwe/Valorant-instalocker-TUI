@@ -47,7 +47,8 @@
             "log_file_not_found": "Log dosyası bulunamadı manuel sunucu belirleniyor...",
             "restarting": "Yeniden başlatılıyor...",
             "language_changed": "Dil başarıyla değiştirildi : {language}",
-            "language_file_manuel_updated": "Dil dosyası başarıyla güncellendi"
+            "language_file_manuel_updated": "Dil dosyası başarıyla güncellendi",
+            "last_update_check": "Ajan listesini yaklaşık {day} gün önce güncellemişsiniz; güncelleme önerilir. Güncellemek için 'güncelle' yazın.\n"
         },
         "game": {
             "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
@@ -124,7 +125,8 @@
             "log_file_not_found": "Log file not found, manually selecting server...",
             "restarting": "Restarting...",
             "language_changed": "The language has been successfully changed : {language}",
-            "language_file_manuel_updated": "Language file successfully updated"
+            "language_file_manuel_updated": "Language file successfully updated",
+            "last_update_check": "You updated the agent list approximately {day} days ago; an update is recommended. To update, type ‘update’.\n"
         },
         "game": {
             "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
