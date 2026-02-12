@@ -188,6 +188,20 @@ class InstalockerApp:
                         agent_list.remove("lastCheck")
                         print(", ".join(agent_list)+"\n\n")
                         continue
+                    elif agent_input in ("ajanlar-l", "agents-l"):
+                        os.system("cls")
+                        agent_list = list(self.agent_service.agents.keys())
+                        agent_list.remove("lastCheck")
+                        print(agent_list+"\n\n")
+                        continue
+                    elif agent_input in ("liste-konumu", "agents-folder"):
+                        os.system("cls")
+                        print(Constants.AGENT_LIST_PATH, "\n\n")
+                        continue
+                    elif agent_input in ("kayıt-konumu", "logs-folder"):
+                        os.system("cls")
+                        print(Constants.LOG_PATH, "\n\n")
+
                     selected_agent = ""
                     if agent_input in self.agent_service.agents and agent_input != "lastCheck":
                         selected_agent = agent_input
