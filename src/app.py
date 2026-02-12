@@ -1,4 +1,4 @@
-import asyncio, os, argparse, sys, time
+import asyncio, os, argparse, sys, time, random
 
 from src.core.constants import Constants
 from src.core.config import Config
@@ -216,6 +216,10 @@ class InstalockerApp:
                                 selected_agent = name
                                 os.system("cls")
                                 break
+                    elif agent_input in ("rastgele", "random", "r", "Kendimi Bok Gibi Hissediyorum :)"):
+                        agent_list = list(self.agent_service.agents.keys()) # ? üşendiğimden 5 yere aynı yapıyı kopyaladım kim uğraşcak 
+                        agent_list.remove("lastCheck")
+                        selected_agent = random.choice(agent_list)
                     if selected_agent:
                         self.config.agent = selected_agent
                         self.logger.write(f"Ajan seçildi: {selected_agent}")
