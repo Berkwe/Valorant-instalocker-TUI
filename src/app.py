@@ -183,8 +183,10 @@ class InstalockerApp:
                         os.system("cls")
                         self.agent_service.loadAgents(offline=False)
                         if self.config.exit_flag: break
-                        self.i18n.print_lang("success.agent_list_updated")
+                        self.map_service.loadMaps(offline=False)
+                        if self.config.exit_flag: break
                         self.i18n.update_language_file()
+                        if self.config.exit_flag: break
                         continue
                     elif agent_input in ("yb", "re"):
                         self.config.reboot_flag = True

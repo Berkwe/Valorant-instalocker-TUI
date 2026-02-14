@@ -77,7 +77,7 @@
             "set_to_select": "Mod ajan seçme olarak ayarlandı!"
         },
         "help": {
-            "agent_select_message": "-r/rastgele/random : Ajanı rastgele seçer.\n-güncelle/update : Ajan listesini ve dil dosyasını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili İngilizce veya Türkçe şeklinde değiştirir.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler.",
+            "agent_select_message": "-r/rastgele/random : Ajanı rastgele seçer.\n-güncelle/update : Ajan Listesini, Harita Listesini ve Dil Dosyasını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili İngilizce veya Türkçe şeklinde değiştirir.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler.",
             "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.\n- 3 yardım/help : bu mesajı gösterir.\n"
         },
         "debug": {

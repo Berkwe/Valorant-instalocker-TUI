@@ -1,4 +1,4 @@
-import requests, json, os, time
+import requests, json, os, time, traceback
 from datetime import date
 from requests.exceptions import ConnectionError
 from src.core.constants import Constants
@@ -49,7 +49,9 @@ class AgentService:
             self.logger.write(f"API isteği sırasında hata oluştu: {str(e_req)}", level="error")
             return {"status": "RequestException", "returned": False}
         except Exception as e_gen:
-            self.logger.write(f"Ajan listesi güncellenirken bilinmeyen bir hata oluştu: {str(e_gen)}", level="error")
+            self.i18n.print_lang("errors.general_error", e=str(e_gen))
+            error_details = traceback.format_exc()
+            self.logger.write(f"Ajan listesi güncellenirken bilinmeyen bir hata oluştu: {error_details}", level="error")
             return {"status": "UnknownErrorInUpdate", "returned": False}
 
     def loadAgents(self, offline=True):
@@ -102,24 +104,25 @@ class AgentService:
                 self.logger.write("Online modda Ajan listesi güncellendi.", level="info")
                 
                 self.i18n.print_lang("success.agent_list_updated")
-                
-            else:
-                 self.logger.write("Güncel ajan listesi çekilemedi, varsayılan liste çekilmeye çalışılıyor.", "warn")
-                 if not os.path.exists(Constants.AGENT_LIST_PATH):
-                    self.config.exit_flag = True
-                    self.logger.write("Varsayılan ajan listesi de çekilemedi, çıkılıyor", "error")
-                    return
+                return
+            
+
+            self.logger.write("Güncel ajan listesi çekilemedi, varsayılan liste çekilmeye çalışılıyor.", "warn")
+            if not os.path.exists(Constants.AGENT_LIST_PATH):
+               self.config.exit_flag = True
+               self.logger.write("Varsayılan ajan listesi de çekilemedi, çıkılıyor", "error")
+               return
                  
-                 with open(Constants.AGENT_LIST_PATH, "r", encoding="utf-8") as f:
-                     data = json.load(f)
-                 
-                 if "jett" not in data.keys() or "lastCheck" not in data.keys():
-                     self.logger.write("Varsayılan ajan listesi de bozuk.", "error")
-                     self.config.exit_flag = True
-                     return
+            with open(Constants.AGENT_LIST_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            
+            if "jett" not in data.keys() or "lastCheck" not in data.keys():
+                self.logger.write("Varsayılan ajan listesi de bozuk.", "error")
+                self.config.exit_flag = True
+                return
                      
-                 self.i18n.print_lang("success.agent_list_default_updated")
-                 self.agents = data
+            self.i18n.print_lang("success.agent_list_default_updated")
+            self.agents = data
 
 
         except FileNotFoundError:
@@ -128,7 +131,8 @@ class AgentService:
              time.sleep(3)
              self.config.exit_flag = True
         except Exception as e:
-             self.logger.write(f"Ajan listesi çekilirken bir hata oluştu: {str(e)}", level="error")
+             error_details = traceback.format_exc()
+             self.logger.write(f"Ajan listesi çekilirken bir hata oluştu: {error_details}", level="error")
              self.i18n.print_lang("errors.general_error", e=str(e))
              self.config.exit_flag = True
 
@@ -172,7 +176,9 @@ class MapService:
             self.logger.write(f"API isteği sırasında hata oluştu: {str(e_req)}", level="error")
             return {"status": "RequestException", "returned": False}
         except Exception as e_gen:
-            self.logger.write(f"Ajan listesi güncellenirken bilinmeyen bir hata oluştu: {str(e_gen)}", level="error")
+            self.i18n.print_lang("errors.general_error", e=str(e_gen))
+            error_details = traceback.format_exc()
+            self.logger.write(f"Ajan listesi güncellenirken bilinmeyen bir hata oluştu: {error_details}", level="error")
             return {"status": "UnknownErrorInUpdate", "returned": False}
         
     def loadMaps(self, offline = True):
@@ -190,7 +196,8 @@ class MapService:
                         time.sleep(3)
                         self.config.exit_flag = True
                         return
-                
+                    self.i18n.print_lang("success.map_list_updated")
+
 
                 with open(Constants.MAP_LIST_PATH, "w", encoding="utf-8") as f:
                     json.dump(maps_list, f, ensure_ascii=False, indent=4)
@@ -230,14 +237,16 @@ class MapService:
                 self.i18n.print_lang("success.map_list_default_updated")
                 self.maps = data
         except FileNotFoundError:
-             self.logger.write(f"'{os.path.dirname(Constants.MAP_LIST_PATH)}' bulunamadı.", level="error")
-             self.i18n.print_lang("errors.valorant_folder_not_found", path=os.path.dirname(Constants.AGENT_LIST_PATH))
-             time.sleep(3)
-             self.config.exit_flag = True
+            self.logger.write(f"'{os.path.dirname(Constants.MAP_LIST_PATH)}' bulunamadı.", level="error")
+            self.i18n.print_lang("errors.valorant_folder_not_found", path=os.path.dirname(Constants.AGENT_LIST_PATH))
+            time.sleep(3)
+            self.config.exit_flag = True
         except Exception as e:
-             self.logger.write(f"Map listesi çekilirken bir hata oluştu: {str(e)}", level="error")
-             self.i18n.print_lang("errors.general_error", e=str(e))
-             self.config.exit_flag = True
+            error_details = traceback.format_exc()
+            self.logger.write(f"Map listesi çekilirken bir hata oluştu: {error_details}", level="error")
+            self.i18n.print_lang("errors.general_error", e=str(e))
+            time.sleep(3)
+            self.config.exit_flag = True
 
 
 
