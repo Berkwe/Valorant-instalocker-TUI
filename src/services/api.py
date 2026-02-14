@@ -140,8 +140,6 @@ class MapService:
         self.i18n = i18n
         self.maps = {}
         self.excluded_maps = ["district", "kasbah", "drift", "piazza"]
-        self.lastCheck = ""
-        self.dt = date
     
     def updateApiData(self):
         """Valorant apisinden harita listesini çeker"""
@@ -150,7 +148,6 @@ class MapService:
             maps_temp = {}
             data = requests.get(Constants.VALORANT_MAPS_API_URL, verify=False, timeout=3)
             data_dict = dict(data.json())
-
             if data.status_code != 200 or data_dict.get("status") != 200:
                 self.logger.write(f"Valorant API hatası, HTTP Status: {data.status_code}, API Status: {data_dict.get('status')}", level="error")
                 return {"status": data.status_code if data.status_code != 200 else data_dict.get("status"), "returned": False}
@@ -163,11 +160,8 @@ class MapService:
                 maps_temp[displayName] = mapUrl
                 self.logger.write(f"Map eklendi : {displayName} - {mapUrl}")
                 
-            today = self.dt.today()
-            maps_temp["lastCheck"] = today.strftime("%d.%m.%Y")
             return maps_temp
-
-
+        
         except ConnectionError as e_conn:
             self.logger.write(f"Bağlantı hatası oluştu: {str(e_conn)}", level="error")
             return {"status": 0, "returned": False}
@@ -228,7 +222,7 @@ class MapService:
                 with open(Constants.MAP_LIST_PATH, "r", encoding="utf-8") as f:
                     data = json.load(f)
 
-                if "ascent" not in data.keys() or "lastCheck" not in data.keys():
+                if "ascent" not in data.keys():
                     self.logger.write("varsayılan map listesi de bozuk", "error")
                     self.config.exit_flag = True
                     return

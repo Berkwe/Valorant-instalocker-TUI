@@ -108,7 +108,7 @@ class InstalockerApp:
 
 
                 self.agent_service.loadAgents()
-                if self.config.exit_flag: 
+                if self.config.exit_flag:
                     break
                 if not self.agent_service.agents:
                     self.i18n.print_lang("errors.agent_list_load_failed")
