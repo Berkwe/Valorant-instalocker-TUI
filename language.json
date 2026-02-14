@@ -13,7 +13,9 @@
             "state_task_error": "HATA: StateTask çalışırken bir sorun oluştu: {error}. Lütfen geliştiriciye iletin.",
             "main_program_error": "Ana programda bir sorun oluştu, lütfen geliştiriciye iletin: {error}",
             "startup_error": "Instalocker başlatılırken hata oluştu. Lütfen geliştiriciye log dosyasını iletin: {error}",
-            "general_error": "Hata oluştu: {e}"
+            "general_error": "Hata oluştu: {e}",
+            "agent_list_error": "Ajan listesi API'den çekilemedi, lokal dosya çekiliyor...",
+            "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'"
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -22,7 +24,10 @@
             "agent_list_updated": "Ajan listesi başarıyla güncellendi.",
             "agent_list_updated_short": "Ajan listesi güncellendi.",
             "agent_list_default_updated": "Varsayılan ajan listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin: 'github/Berkwe'",
-            "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu."
+            "map_list_default_updated": "Varsayılan ajan listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin: 'github/Berkwe'",
+            "map_list_updated": "Harita listesi başarıyla güncellendi.",
+            "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu.",
+            "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi."
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -44,6 +49,8 @@
             "agent_list_updating": "Ajan listesi güncelleniyor...",
             "agent_list_corrupted": "Varsayılan ajan listesi bozuk. Güncelleme başlatılıyor..",
             "agent_file_not_found": "Local ajan dosyası bulunamadı, API'den güncelleniyor.",
+            "map_file_not_found": "Local harita dosyası bulunamadı, API'den güncelleniyor",
+            "map_list_updating": "Harita dosyası güncelleniyor...",
             "log_file_not_found": "Log dosyası bulunamadı manuel sunucu belirleniyor...",
             "restarting": "Yeniden başlatılıyor...",
             "language_changed": "Dil başarıyla değiştirildi : {language}",

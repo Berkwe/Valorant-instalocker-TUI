@@ -103,6 +103,10 @@ class InstalockerApp:
                     
                 self.logger.write(f"Bölge '{self.config.region}' olarak ayarlandı.", level="info")
                 
+                if Constants.clearOldFiles():
+                    self.i18n.print_lang("success.clear_old_files")
+
+
                 self.agent_service.loadAgents()
                 if self.config.exit_flag: 
                     break
