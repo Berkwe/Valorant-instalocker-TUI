@@ -4,7 +4,7 @@ from src.core.constants import Constants
 from src.core.config import Config
 from src.core.logger import Logger
 from src.core.i18n import LanguageManager
-from src.services.api import AgentService
+from src.services.api import AgentService, MapService
 from src.utils.shortcuts import ShortcutManager
 from src.utils.utils import AnimateText
 from src.utils.version import Version
@@ -18,6 +18,7 @@ class InstalockerApp:
         self.logger = Logger(self.config)
         self.i18n = LanguageManager(self.config, self.logger)
         self.agent_service = AgentService(self.config, self.logger, self.i18n)
+        self.map_service = MapService(self.config, self.logger, self.i18n)
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
         self.session = GameSession(self.config, self.logger, self.i18n)
         self.write_animated_text = AnimateText().write_animated_text
@@ -102,18 +103,18 @@ class InstalockerApp:
                     
                 self.logger.write(f"Bölge '{self.config.region}' olarak ayarlandı.", level="info")
                 
-                self.agent_service.load_agents()
+                self.agent_service.loadAgents()
                 if self.config.exit_flag: 
                     break
                 if not self.agent_service.agents:
                     self.i18n.print_lang("errors.agent_list_load_failed")
                     self.config.exit_flag = True
                     break
-                    
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
+                self.map_service.loadMaps()
+                versionResponse = self.version.versionControl()
 
                 while not self.config.is_shortcut:
-                    versionResponse = self.version.versionControl()
                     if versionResponse.get("isOld"):
                         self.i18n.print_lang("info.update_app_warn", version=versionResponse.get("apiVersion"))
                     self.i18n.print_lang("mode.options_header")
@@ -176,7 +177,7 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("güncelle", "update"):
                         os.system("cls")
-                        self.agent_service.load_agents(offline=False)
+                        self.agent_service.loadAgents(offline=False)
                         if self.config.exit_flag: break
                         self.i18n.print_lang("success.agent_list_updated")
                         self.i18n.update_language_file()
