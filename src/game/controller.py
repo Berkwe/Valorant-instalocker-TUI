@@ -1,4 +1,4 @@
-import asyncio, os, time, aioconsole
+import asyncio, os, time, aioconsole, traceback
 from base64 import b64decode as bs
 from src.core.logger import Logger
 from src.core.i18n import LanguageManager
@@ -110,7 +110,8 @@ class GameController:
                     self.logger.write("checkBreakProtection task'ı (iç döngüde) iptal edildi.")
                     break
                 except Exception as e:
-                    self.logger.write(f"Bozulma korumasında hata: {str(e)}", level="error")
+                    error_details = traceback.format_exc()
+                    self.logger.write(f"Bozulma korumasında hata: {error_details}", level="error")
                     self.i18n.print_lang("errors.general_error", e=str(e))
                     if break_game_task and not break_game_task.done():
                         break_game_task.cancel()
@@ -164,7 +165,7 @@ class GameController:
                             os.system("cls")
                             self.i18n.print_lang("game.selection_screen_detected")
                             if mode == 3:
-                                currentMapUrl = fetched_request["mapUrl"]
+                                currentMapUrl = fetched_request["matchMap"]
                                 currentMap = self.map_service.maps.get(currentMapUrl)
                                 if currentMap is None:
                                     self.i18n.print_lang("errors.map_file_broken")
@@ -198,8 +199,9 @@ class GameController:
                             time.sleep(4)
                             break
                     except Exception as e:
-                         self.logger.write(f"Ajan kitlerken hata: {str(e)}", level="error")
-                         raise Exception(f"Ajan kitlerken hata: {e}")
+                        error_details = traceback.format_exc()
+                        self.logger.write(f"Ajan kitlerken hata: {error_details}", level="error")
+                        raise Exception(f"Ajan kitlerken hata: {e}")
 
                 if quest_shortcut_task and not quest_shortcut_task.done():
                      quest_shortcut_task.cancel()
