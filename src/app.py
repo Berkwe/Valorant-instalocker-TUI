@@ -25,6 +25,7 @@ class InstalockerApp:
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
         self.version = Version()
+        self.versionResponse = self.version.versionControl()
         self.parser.add_argument("--agent", help="ajan ismi")
         self.parser.add_argument("--mode", help="seçim modu lock/select")
         self.parser.add_argument("--region", help="region idsi (eu,na vb)")
@@ -116,11 +117,10 @@ class InstalockerApp:
                     break
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
                 self.map_service.loadMaps()
-                versionResponse = self.version.versionControl()
 
                 while not self.config.is_shortcut:
-                    if versionResponse.get("isOld"):
-                        self.i18n.print_lang("info.update_app_warn", version=versionResponse.get("apiVersion"))
+                    if self.versionResponse.get("isOld"):
+                        self.i18n.print_lang("info.update_app_warn", version=self.versionResponse.get("apiVersion"))
                     self.i18n.print_lang("mode.options_header")
                     self.i18n.print_lang("mode.options")
                     self.i18n.print_lang("mode.INPUT_get_mode")

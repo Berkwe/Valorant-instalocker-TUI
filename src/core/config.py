@@ -2,7 +2,7 @@ class Config:
     def __init__(self):
         self.debug = False
         self.region = None
-        self.mode = 0  # 1: Kitleme 2: seçme
+        self.mode = 0  # ? 1: Kitleme 2: seçme
         self.agent = None
         
         self.reboot_flag = False
