@@ -9,7 +9,7 @@ class Config:
             "haven": "brimstone"
 
         }
-        self.profilePath = ""
+        self.profilePath = "/home/berkwe/profile.json"
         
         self.reboot_flag = False
         self.exit_flag = False

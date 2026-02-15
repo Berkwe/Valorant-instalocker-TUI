@@ -140,12 +140,6 @@ class GameController:
                 self.i18n.print_lang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
 
             else:
-                if len(profile.keys()) < 3:
-                    self.i18n.print_lang("error.profile_file_broken")
-                    time.sleep(3)
-                    self.config.exit_flag = True
-                    return
-                
                 self.i18n.print_lang('success.profile_file_loaded', path=self.config.profilePath)
             break_protection_task = None
             break_game_task = None

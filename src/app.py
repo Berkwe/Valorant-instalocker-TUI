@@ -155,9 +155,14 @@ class InstalockerApp:
                         self.i18n.print_lang("mode.set_to_select")
                         self.config.mode = 2
                         break
+                    elif mode_int == 3:
+                        os.system("cls")
+                        self.i18n.print_lang("mode.set_to_macro")
+                        self.config.mode = 3
+                        break
                     else:
                         os.system("cls")
-                        self.i18n.print_lang("prompts.enter_1_or_2")
+                        self.i18n.print_lang("prompts.enter_correct_mode")
                         continue
 
                 success = self.session.start_client()

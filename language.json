@@ -16,7 +16,8 @@
             "general_error": "Hata oluştu: {e}",
             "agent_list_error": "Ajan listesi API'den çekilemedi, lokal dosya çekiliyor...",
             "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'",
-            "map_file_broken": "Harita listesi bozuk ajan seçim ekranında 'güncelle' komutu ile güncelleyin."
+            "map_file_broken": "Harita listesi bozuk ajan seçim ekranında 'güncelle' komutu ile güncelleyin.",
+            "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}"
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -28,7 +29,8 @@
             "map_list_default_updated": "Varsayılan harita listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin: 'github/Berkwe'",
             "map_list_updated": "Harita listesi başarıyla güncellendi.",
             "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu.",
-            "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi."
+            "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
+            "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}"
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -41,7 +43,7 @@
             "invalid_agent": "Lütfen ajan ismini doğru girin! Ajan isimleri ve diğer komutlar için 'yardım/help' yazın.",
             "invalid_disrupt_command": "Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.",
             "enter_number": "Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.",
-            "enter_1_or_2": "Lütfen sadece 1 veya 2 girin, açıklama ve yardım için help veya yardım yazın.",
+            "enter_correct_mode": "Lütfen sadece 1, 2 veya 3 girin, açıklama ve yardım için help veya yardım yazın.",
             "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
             "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : "
         },
@@ -73,13 +75,14 @@
         "mode": {
             "options_header": "Mod seçenekleri : ",
             "INPUT_get_mode": "Lütfen bir mod seçin : ",
-            "options": "\n1. Ajan kitleme modu(klasik, hızlı seçim için enter)\n2. Ajan seçme modu(sadece seçer, kitlenmez)\n",
+            "options": "\n1. Ajan kitleme modu(klasik, hızlı seçim için enter)\n2. Ajan seçme modu(sadece seçer, kitlenmez)\n3. Haritaya göre seçme modu(Daha fazla bilgi için 'yardım')",
             "set_to_lock": "Mod ajan kitleme olarak ayarlandı!",
-            "set_to_select": "Mod ajan seçme olarak ayarlandı!"
+            "set_to_select": "Mod ajan seçme olarak ayarlandı!",
+            "set_to_macro": "Mod Harita Makrosu olarak ayarlandı!"
         },
         "help": {
             "agent_select_message": "-r/rastgele/random : Ajanı rastgele seçer.\n-güncelle/update : Ajan Listesini, Harita Listesini ve Dil Dosyasını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili İngilizce veya Türkçe şeklinde değiştirir.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-liste-konumu/agents-folder : Ajan listesinin konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyasının konumunu döndürür.\n-yardım/help : bu mesajı görüntüler.",
-            "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, seçim ekranlarında bilgisayar başında olmanıza gerek kalmaz.\n- 3 yardım/help : bu mesajı gösterir.\n"
+            "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, instalock atmak istemediğinizde bile Instalocker'i kullanabilirsiniz.\n- 3 : Oluşturacağınız profil dosyası ile haritalara göre özelleştirilmiş ajanları otomatik biçimde kilitlemenize olanak tanır, profil dosyasını ajan seçim ekranında belirlersiniz.\n- 4 yardım/help : bu mesajı gösterir."
         },
         "debug": {
             "valorant_not_open_skipping": "Valorant açık değil fakat debug açık olduğundan atlanıyor..",
@@ -103,7 +106,8 @@
             "general_error": "An error occurred: {e}",
             "agent_list_error": "Agent list could not be fetched from API, loading local file...",
             "agent_list_default_error": "Default agent list could not be loaded either, check to install manually: 'github/Berkwe'",
-            "map_file_broken": "Update the broken map list in the agent selection screen using the 'update' command."
+            "map_file_broken": "Update the broken map list in the agent selection screen using the 'update' command.",
+            "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}"
 
         },
         "success": {
@@ -116,7 +120,8 @@
             "map_list_default_updated": "Default map list updated successfully, see help to view content, check github for manual updates: 'github/Berkwe'",
             "map_list_updated": "Map list updated successfully.",
             "shortcut_created": "Shortcut created at '{path}'.",
-            "clear_old_files": "Remnants of older versions of Instalocker were found and successfully cleaned."
+            "clear_old_files": "Remnants of older versions of Instalocker were found and successfully cleaned.",
+            "profile_file_loaded": "Profile file successfully uploaded: {path}"
         },
         "prompts": {
             "select_language": "Language (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -129,7 +134,7 @@
             "invalid_agent": "Please enter the agent name correctly! Type 'help' for agent names and other commands.",
             "invalid_disrupt_command": "Unknown command, please type e or y. Leave blank if you don't want to disrupt.",
             "enter_number": "Please enter a number, type help for description and assistance.",
-            "enter_1_or_2": "Please enter only 1 or 2, type help for description and assistance.",
+            "enter_correct_mode": "Please enter only 1, 2 or 3, type help for description and assistance.",
             "INPUT_quest_shortcut": "Would you like to create a shortcut on your desktop for this agent? Y/N : ",
             "INPUT_quest_breakgame": "Would you like to break game? Y/N : "
         },
@@ -162,12 +167,13 @@
             "options_header": "Mode options : ",
             "INPUT_get_mode": "Please select a mode : ",
             "options": "\n1. Agent lock mode (classic, quick select with enter)\n2. Agent select mode (just select, no lock)\n\n",
-            "set_to_lock": "Mode set to agent lock!",
-            "set_to_select": "Mode set to agent select!"
+            "set_to_lock": "Mode set to Agent Lock!",
+            "set_to_select": "Mode set to Agent Select!",
+            "set_to_macro": "Mode set to Map Macro!"
         },
         "help": {
             "agent_select_message": "-r/rastgele/random : randomly selects the agent.\n-güncelle/update : Updates the agent list, map list and language file.\n-yb/re : Quickly restarts the application.\n-türkçe/english : Changes the language to English or Turkish.\n-ajanlar/agents : Returns the list of agents in a readable format.\n-ajanlar-l/agents-l : Returns the list of agents in 'list' format.\n-liste-konumu/agents-folder : Returns the location of the agent list.\n-kayıt-konumu/logs-folder : Returns the location of the log file.\n-yardım/help : Displays this message.",
-            "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2 : Only selects the agent without locking it. This allows you to stay away from your computer during the agent selection phase in competitive matches.\n- 3 help : Displays this message.\n"
+            "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2: Only selects the agent, does not lock it. This way, you can use Instalocker even when you don't want to use instalock in competitive matches.\n- 3: Allows you to automatically lock agents customized according to maps using the profile file you create; you specify the profile file in the agent selection screen.\n- 4 help: Displays this message.\n"
         },
         "debug": {
             "valorant_not_open_skipping": "Valorant is not open but debug is enabled, skipping...",
