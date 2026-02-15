@@ -6,15 +6,17 @@ from src.core.config import Config
 from src.game.client import GameSession
 from src.utils.shortcuts import ShortcutManager
 from src.utils.utils import AnimateText
+from src.services.api import AgentService, MapService
 
 class GameController:
-    def __init__(self, config: Config, logger: Logger, i18n: LanguageManager, session: GameSession, shortcut_mgr: ShortcutManager, agent_service):
+    def __init__(self, config: Config, logger: Logger, i18n: LanguageManager, session: GameSession, shortcut_mgr: ShortcutManager, agent_service: AgentService, map_service: MapService):
         self.config = config
         self.logger = logger
         self.i18n = i18n
         self.session = session
         self.shortcut_mgr = shortcut_mgr
         self.agent_service = agent_service
+        self.map_service = map_service
         self.write_animated_text = AnimateText().write_animated_text
 
 
@@ -118,27 +120,38 @@ class GameController:
         except asyncio.CancelledError:
             self.logger.write("checkBreakProtection task'ı (ana döngü) iptal edildi.")
 
-    async def run_state(self):
+    async def mainInstalocker(self):
         """Ana oyun kontrolü döngüsü"""
         mode = self.config.mode
+        profile = self.config.profile
         agent = self.config.agent
         region = self.config.region
 
         while not self.config.user_broke_game and not self.config.exit_flag:
-            self.logger.write(f"State fonksiyonu çalıştı. Mod: {mode}, Ajan: {agent}", level="info")
-            
-            if self.config.language == "english":
-                mode_text = "select and lock" if mode == 1 else "only select"
+            self.logger.write(f"Main Instlaocker fonksiyonu çalıştı Mod: {mode}, Ajan: {agent if mode != 3 else "macro için debug aç"}", level="info")
+            if mode == 3:
+                self.logger.write(f'Profil dosyası: {profile}')
+            if mode != 3:
+                if self.config.language == "english":
+                    mode_text = "select and lock" if mode == 1 else "only select"
+                else:
+                    mode_text = "seç ve kilitle" if mode == 1 else "sadece seç"
+                    
+                self.i18n.print_lang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
+
             else:
-                mode_text = "seç ve kilitle" if mode == 1 else "sadece seç"
+                if len(profile.keys()) < 3:
+                    self.i18n.print_lang("error.profile_file_broken")
+                    time.sleep(3)
+                    self.config.exit_flag = True
+                    return
                 
-            self.i18n.print_lang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
-            
+                self.i18n.print_lang('success.profile_file_loaded', path=self.config.profilePath)
             break_protection_task = None
             break_game_task = None
             quest_shortcut_task = None
             
-            if not self.config.is_shortcut:
+            if not self.config.is_shortcut and mode != 3: # ? şimdilik bypass sonra düzeltirim
                  quest_shortcut_task = asyncio.create_task(
                     self.shortcut_mgr.ask_for_shortcut({"agent": agent, "mode": mode, "region": region})
                  )
@@ -147,7 +160,8 @@ class GameController:
                 while True:
                     try:
                         await asyncio.sleep(0)
-                        fetched_state = self.session.fetch_presence()['matchPresenceData']['sessionLoopState']
+                        fetched_request = self.session.fetch_presence()['matchPresenceData']
+                        fetched_state = fetched_request['sessionLoopState']
                         
                         if (fetched_state == "PREGAME" and 
                             self.session.pregame_fetch_match()['ID'] not in self.session.matches and 
@@ -155,7 +169,15 @@ class GameController:
                             
                             os.system("cls")
                             self.i18n.print_lang("game.selection_screen_detected")
-                            
+                            if mode == 3:
+                                currentMapUrl = fetched_request["mapUrl"]
+                                currentMap = self.map_service.maps.get(currentMapUrl)
+                                if currentMap is None:
+                                    self.i18n.print_lang("errors.map_file_broken")
+                                    time.sleep(3)
+                                    self.config.exit_flag = True
+                                    return
+                                agent = profile.get(currentMap)
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
                             

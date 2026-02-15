@@ -2,8 +2,14 @@ class Config:
     def __init__(self):
         self.debug = False
         self.region = None
-        self.mode = 0  # ? 1: Kitleme 2: seçme
+        self.mode = 0  # ? 1: Kitleme 2: seçme 3: makro
         self.agent = None
+        self.profile = {
+            "ascent": "jett",
+            "haven": "brimstone"
+
+        }
+        self.profilePath = ""
         
         self.reboot_flag = False
         self.exit_flag = False

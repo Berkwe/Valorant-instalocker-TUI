@@ -249,8 +249,8 @@ class InstalockerApp:
                     continue
                 
                 self.logger.write(f"State task'ı başlatılıyor: {self.config.agent}")
-                controller = GameController(self.config, self.logger, self.i18n, self.session, self.shortcut_mgr, self.agent_service)
-                await controller.run_state()
+                controller = GameController(self.config, self.logger, self.i18n, self.session, self.shortcut_mgr, self.agent_service, self.map_service)
+                await controller.mainInstalocker()
                 
                 if self.config.user_broke_game:
                     self.write_animated_text("Instalocker For Valorant")

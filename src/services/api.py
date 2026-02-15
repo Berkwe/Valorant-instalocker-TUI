@@ -160,8 +160,8 @@ class MapService:
                 displayName = map.get("displayName").lower()
                 if displayName in self.excluded_maps:
                     continue
-                mapUrl = map.get("mapUrl")
-                maps_temp[displayName] = mapUrl
+                mapUrl = map.get("mapUrl").lower()
+                maps_temp[mapUrl] = displayName
                 self.logger.write(f"Map eklendi : {displayName} - {mapUrl}")
                 
             return maps_temp
