@@ -183,7 +183,6 @@ class MapService:
         
     def loadMaps(self, offline = True):
         try:
-            maps_list = {}
             if offline:
                 if not os.path.exists(Constants.MAP_LIST_PATH):
                     self.logger.write("Offline modda Map listesi bulunamadı. Apiden güncelleniyor..", "warn")
@@ -199,12 +198,22 @@ class MapService:
                     self.i18n.print_lang("success.map_list_updated")
 
 
-                with open(Constants.MAP_LIST_PATH, "w", encoding="utf-8") as f:
-                    json.dump(maps_list, f, ensure_ascii=False, indent=4)
-                self.maps = maps_list
-                self.logger.write("Haritalar offline olarak lokal maps.json dosyasından yüklendi", "info")
-                return
+                    with open(Constants.MAP_LIST_PATH, "w", encoding="utf-8") as f:
+                        json.dump(maps_list, f, ensure_ascii=False, indent=4)
+                    self.maps = maps_list
+                    self.logger.write("Haritalar offline olarak lokal maps.json dosyasından yüklendi", "info")
+                    return
             
+                with open(Constants.MAP_LIST_PATH, "r", encoding="utf-8") as f:
+                    maps_list = json.load(f)
+                    if len(maps_list.keys()) < 5 or "ascent" not in maps_list.values():
+                        self.i18n.print_lang("errors.map_file_broken")
+                        self.loadMaps(False)
+                        return
+                    self.maps = maps_list
+                    self.logger.write("Harita listesi lokalden çekildi.", "info")
+                    return
+
             self.logger.write("Online modda harita listesi güncelleniyor", "info")
             maps_list = self.updateApiData()
             self.i18n.print_lang("info.map_list_updating")

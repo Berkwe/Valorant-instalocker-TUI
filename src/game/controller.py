@@ -127,7 +127,7 @@ class GameController:
         profile = self.config.profile
         agent = self.config.agent
         region = self.config.region
-
+        print(self.map_service.maps)
         while not self.config.user_broke_game and not self.config.exit_flag:
             self.logger.write(f"Main Instlaocker fonksiyonu çalıştı Mod: {mode}, Ajan: {agent if mode != 3 else "macro için debug aç"}", level="info")
             if mode == 3:

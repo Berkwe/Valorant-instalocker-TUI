@@ -116,6 +116,7 @@ class InstalockerApp:
                     self.config.exit_flag = True
                     break
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
+                
                 self.map_service.loadMaps()
 
                 while not self.config.is_shortcut:
