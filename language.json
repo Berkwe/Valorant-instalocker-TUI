@@ -163,7 +163,7 @@
             "set_to_select": "Mode set to agent select!"
         },
         "help": {
-            "agent_select_message": "-r/rastgele/random : randomly selects the agent.\n-güncelle/update : Updates the agent list and language file.\n-yb/re : Quickly restarts the application.\n-türkçe/english : Changes the language to English or Turkish.\n-ajanlar/agents : Returns the list of agents in a readable format.\n-ajanlar-l/agents-l : Returns the list of agents in 'list' format.\n-liste-konumu/agents-folder : Returns the location of the agent list.\n-kayıt-konumu/logs-folder : Returns the location of the log file.\n-yardım/help : Displays this message.",
+            "agent_select_message": "-r/rastgele/random : randomly selects the agent.\n-güncelle/update : Updates the agent list, map list and language file.\n-yb/re : Quickly restarts the application.\n-türkçe/english : Changes the language to English or Turkish.\n-ajanlar/agents : Returns the list of agents in a readable format.\n-ajanlar-l/agents-l : Returns the list of agents in 'list' format.\n-liste-konumu/agents-folder : Returns the location of the agent list.\n-kayıt-konumu/logs-folder : Returns the location of the log file.\n-yardım/help : Displays this message.",
             "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2 : Only selects the agent without locking it. This allows you to stay away from your computer during the agent selection phase in competitive matches.\n- 3 help : Displays this message.\n"
         },
         "debug": {
