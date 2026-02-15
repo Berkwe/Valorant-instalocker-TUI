@@ -15,7 +15,8 @@
             "startup_error": "Instalocker başlatılırken hata oluştu. Lütfen geliştiriciye log dosyasını iletin: {error}",
             "general_error": "Hata oluştu: {e}",
             "agent_list_error": "Ajan listesi API'den çekilemedi, lokal dosya çekiliyor...",
-            "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'"
+            "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'",
+            "map_file_broken": "Harita listesi bozuk ajan seçim ekranında 'güncelle' komutu ile güncelleyin."
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -101,7 +102,9 @@
             "startup_error": "Error occurred while starting Instalocker, please report the log file to the developer: {error}",
             "general_error": "An error occurred: {e}",
             "agent_list_error": "Agent list could not be fetched from API, loading local file...",
-            "agent_list_default_error": "Default agent list could not be loaded either, check to install manually: 'github/Berkwe'"
+            "agent_list_default_error": "Default agent list could not be loaded either, check to install manually: 'github/Berkwe'",
+            "map_file_broken": "Update the broken map list in the agent selection screen using the 'update' command."
+
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",
