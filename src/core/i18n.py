@@ -79,6 +79,7 @@ class LanguageManager:
             with open(Constants.LANGUAGE_FILE_PATH, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
             self.logger.write(f"Language file {Constants.LANGUAGE_FILE_PATH} içine yazıldı.", "info")
+            self.load_language_file()
             return {"response": True, "data": data}
 
         except requests.exceptions.RequestException as req_err:
