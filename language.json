@@ -17,7 +17,8 @@
             "agent_list_error": "Ajan listesi API'den çekilemedi, lokal dosya çekiliyor...",
             "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'",
             "map_file_broken": "Harita listesi bozuk ajan seçim ekranında 'güncelle' komutu ile güncelleyin.",
-            "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}"
+            "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}",
+            "map_list_load_failed": "Harita listesi yüklenirken hata oluştu. Instalocker kapanıyor..."
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -30,7 +31,8 @@
             "map_list_updated": "Harita listesi başarıyla güncellendi.",
             "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu.",
             "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
-            "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}"
+            "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}",
+            "profile_file_created": "Profil dosyası başarıyla oluşturuldu: {path}"
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -45,7 +47,8 @@
             "enter_number": "Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.",
             "enter_correct_mode": "Lütfen sadece 1, 2 veya 3 girin, açıklama ve yardım için help veya yardım yazın.",
             "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
-            "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : "
+            "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : ",
+            "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin. Yeni bir tane oluşturmak için 'yardım' yazın.\nSeç : "
         },
         "info": {
             "language_file_downloading": "Dil dosyası bulunamadı, uzaktan indiriliyor...",
@@ -96,7 +99,7 @@
             "update_language_file_error": "Error occurred during updateLanguageFile: {e}",
             "language_file_load_failed": "Failed to retrieve language file. HTTP code: {status_code}",
             "language_file_read_error": "Error occurred while reading language file: {e}",
-            "log_write_error": "An error occurred while writing logs. Please report to the developer",
+            "log_write_error": "An error occurred <while writing logs. Please report to the developer",
             "shortcut_creation_error": "An error occurred while creating the shortcut. Please report to the developer",
             "valorant_folder_not_found": "'{path}' not found, Valorant may not be installed or AppData inaccessible. If folder exists, try running Instalocker as administrator.",
             "agent_list_load_failed": "Failed to load agent list. Instalocker will close.",
@@ -107,8 +110,8 @@
             "agent_list_error": "Agent list could not be fetched from API, loading local file...",
             "agent_list_default_error": "Default agent list could not be loaded either, check to install manually: 'github/Berkwe'",
             "map_file_broken": "Update the broken map list in the agent selection screen using the 'update' command.",
-            "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}"
-
+            "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}",
+            "map_list_load_failed": "Failed to load map list. Instalocker will close."
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",
@@ -121,7 +124,8 @@
             "map_list_updated": "Map list updated successfully.",
             "shortcut_created": "Shortcut created at '{path}'.",
             "clear_old_files": "Remnants of older versions of Instalocker were found and successfully cleaned.",
-            "profile_file_loaded": "Profile file successfully uploaded: {path}"
+            "profile_file_loaded": "Profile file successfully uploaded: {path}",
+            "profile_file_created": "Profile file successfully created: {path}"
         },
         "prompts": {
             "select_language": "Language (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -136,7 +140,8 @@
             "enter_number": "Please enter a number, type help for description and assistance.",
             "enter_correct_mode": "Please enter only 1, 2 or 3, type help for description and assistance.",
             "INPUT_quest_shortcut": "Would you like to create a shortcut on your desktop for this agent? Y/N : ",
-            "INPUT_quest_breakgame": "Would you like to break game? Y/N : "
+            "INPUT_quest_breakgame": "Would you like to break game? Y/N : ",
+            "INPUT_macro_profile_path": "Please enter the path to your profile file or select one from the saved ones. To create a new one, type 'help'\nSelect : "
         },
         "info": {
             "language_file_downloading": "Language file not found, downloading remotely...",

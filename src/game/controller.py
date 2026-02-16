@@ -127,7 +127,7 @@ class GameController:
         profile = self.config.profile
         agent = self.config.agent
         region = self.config.region
-        print(self.map_service.maps)
+        print(self.map_service.maps) # ! ÇIKIŞTA KALDIR
         while not self.config.user_broke_game and not self.config.exit_flag:
             self.logger.write(f"Main Instlaocker fonksiyonu çalıştı Mod: {mode}, Ajan: {agent if mode != 3 else "macro için debug aç"}", level="info")
             if mode == 3:
@@ -165,14 +165,17 @@ class GameController:
                             os.system("cls")
                             self.i18n.print_lang("game.selection_screen_detected")
                             if mode == 3:
-                                currentMapUrl = fetched_request["matchMap"]
+                                currentMapUrl = fetched_request["matchMap"].lower()
                                 currentMap = self.map_service.maps.get(currentMapUrl)
+                                self.logger.write(f"{currentMap}, {currentMapUrl}", "info")
                                 if currentMap is None:
                                     self.i18n.print_lang("errors.map_file_broken")
                                     time.sleep(3)
                                     self.config.exit_flag = True
                                     return
                                 agent = profile.get(currentMap)
+
+                                
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
                             

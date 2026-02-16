@@ -1,7 +1,5 @@
 import os
 
-
-
 class Constants:
     VALORANT_PATH = os.path.expandvars(r"%LocalAppData%\VALORANT")
     INSTALOCKER_PATH = os.path.join(VALORANT_PATH, "Instalocker")
@@ -15,6 +13,14 @@ class Constants:
     VALORANT_AGENTS_API_URL = "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
     VALORANT_MAPS_API_URL = "https://valorant-api.com/v1/maps"
     LANGUAGE_FILE_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/language.json"
+    PROFILE_FILE_DEFAULT_PROP_TR = {
+        "ajan": "",
+        "mod": ""
+    }
+    PROFILE_FILE_DEFAULT_PROP_EN = {
+         "agent": "",
+         "mode": ""
+    }
 
     def clearOldFiles():
             """Eski sürümlerden kalan dosyaları temizler"""

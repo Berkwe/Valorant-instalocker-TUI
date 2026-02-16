@@ -21,7 +21,7 @@ class InstalockerApp:
         self.map_service = MapService(self.config, self.logger, self.i18n)
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
         self.session = GameSession(self.config, self.logger, self.i18n)
-        self.write_animated_text = AnimateText().write_animated_text
+        self.write_animated_text = AnimateText(self.map_service).write_animated_text
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
         self.version = Version()
@@ -118,6 +118,13 @@ class InstalockerApp:
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
                 
                 self.map_service.loadMaps()
+                if self.config.exit_flag:
+                    break
+                if not self.map_service.maps:
+                    self.i18n.print_lang("errors.map_list_load_failed")
+                    self.config.exit_flag = True
+                    break
+                self.logger.write(f"Harita listesi yüklendi. {len(self.map_service.maps)} harita.", level="info")
 
                 while not self.config.is_shortcut:
                     if self.versionResponse.get("isOld"):
@@ -178,9 +185,15 @@ class InstalockerApp:
                     last = self.dt.today() - self.dt.strptime(self.agent_service.lastCheck, "%d.%m.%Y")
                     if last.days > 3:
                         self.i18n.print_lang("info.last_update_check", day=last.days)
-                    self.i18n.print_lang("prompts.INPUT_select_agent")
+
+                    if self.config.mode == 3:
+                        self.i18n.print_lang("prompts.INPUT_macro_profile_path")
+                    else:
+                        self.i18n.print_lang("prompts.INPUT_select_agent")
                     agent_input = input("").lower()
-                    self.logger.write(f"Ajan inputu : {agent_input}", "info")
+
+                    self.logger.write(f"{"ajan inputu" if self.config.mode != 3 else "profil dosyası yolu"} : {agent_input}", "info")
+
                     if agent_input in ("yardım", "help"):
                         os.system("cls")
                         self.i18n.print_lang("help.agent_select_message")
@@ -225,28 +238,34 @@ class InstalockerApp:
                         os.system("cls")
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue
-                    selected_agent = ""
-                    if agent_input in self.agent_service.agents and agent_input != "lastCheck":
-                        selected_agent = agent_input
-                    elif len(agent_input) >= 4:
-                        for name in self.agent_service.agents:
-                            if name.startswith(agent_input) and len(name) >len(agent_input): 
-                                selected_agent = name
-                                os.system("cls")
-                                break
-                    elif agent_input in ("rastgele", "random", "r", "Kendimi Bok Gibi Hissediyorum :)"):
-                        agent_list = list(self.agent_service.agents.keys()) # ? üşendiğimden 5 yere aynı yapıyı kopyaladım kim uğraşcak 
-                        agent_list.remove("lastCheck")
-                        selected_agent = random.choice(agent_list)
-                    if selected_agent:
-                        self.config.agent = selected_agent
-                        self.logger.write(f"Ajan seçildi: {selected_agent}")
-                        os.system("cls")
-                        break
+                    elif agent_input in ("profil-oluştur", "create-profile"):
+                        returnedProfilePath = AnimateText.createProfile()
+                        self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
+                    if self.config.mode == 3:
+                        profile_path = ""
                     else:
-                        os.system("cls")
-                        self.i18n.print_lang("prompts.invalid_agent")
-                        continue
+                        selected_agent = ""
+                        if agent_input in self.agent_service.agents and agent_input != "lastCheck":
+                            selected_agent = agent_input
+                        elif len(agent_input) >= 4:
+                            for name in self.agent_service.agents:
+                                if name.startswith(agent_input) and len(name) >len(agent_input): 
+                                    selected_agent = name
+                                    os.system("cls")
+                                    break
+                        elif agent_input in ("rastgele", "random", "r", "Kendimi Bok Gibi Hissediyorum :)"):
+                            agent_list = list(self.agent_service.agents.keys()) # ? üşendiğimden 5 yere aynı yapıyı kopyaladım kim uğraşcak 
+                            agent_list.remove("lastCheck")
+                            selected_agent = random.choice(agent_list)
+                        if selected_agent:
+                            self.config.agent = selected_agent
+                            self.logger.write(f"Ajan seçildi: {selected_agent}")
+                            os.system("cls")
+                            break
+                        else:
+                            os.system("cls")
+                            self.i18n.print_lang("prompts.invalid_agent")
+                            continue
                 
                 if self.config.exit_flag: break
                 if self.config.reboot_flag:

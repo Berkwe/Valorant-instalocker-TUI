@@ -4,12 +4,26 @@ class Config:
         self.region = None
         self.mode = 0  # ? 1: Kitleme 2: seçme 3: makro
         self.agent = None
-        self.profile = {
-            "ascent": "jett",
-            "haven": "brimstone"
+        self.profile = {}
+        
+        
+        
+        """{
+            "ascent": ["jett", 1],
+            "haven": ["brim", 2],
+                #ORRR
+            "ascent": {
+                "ajan": "jett",
+                "mod": 1
+            },
+            "haven": {
+                "ajan": "brim",
+                "mod": 2
+            },
 
-        }
-        self.profilePath = "/home/berkwe/profile.json"
+
+        }"""
+        self.profilePath = ""
         
         self.reboot_flag = False
         self.exit_flag = False
