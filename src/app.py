@@ -4,7 +4,7 @@ from src.core.constants import Constants
 from src.core.config import Config
 from src.core.logger import Logger
 from src.core.i18n import LanguageManager
-from src.services.api import AgentService, MapService
+from src.services.api import AgentService, MapService, ProfileService
 from src.utils.shortcuts import ShortcutManager
 from src.utils.utils import AnimateText
 from src.utils.version import Version
@@ -20,8 +20,9 @@ class InstalockerApp:
         self.agent_service = AgentService(self.config, self.logger, self.i18n)
         self.map_service = MapService(self.config, self.logger, self.i18n)
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
+        self.profile_service = ProfileService(self.config, self.logger, self.i18n, self.map_service)
         self.session = GameSession(self.config, self.logger, self.i18n)
-        self.write_animated_text = AnimateText(self.map_service).write_animated_text
+        self.write_animated_text = AnimateText().write_animated_text
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
         self.version = Version()
@@ -239,7 +240,7 @@ class InstalockerApp:
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue
                     elif agent_input in ("profil-oluştur", "create-profile"):
-                        returnedProfilePath = AnimateText.createProfile()
+                        returnedProfilePath = self.profile_service.createProfile()
                         self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
                     if self.config.mode == 3:
                         profile_path = ""

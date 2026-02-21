@@ -1,4 +1,4 @@
-import requests, json, os, time, traceback
+import requests, json, os, time, traceback, winreg
 from datetime import date
 from requests.exceptions import ConnectionError
 from src.core.constants import Constants
@@ -256,6 +256,55 @@ class MapService:
             self.i18n.print_lang("errors.general_error", e=str(e))
             time.sleep(3)
             self.config.exit_flag = True
+
+class ProfileService:
+    def __init__(self, config: Config, logger: Logger, language_manager: LanguageManager, map_service):
+        self.config = config
+        self.logger = logger
+        self.i18n = language_manager
+        self.map_service = map_service
+
+    def createProfile(self):
+        """Masaüstüne profil dosyası oluşturur"""
+        try:
+            profile_file = {}
+            profile_file_name = "Instalocker_profile"
+            profile_file_name_ext = "_1"
+            final_profile_file_name = ""
+            self.logger.write("createProfile çağrıldı", "info")
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders") as reg_key:
+                desktop_path, _ = winreg.QueryValueEx(reg_key, "Desktop")
+                
+            user_dir = os.path.expandvars(desktop_path)
+            if not os.path.exists(user_dir):
+                user_dir = os.path.expanduser("~")
+            if self.config.language == "turkish":
+                for _, map in self.map_service.maps.items():
+                    profile_file[map] = Constants.PROFILE_FILE_DEFAULT_PROP_TR
+            else:
+                for _, map in self.map_service.maps.items():
+                    profile_file[map] = Constants.PROFILE_FILE_DEFAULT_PROP_EN
+
+
+            self.logger.write(f"Varsayılan profil dosyası oluşturuldu : {profile_file}")
+            for i in range(1, 30):
+                if os.path.exists(os.path.join(user_dir, final_profile_file_name)):
+                    profile_file_name_ext = profile_file_name_ext[0]
+                    profile_file_name_ext = "_"+str(i)
+                    final_profile_file_name = profile_file_name+profile_file_name_ext
+                    continue
+                with open(os.path.join(user_dir, final_profile_file_name), "w", encoding="utf-8") as f:
+                    json.dump(profile_file, f, ensure_ascii=False, indent=4)
+                self.logger.write(f"{os.path.join(user_dir, final_profile_file_name)} yoluna profil dosyası oluşturuldu.", "info")
+                return os.path.join(user_dir, final_profile_file_name)
+            self.config.exit_flag = True
+            raise TimeoutError("Profil dosyası 30 dan çok olduğundan Instalocker kapanıyor..")
+        except Exception as e:
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Hata : {detailed_exception}", "error")
+            self.i18n.print_lang("errors.general_error", e=e)
+            raise e
+
 
 
 
