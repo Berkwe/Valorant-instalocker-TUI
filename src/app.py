@@ -188,7 +188,10 @@ class InstalockerApp:
                         self.i18n.print_lang("info.last_update_check", day=last.days)
 
                     if self.config.mode == 3:
-                        self.i18n.print_lang("prompts.INPUT_macro_profile_path")
+                        if self.config.profilePath != "":
+                            self.i18n.print_lang("prompts.INPUT_macro_profile_path_default", path=self.config.profilePath)
+                        else: 
+                            self.i18n.print_lang("prompts.INPUT_macro_profile_path")
                     else:
                         self.i18n.print_lang("prompts.INPUT_select_agent")
                     agent_input = input("").lower()
@@ -241,9 +244,24 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("profil-oluştur", "create-profile"):
                         returnedProfilePath = self.profile_service.createProfile()
+                        self.config.profilePath = os.path.abspath(returnedProfilePath)
                         self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
+                        continue
                     if self.config.mode == 3:
-                        profile_path = ""
+                        if (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
+                            path = self.config.profilePath
+                        else:
+                            path = agent_input
+                        
+                        if path == "" or path.isspace():
+                            continue
+                        isValidProfile = self.profile_service.loadProfile(path)
+                        
+                        if not isValidProfile:
+                            self.i18n.print_lang("errors.profile_file_not_loaded")
+                            continue
+                        self.i18n.print_lang("success.profile_file_loaded", path=path)
+                        break
                     else:
                         selected_agent = ""
                         if agent_input in self.agent_service.agents and agent_input != "lastCheck":

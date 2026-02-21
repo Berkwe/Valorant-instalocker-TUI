@@ -17,8 +17,10 @@
             "agent_list_error": "Ajan listesi API'den çekilemedi, lokal dosya çekiliyor...",
             "agent_list_default_error": "Varsayılan ajan listesi de çekilemedi, manuel olarak yüklemek için kontrol edin: 'github/Berkwe'",
             "map_file_broken": "Harita listesi bozuk ajan seçim ekranında 'güncelle' komutu ile güncelleyin.",
+            "map_list_load_failed": "Harita listesi yüklenirken hata oluştu. Instalocker kapanıyor...",
             "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}",
-            "map_list_load_failed": "Harita listesi yüklenirken hata oluştu. Instalocker kapanıyor..."
+            "profile_file_not_loaded": "Profil dosyası yüklenemedi.",
+            "profile_file_not_found": "Profil dosyası {path} konumunda bulunamadı."
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -48,7 +50,9 @@
             "enter_correct_mode": "Lütfen sadece 1, 2 veya 3 girin, açıklama ve yardım için help veya yardım yazın.",
             "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
             "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : ",
-            "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin. Yeni bir tane oluşturmak için 'yardım' yazın.\nSeç : "
+            "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin.\nSeç : ",
+            "INPUT_macro_profile_path_default": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin(varsayılan = {path})\nSeç : "
+
         },
         "info": {
             "language_file_downloading": "Dil dosyası bulunamadı, uzaktan indiriliyor...",
@@ -110,8 +114,10 @@
             "agent_list_error": "Agent list could not be fetched from API, loading local file...",
             "agent_list_default_error": "Default agent list could not be loaded either, check to install manually: 'github/Berkwe'",
             "map_file_broken": "Update the broken map list in the agent selection screen using the 'update' command.",
+            "map_list_load_failed": "Failed to load map list. Instalocker will close.",
             "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}",
-            "map_list_load_failed": "Failed to load map list. Instalocker will close."
+            "profile_file_not_loaded": "Profile file not loaded",
+            "profile_file_not_found": "The profile file could not be found at {path}."
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",
@@ -141,7 +147,8 @@
             "enter_correct_mode": "Please enter only 1, 2 or 3, type help for description and assistance.",
             "INPUT_quest_shortcut": "Would you like to create a shortcut on your desktop for this agent? Y/N : ",
             "INPUT_quest_breakgame": "Would you like to break game? Y/N : ",
-            "INPUT_macro_profile_path": "Please enter the path to your profile file or select one from the saved ones. To create a new one, type 'help'\nSelect : "
+            "INPUT_macro_profile_path": "Please enter the path to your profile file or select one from the saved ones. To create a new one, type 'help'\nSelect : ",
+            "INPUT_macro_profile_path_default": "Please enter the path to your profile file or select one from the saved ones (default = {path})\nSelect : "
         },
         "info": {
             "language_file_downloading": "Language file not found, downloading remotely...",

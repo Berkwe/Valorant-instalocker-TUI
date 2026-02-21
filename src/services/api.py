@@ -303,7 +303,33 @@ class ProfileService:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"Hata : {detailed_exception}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
-            raise e
+            self.config.exit_flag = True
+            return
+        
+    def loadProfile(self, path: os.PathLike | str):
+        """Ajan profilini çeker"""
+        try:
+            self.logger.write(f"Load Profile çalıştı path : {path}", "info")
+            if not os.path.exists(path):
+                self.i18n.print_lang("errors.profile_file_not_found", path=path)
+                return False
+            
+            with open(path, "r", encoding="utf-8") as f:
+                profile_temp = json.load(f)
+            self.logger.write(f"profil dosyası yüklendi : {profile_temp}")
+            if "ascent" not in profile_temp.keys():
+                self.i18n.print_lang("errors.profile_file_broken", path=path)
+                return False
+            
+            self.config.profile = profile_temp
+            return True
+        except Exception as e:
+            detailed_error = traceback.format_exc()
+            self.logger.write(f"janlar yüklenirken bir hata oluştu : {detailed_error}", "error")
+            self.i18n.print_lang("errors.general_error", e=e)
+            self.config.exit_flag = True
+            return
+
 
 
 
