@@ -23,8 +23,11 @@ class AnimateText:
             for k in randoms:
                 print((header[:i] + k).center(150).removesuffix(" "))
                 time.sleep(0.005)
-                print("\033[H\033[J", end="")
+                self.clear()
         print(header.center(150)+"\n")
         time.sleep(0.3)
         print(footer)
         self.logger.write(f"yaz fonksiyonu tamamlandı. Ekrana '{header}' ve '{footer}' yazdırıldı.", level="info")
+
+    def clear(self):
+        print("\033[H\033[J", end="")

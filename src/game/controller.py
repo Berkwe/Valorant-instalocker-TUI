@@ -17,9 +17,8 @@ class GameController:
         self.shortcut_mgr = shortcut_mgr
         self.agent_service = agent_service
         self.map_service = map_service
-        self.write_animated_text = AnimateText().write_animated_text
-
-
+        self.write_animated_text = AnimateText.write_animated_text
+        self.clear = AnimateText.clear()
 
     async def break_game(self):
         """Oyunu bozmak için"""
@@ -75,7 +74,7 @@ class GameController:
                     fetched_state = fetched_state['matchPresenceData']['sessionLoopState']
                     
                     if fetched_state == "INGAME":
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.write_animated_text("Instalocker For Valorant")
                         self.logger.write("Oyun başladı. Oyun bozulmadı, Instalocker kapanıyor.", level="info")
                         self.i18n.print_lang("game.game_not_disrupted")
@@ -94,7 +93,7 @@ class GameController:
                             self.logger.write("Kullanıcı oyunu bozdu ve MENUS durumuna geçildi.")
                             break
                             
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.logger.write("Oyun bozuldu. Instalocker aynı ajanı tekrar seçmek için hazırlanıyor.", level="info")
                         self.i18n.print_lang("game.game_disrupted_reselecting")
                         self.config.exit_flag = False
@@ -162,7 +161,7 @@ class GameController:
                             self.session.pregame_fetch_match()['ID'] not in self.session.matches and 
                             self.session.is_logged_in):
                             
-                            print("\033[H\033[J", end="")
+                            self.clear()
                             self.i18n.print_lang("game.selection_screen_detected")
                             if mode == 3:
                                 currentMapUrl = fetched_request["matchMap"].lower()

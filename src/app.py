@@ -22,7 +22,8 @@ class InstalockerApp:
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
         self.profile_service = ProfileService(self.config, self.logger, self.i18n, self.map_service)
         self.session = GameSession(self.config, self.logger, self.i18n)
-        self.write_animated_text = AnimateText().write_animated_text
+        self.write_animated_text = AnimateText.write_animated_text
+        self.clear = AnimateText.clear
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
         self.version = Version()
@@ -59,15 +60,15 @@ class InstalockerApp:
                 region_input = input("").lower()
                 
                 if region_input in ("yardım", "help"):
-                    print("\033[H\033[J", end="")
+                    self.clear()
                     print(", ".join(regions))
                     continue
                 elif region_input not in regions:
-                    print("\033[H\033[J", end="")
+                    self.clear()
                     self.i18n.print_lang("prompts.invalid_server")
                     continue
                 else:
-                    print("\033[H\033[J", end="")
+                    self.clear()
                     return region_input
 
         except FileNotFoundError:
@@ -137,46 +138,46 @@ class InstalockerApp:
                     
                     if mode_input == "debug":
                         self.config.debug = True
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         continue
                     if mode_input == "":
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("mode.set_to_lock")
                         self.config.mode = 1
                         break
                     elif mode_input in ("help", "yardım"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("help.mode_select_message")
                         continue
                     elif not mode_input.isdecimal():
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("prompts.enter_number")
                         continue
                         
                     mode_int = int(mode_input)
                     if mode_int == 1:
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("mode.set_to_lock")
                         self.config.mode = 1
                         break
                     elif mode_int == 2:
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("mode.set_to_select")
                         self.config.mode = 2
                         break
                     elif mode_int == 3:
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("mode.set_to_macro")
                         self.config.mode = 3
                         break
                     else:
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("prompts.enter_correct_mode")
                         continue
 
                 success = self.session.start_client()
                 if not success:
-                    print("\033[H\033[J", end="")
+                    self.clear()
                     self.i18n.print_lang("debug.valorant_not_open")
                     await asyncio.sleep(3)
                     self.config.exit_flag = True
@@ -195,15 +196,15 @@ class InstalockerApp:
                     else:
                         self.i18n.print_lang("prompts.INPUT_select_agent")
                     agent_input = input("").lower()
-
+                    agent_input = agent_input.replace("'", "").replace("\"", "") # ? bu bişiyi etkilicek ve unutcam sonra hatayı bulmak için delircem eminim
                     self.logger.write(f"{"ajan inputu" if self.config.mode != 3 else "profil dosyası yolu"} : {agent_input}", "info")
 
                     if agent_input in ("yardım", "help"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("help.agent_select_message")
                         continue
                     elif agent_input in ("güncelle", "update"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.agent_service.loadAgents(offline=False)
                         if self.config.exit_flag: break
                         self.map_service.loadMaps(offline=False)
@@ -218,28 +219,28 @@ class InstalockerApp:
                         time.sleep(0.5)
                         break
                     elif agent_input in ("ajanlar", "agents"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         agent_list = list(self.agent_service.agents.keys())
                         agent_list.remove("lastCheck")
                         print(", ".join(agent_list)+"\n\n")
                         continue
                     elif agent_input in ("ajanlar-l", "agents-l"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         agent_list = list(self.agent_service.agents.keys())
                         agent_list.remove("lastCheck")
                         print(agent_list, "\n\n")
                         continue
                     elif agent_input in ("liste-konumu", "agents-folder"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         print(Constants.AGENT_LIST_PATH, "\n\n")
                         continue
                     elif agent_input in ("kayıt-konumu", "logs-folder"):
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         print(Constants.LOG_PATH, "\n\n")
                         continue
                     elif agent_input in ("english", "türkçe"):
                         self.config.language = "english" if agent_input == "english" else "turkish"
-                        print("\033[H\033[J", end="")
+                        self.clear()
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue
                     elif agent_input in ("profil-oluştur", "create-profile"):
@@ -247,12 +248,13 @@ class InstalockerApp:
                         self.config.profilePath = os.path.abspath(returnedProfilePath)
                         self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
                         continue
+                    elif agent_input in ("clear", "temizle", "cls"):
+                        self.clear()
                     if self.config.mode == 3:
                         if (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
                             path = self.config.profilePath
                         else:
                             path = agent_input
-                        
                         if path == "" or path.isspace():
                             continue
                         isValidProfile = self.profile_service.loadProfile(path)
@@ -270,7 +272,7 @@ class InstalockerApp:
                             for name in self.agent_service.agents:
                                 if name.startswith(agent_input) and len(name) >len(agent_input): 
                                     selected_agent = name
-                                    print("\033[H\033[J", end="")
+                                    self.clear()
                                     break
                         elif agent_input in ("rastgele", "random", "r", "Kendimi Bok Gibi Hissediyorum :)"):
                             agent_list = list(self.agent_service.agents.keys()) # ? üşendiğimden 5 yere aynı yapıyı kopyaladım kim uğraşcak 
@@ -279,17 +281,17 @@ class InstalockerApp:
                         if selected_agent:
                             self.config.agent = selected_agent
                             self.logger.write(f"Ajan seçildi: {selected_agent}")
-                            print("\033[H\033[J", end="")
+                            self.clear()
                             break
                         else:
-                            print("\033[H\033[J", end="")
+                            self.clear()
                             self.i18n.print_lang("prompts.invalid_agent")
                             continue
                 
                 if self.config.exit_flag: break
                 if self.config.reboot_flag:
                     self.config.reboot_flag = False
-                    print("\033[H\033[J", end="")
+                    self.clear()
                     continue
                 
                 self.logger.write(f"State task'ı başlatılıyor: {self.config.agent}")
@@ -313,7 +315,7 @@ class InstalockerApp:
 
     def run(self):
         os.system("color a")
-        print("\033[H\033[J", end="")
+        self.clear()
         self.write_animated_text("Instalocker For Valorant")
         try:
             asyncio.run(self.main_loop())
