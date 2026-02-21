@@ -1,4 +1,3 @@
-import os, asyncio
 from valclient.client import Client as ValClient
 from valclient.exceptions import HandshakeError
 from src.core.logger import Logger

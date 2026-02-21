@@ -1,4 +1,4 @@
-import time, os
+import time
 from src.core.logger import Logger
 from src.core.config import Config
 from src.utils.version import Version
@@ -22,7 +22,8 @@ class AnimateText:
         for i in range(len(header)):
             for k in randoms:
                 print((header[:i] + k).center(150).removesuffix(" "))
-                os.system("cls")
+                time.sleep(0.005)
+                print("\033[H\033[J", end="")
         print(header.center(150)+"\n")
         time.sleep(0.3)
         print(footer)

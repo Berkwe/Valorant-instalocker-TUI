@@ -1,4 +1,4 @@
-import asyncio, os, time, aioconsole, traceback
+import asyncio, time, aioconsole, traceback
 from base64 import b64decode as bs
 from src.core.logger import Logger
 from src.core.i18n import LanguageManager
@@ -75,7 +75,7 @@ class GameController:
                     fetched_state = fetched_state['matchPresenceData']['sessionLoopState']
                     
                     if fetched_state == "INGAME":
-                        os.system("cls")
+                        print("\033[H\033[J", end="")
                         self.write_animated_text("Instalocker For Valorant")
                         self.logger.write("Oyun başladı. Oyun bozulmadı, Instalocker kapanıyor.", level="info")
                         self.i18n.print_lang("game.game_not_disrupted")
@@ -94,7 +94,7 @@ class GameController:
                             self.logger.write("Kullanıcı oyunu bozdu ve MENUS durumuna geçildi.")
                             break
                             
-                        os.system("cls")
+                        print("\033[H\033[J", end="")
                         self.logger.write("Oyun bozuldu. Instalocker aynı ajanı tekrar seçmek için hazırlanıyor.", level="info")
                         self.i18n.print_lang("game.game_disrupted_reselecting")
                         self.config.exit_flag = False
@@ -162,7 +162,7 @@ class GameController:
                             self.session.pregame_fetch_match()['ID'] not in self.session.matches and 
                             self.session.is_logged_in):
                             
-                            os.system("cls")
+                            print("\033[H\033[J", end="")
                             self.i18n.print_lang("game.selection_screen_detected")
                             if mode == 3:
                                 currentMapUrl = fetched_request["matchMap"].lower()
