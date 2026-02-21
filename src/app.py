@@ -187,8 +187,15 @@ class InstalockerApp:
                     last = self.dt.today() - self.dt.strptime(self.agent_service.lastCheck, "%d.%m.%Y")
                     if last.days > 3:
                         self.i18n.print_lang("info.last_update_check", day=last.days)
-
                     if self.config.mode == 3:
+                        profileSlotsJson = self.profile_service.getProfileSlotList()
+                        if profileSlotsJson:
+                            self.i18n.print_lang("prompts.profile_slots_list")
+                            self.config.profileSlots = profileSlotsJson
+                            print("\n")
+                            for i, (slotName, slotPath) in enumerate(profileSlotsJson.items(), start=1):
+                                print(f"{i} --- {slotName} --> {slotPath}")
+                        print("\n")
                         if self.config.profilePath != "":
                             self.i18n.print_lang("prompts.INPUT_macro_profile_path_default", path=self.config.profilePath)
                         else: 
@@ -247,22 +254,36 @@ class InstalockerApp:
                         returnedProfilePath = self.profile_service.createProfile()
                         self.config.profilePath = os.path.abspath(returnedProfilePath)
                         self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
+                        self.clear()
                         continue
                     elif agent_input in ("clear", "temizle", "cls"):
                         self.clear()
                     if self.config.mode == 3:
                         self.clear()
-                        if (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
+                        slots = self.config.profileSlots.keys()
+                        slotNames = list(slots)
+                        if agent_input.isdecimal():
+                            slotNum = int(agent_input)
+                            if slotNum > 0 and slotNum <= len(slotNames):
+                                path = self.config.profileSlots.get(slotNames[slotNum-1])
+
+                        elif (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
                             path = self.config.profilePath
                         else:
                             path = agent_input
+
                         if path == "" or path.isspace():
                             continue
+
                         isValidProfile = self.profile_service.loadProfile(path)
-                        
                         if not isValidProfile:
                             self.i18n.print_lang("errors.profile_file_not_loaded")
                             continue
+                        if not agent_input.isdecimal():
+                            if len(slotNames) > 2:
+                                self.profile_service.addProfileSlot(self.dt.strftime("%d_%H%M%S")+"_profile", True)
+                            else:
+                                self.profile_service.addProfileSlot(self.dt.strftime("%d_%H%M%S")+"_profile")
                         self.i18n.print_lang("success.profile_file_loaded", path=path)
                         break
                     else:
@@ -288,7 +309,7 @@ class InstalockerApp:
                             self.clear()
                             self.i18n.print_lang("prompts.invalid_agent")
                             continue
-                
+
                 if self.config.exit_flag: break
                 if self.config.reboot_flag:
                     self.config.reboot_flag = False

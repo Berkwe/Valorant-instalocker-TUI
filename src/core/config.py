@@ -5,26 +5,9 @@ class Config:
         self.mode = 0  # ? 1: Kitleme 2: seçme 3: makro
         self.agent = None
         self.profile = {}
-        
-        
-        
-        """{
-            "ascent": ["jett", 1],
-            "haven": ["brim", 2],
-                #ORRR
-            "ascent": {
-                "ajan": "jett",
-                "mod": 1
-            },
-            "haven": {
-                "ajan": "brim",
-                "mod": 2
-            },
-
-
-        }"""
         self.profilePath = ""
-        
+        self.profileSlots = {}
+        self.profileShortcutFilePath = ""
         self.reboot_flag = False
         self.exit_flag = False
         self.is_shortcut = False

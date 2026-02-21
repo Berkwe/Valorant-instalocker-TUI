@@ -20,7 +20,8 @@
             "map_list_load_failed": "Harita listesi yüklenirken hata oluştu. Instalocker kapanıyor...",
             "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}",
             "profile_file_not_loaded": "Profil dosyası yüklenemedi.",
-            "profile_file_not_found": "Profil dosyası {path} konumunda bulunamadı."
+            "profile_file_not_found": "Profil dosyası {path} konumunda bulunamadı.",
+            "agent_not_found_or_empty": "Profil dosyasındaki '{map}' haritasında seçilecek '{agent}' ajanı boş veya yanlış (dosya yolu : {path})"
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -34,7 +35,8 @@
             "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu.",
             "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
             "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}",
-            "profile_file_created": "Profil dosyası başarıyla oluşturuldu: {path}"
+            "profile_file_created": "Profil dosyası başarıyla oluşturuldu: {path}",
+            "profile_slot_added": "Profil slotu başarıyla eklendi, bi sonraki girişinizde hızlıca seçebileceksiniz."
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -51,7 +53,8 @@
             "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
             "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : ",
             "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin.\nSeç : ",
-            "INPUT_macro_profile_path_default": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin(varsayılan = {path})\nSeç : "
+            "INPUT_macro_profile_path_default": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin(varsayılan = {path})\nSeç : ",
+            "profile_slots_list": "Önceki Profiller (seçmek için numarasını girin) : "
 
         },
         "info": {
@@ -70,6 +73,7 @@
         },
         "game": {
             "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
+            "waiting_for_selection_profile": "Ajan seçme ekranı bekleniyor, kullanılan profil yolu : {path}\n",
             "selection_screen_detected": "Ajan seçme ekranı belirlendi..",
             "agent_selected": "Ajan başarıyla seçildi:\n{agent}",
             "crash_protection_active": "Bozulma koruması devrede, oyuna girilince instalocker kapanacak.",
@@ -82,14 +86,14 @@
         "mode": {
             "options_header": "Mod seçenekleri : ",
             "INPUT_get_mode": "Lütfen bir mod seçin : ",
-            "options": "\n1. Ajan kitleme modu(klasik, hızlı seçim için enter)\n2. Ajan seçme modu(sadece seçer, kitlenmez)\n3. Haritaya göre seçme modu(Daha fazla bilgi için 'yardım')",
+            "options": "\n1. Ajan kitleme modu(klasik, hızlı seçim için enter)\n2. Ajan seçme modu(sadece seçer, kitlenmez)\n3. Haritaya göre seçme modu(Daha fazla bilgi için 'yardım')\n\n",
             "set_to_lock": "Mod ajan kitleme olarak ayarlandı!",
             "set_to_select": "Mod ajan seçme olarak ayarlandı!",
             "set_to_macro": "Mod Harita Makrosu olarak ayarlandı!"
         },
         "help": {
-            "agent_select_message": "--- AJAN SEÇİM KOMUTLARI ---\n-profil-oluştur/create-profile/cp/po : Profil dosyası oluşturur ve konumunu döndürür.\n-r/rastgele/random : Ajanı rastgele seçer.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n\n--- GENEL KOMUTLAR ---\n-clear/temizle/cls : Terminali temizler.\n-güncelle/update : Ajan, Harita ve Dil dosyalarını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili değiştirir.\n-liste-konumu/agents-folder : Ajan listesi konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyası konumunu döndürür.\n-yardım/help : Bu mesajı görüntüler.",
-            "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, instalock atmak istemediğinizde bile Instalocker'i kullanabilirsiniz.\n- 3 : Oluşturacağınız profil dosyası ile haritalara göre özelleştirilmiş ajanları otomatik biçimde kilitlemenize olanak tanır, profil dosyasını ajan seçim ekranında belirlersiniz.\n- 4 yardım/help : bu mesajı gösterir."
+            "agent_select_message": "--- AJAN SEÇİM KOMUTLARI ---\n-profil-oluştur/create-profile/cp/po : Profil dosyası oluşturur ve konumunu döndürür.\n-r/rastgele/random : Ajanı rastgele seçer.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n\n--- GENEL KOMUTLAR ---\n-clear/temizle/cls : Terminali temizler.\n-güncelle/update : Ajan, Harita ve Dil dosyalarını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili değiştirir.\n-liste-konumu/agents-folder : Ajan listesi konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyası konumunu döndürür.\n-yardım/help : Bu mesajı görüntüler.\n\n",
+            "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, instalock atmak istemediğinizde bile Instalocker'i kullanabilirsiniz.\n- 3 : Oluşturacağınız profil dosyası ile haritalara göre özelleştirilmiş ajanları otomatik biçimde kilitlemenize olanak tanır, profil dosyasını ajan seçim ekranında belirlersiniz. Seçilen son 3 profil dosyası veya isteğe bağlı 3 profil dosyası kısayol olarak eklenebilir(sadece devam et anlayacaksın :D).\n- 4 yardım/help : bu mesajı gösterir.\n\n"
         },
         "debug": {
             "valorant_not_open_skipping": "Valorant açık değil fakat debug açık olduğundan atlanıyor..",
@@ -117,7 +121,8 @@
             "map_list_load_failed": "Failed to load map list. Instalocker will close.",
             "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}",
             "profile_file_not_loaded": "Profile file not loaded",
-            "profile_file_not_found": "The profile file could not be found at {path}."
+            "profile_file_not_found": "The profile file could not be found at {path}.",
+            "agent_not_found_or_empty": "The '{agent}' agent to be selected in the '{map}' map in the profile file is empty or incorrect (file path: {path})"
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",
@@ -131,7 +136,8 @@
             "shortcut_created": "Shortcut created at '{path}'.",
             "clear_old_files": "Remnants of older versions of Instalocker were found and successfully cleaned.",
             "profile_file_loaded": "Profile file successfully uploaded: {path}",
-            "profile_file_created": "Profile file successfully created: {path}"
+            "profile_file_created": "Profile file successfully created: {path}",
+            "profile_slot_added": "The profile slot has been successfully added. You will be able to select it quickly on your next time."
         },
         "prompts": {
             "select_language": "Language (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -166,6 +172,7 @@
         },
         "game": {
             "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
+            "waiting_for_selection_profile": "Waiting for agent selection screen, profile to be used : {path}\n",
             "selection_screen_detected": "Agent selection screen determined.",
             "agent_selected": "Agent successfully selected:\n{agent}",
             "crash_protection_active": "Crash protection active, Instalocker will close when the game starts.",
@@ -178,14 +185,14 @@
         "mode": {
             "options_header": "Mode options : ",
             "INPUT_get_mode": "Please select a mode : ",
-            "options": "\n1. Agent lock mode (classic, quick select with enter)\n2. Agent select mode (just select, no lock)\n\n",
+            "options": "\n1. Agent lock mode (classic, quick select with enter)\n2. Agent select mode (just select, no lock)\n3. Map-based selection mode (For more information, see 'help')\n\n",
             "set_to_lock": "Mode set to Agent Lock!",
             "set_to_select": "Mode set to Agent Select!",
             "set_to_macro": "Mode set to Map Macro!"
         },
         "help": {
-            "agent_select_message": "--- AGENT SELECTION COMMANDS ---\n-create-profile/profil-oluştur/cp/po : Creates a profile file and returns its location.\n-r/rastgele/random : Randomly selects the agent.\n-ajanlar/agents : Returns the agent list in a readable format.\n-ajanlar-l/agents-l : Returns the agent list in 'list' format.\n\n--- GENERAL COMMANDS ---\n-clear/temizle/cls : Clears the terminal screen.\n-update/güncelle : Updates the agent list, map list and language file.\n-re/yb : Quickly restarts the application.\n-english/türkçe : Changes the language to English or Turkish.\n-agents-folder/liste-konumu : Returns the location of the agent list.\n-logs-folder/kayıt-konumu : Returns the location of the log file.\n-help/yardım : Displays this message.",
-            "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2: Only selects the agent, does not lock it. This way, you can use Instalocker even when you don't want to use instalock in competitive matches.\n- 3: Allows you to automatically lock agents customized according to maps using the profile file you create; you specify the profile file in the agent selection screen.\n- 4 help: Displays this message.\n"
+            "agent_select_message": "--- AGENT SELECTION COMMANDS ---\n-create-profile/profil-oluştur/cp/po : Creates a profile file and returns its location.\n-r/rastgele/random : Randomly selects the agent.\n-ajanlar/agents : Returns the agent list in a readable format.\n-ajanlar-l/agents-l : Returns the agent list in 'list' format.\n\n--- GENERAL COMMANDS ---\n-clear/temizle/cls : Clears the terminal screen.\n-update/güncelle : Updates the agent list, map list and language file.\n-re/yb : Quickly restarts the application.\n-english/türkçe : Changes the language to English or Turkish.\n-agents-folder/liste-konumu : Returns the location of the agent list.\n-logs-folder/kayıt-konumu : Returns the location of the log file.\n-help/yardım : Displays this message.\n",
+            "mode_select_message": "- 1 : Selects and locks the agent. This is the normal mode. Press Enter to proceed quickly.\n- 2: Only selects the agent, does not lock it. This way, you can use Instalocker even when you don't want to use instalock in competitive matches.\n- 3: The profile file you create allows you to automatically lock agents customized according to maps; you specify the profile file in the agent selection screen. The last 3 selected profile files or 3 profile files of your choice can be added as shortcuts (you'll understand when you continue :D)\n- 4 help: Displays this message.\n\n"
         },
         "debug": {
             "valorant_not_open_skipping": "Valorant is not open but debug is enabled, skipping...",

@@ -1,5 +1,5 @@
 import requests, json, os, time, traceback, winreg
-from datetime import date
+from datetime import datetime
 from requests.exceptions import ConnectionError
 from src.core.constants import Constants
 from src.core.logger import Logger
@@ -13,7 +13,7 @@ class AgentService:
         self.i18n = i18n
         self.agents = {}
         self.lastCheck = ""
-        self.dt = date
+        self.dt = datetime.now()
 
     def updateApiData(self):
         """API den ajanları çeker"""
@@ -321,6 +321,7 @@ class ProfileService:
                 self.i18n.print_lang("errors.profile_file_broken", path=path)
                 return False
             
+            self.config.profilePath = path
             self.config.profile = profile_temp
             return True
         except Exception as e:
@@ -330,8 +331,60 @@ class ProfileService:
             self.config.exit_flag = True
             return
 
+    def addProfileSlot(self, slotName: str, deleteFirstKey = False):
+        """Profil dosyasını hızlı profil dosyaları kısmına ekler"""
+        try:
+            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
+                with open(Constants.PROFILE_SLOT_PATH, "w", encoding="utf-8") as f:
+                    f.close()
 
+            self.logger.write("addProfileSlot çalıştı", "info")
+            tempJson = {
+                slotName: self.config.profilePath
+            }
+            with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
+                if len(f.read()) < 5:
+                    json.dump(tempJson, f, ensure_ascii=False, indent=4)
+                else:
+                    f.seek(0)
+                    slotFileContent: dict = json.load(f)
+                    if deleteFirstKey:
+                        slotFileContent.pop(list(slotFileContent.keys())[0])
+                    slotFileContent[slotName] = self.config.profilePath
+                    f.seek(0)
+                    json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
 
+            self.i18n.print_lang("success.profile_slot_added", name=slotName, path=self.config.profilePath)
+        except Exception as e:
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"addProfilePath2slot hata oluştu : {detailed_exception}", "error")
+            self.i18n.print_lang("errors.general_error", e=e)
+            self.config.exit_flag = True
+            return
+        
+    def getProfileSlotList(self):
+        """Profil dosya yollarının listesini çeker"""
+        try:
+            self.logger.write("getProfileSlotList çalıştı", "info")
+            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
+                return False
+            tempJson = {}
+            with open(Constants.PROFILE_SLOT_PATH, "r", encoding="utf-8") as f:
+                tempJson = json.load(f)
+
+            if len(tempJson.keys()) < 0:
+                return False
+            
+            return tempJson
+        except json.JSONDecodeError:
+            pass
+        except Exception as e:
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"getProfilePath2slot hata oluştu : {detailed_exception}", "error")
+            self.i18n.print_lang("errors.general_error", e=e)
+            self.config.exit_flag = True
+            return
+        
 
 
 

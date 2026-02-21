@@ -17,8 +17,8 @@ class GameController:
         self.shortcut_mgr = shortcut_mgr
         self.agent_service = agent_service
         self.map_service = map_service
-        self.write_animated_text = AnimateText.write_animated_text
-        self.clear = AnimateText.clear()
+        self.write_animated_text = AnimateText().write_animated_text
+        self.clear = AnimateText().clear
 
     async def break_game(self):
         """Oyunu bozmak için"""
@@ -126,7 +126,6 @@ class GameController:
         profile = self.config.profile
         agent = self.config.agent
         region = self.config.region
-        print(self.map_service.maps) # ! ÇIKIŞTA KALDIR
         while not self.config.user_broke_game and not self.config.exit_flag:
             self.logger.write(f"Main Instlaocker fonksiyonu çalıştı Mod: {mode}, Ajan: {agent if mode != 3 else "macro için debug aç"}", level="info")
             if mode == 3:
@@ -140,7 +139,7 @@ class GameController:
                 self.i18n.print_lang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
 
             else:
-                self.i18n.print_lang('success.profile_file_loaded', path=self.config.profilePath)
+                self.i18n.print_lang('game.waiting_for_selection_profile', path=self.config.profilePath)
             break_protection_task = None
             break_game_task = None
             quest_shortcut_task = None
@@ -163,8 +162,9 @@ class GameController:
                             
                             self.clear()
                             self.i18n.print_lang("game.selection_screen_detected")
+
                             if mode == 3:
-                                currentMapUrl = fetched_request["matchMap"].lower()
+                                currentMapUrl = fetched_request["matchMap"].lower() # ? bilerek api değişirse hata versin diye böyle bıraktım get kullanmayacak kadar eşşek değilim
                                 currentMap = self.map_service.maps.get(currentMapUrl)
                                 self.logger.write(f"{currentMap}, {currentMapUrl}", "info")
                                 if currentMap is None:
@@ -173,7 +173,11 @@ class GameController:
                                     self.config.exit_flag = True
                                     return
                                 agent = profile.get(currentMap)
-
+                                if agent == "" or agent not in self.agent_service.agents.keys():
+                                    self.i18n.print_lang("errors.agent_not_found_or_empty", agent=agent, map=currentMap, path=self.config.profilePath)
+                                    time.sleep(60)
+                                    self.config.exit_flag = True
+                                    return
                                 
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
