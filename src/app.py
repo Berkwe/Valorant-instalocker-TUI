@@ -22,8 +22,8 @@ class InstalockerApp:
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
         self.profile_service = ProfileService(self.config, self.logger, self.i18n, self.map_service)
         self.session = GameSession(self.config, self.logger, self.i18n)
-        self.write_animated_text = AnimateText.write_animated_text
-        self.clear = AnimateText.clear
+        self.write_animated_text = AnimateText().write_animated_text
+        self.clear = AnimateText().clear
         self.parser = argparse.ArgumentParser()
         self.dt = self.agent_service.dt
         self.version = Version()
@@ -243,7 +243,7 @@ class InstalockerApp:
                         self.clear()
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue
-                    elif agent_input in ("profil-oluştur", "create-profile"):
+                    elif agent_input in ("profil-oluştur", "create-profile", "cp", "po"):
                         returnedProfilePath = self.profile_service.createProfile()
                         self.config.profilePath = os.path.abspath(returnedProfilePath)
                         self.i18n.print_lang("success.profile_file_created", path=returnedProfilePath)
@@ -251,6 +251,7 @@ class InstalockerApp:
                     elif agent_input in ("clear", "temizle", "cls"):
                         self.clear()
                     if self.config.mode == 3:
+                        self.clear()
                         if (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
                             path = self.config.profilePath
                         else:
@@ -315,7 +316,7 @@ class InstalockerApp:
 
     def run(self):
         os.system("color a")
-        self.clear()
+        print("\033[H\033[J", end="")
         self.write_animated_text("Instalocker For Valorant")
         try:
             asyncio.run(self.main_loop())
