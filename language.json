@@ -21,7 +21,8 @@
             "profile_file_broken": "Mevcut profil dosyanız yok veya yanlış, lütfen güncelleyin. Dosya yolu : {path}",
             "profile_file_not_loaded": "Profil dosyası yüklenemedi.",
             "profile_file_not_found": "Profil dosyası {path} konumunda bulunamadı.",
-            "agent_not_found_or_empty": "Profil dosyasındaki '{map}' haritasında seçilecek '{agent}' ajanı boş veya yanlış (dosya yolu : {path})"
+            "agent_not_found_or_empty": "Profil dosyasındaki '{map}' haritasında seçilecek '{agent}' ajanı boş veya yanlış (dosya yolu : {path})",
+            "mode_not_found_or_broken_default_lock": "'{path}' profilindeki '{map}' haritasındaki seç/kitle modu bozuk veya yok. Varsayılan olarak kitleniyor, lütfen düzeltin."        
         },
         "success": {
             "language_file_updated": "Language file başarıyla güncellendi.",
@@ -122,7 +123,8 @@
             "profile_file_broken": "Your current profile file is missing or incorrect, please update it. File path: {path}",
             "profile_file_not_loaded": "Profile file not loaded",
             "profile_file_not_found": "The profile file could not be found at {path}.",
-            "agent_not_found_or_empty": "The '{agent}' agent to be selected in the '{map}' map in the profile file is empty or incorrect (file path: {path})"
+            "agent_not_found_or_empty": "The '{agent}' agent to be selected in the '{map}' map in the profile file is empty or incorrect (file path: {path})",
+            "mode_not_found_or_broken_default_lock": "The select/select all mode is broken or missing in the ‘{map}’ map in the ‘{path}’ profile. It is selected by default, please fix it."
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",

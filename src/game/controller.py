@@ -126,6 +126,7 @@ class GameController:
         profile = self.config.profile
         agent = self.config.agent
         region = self.config.region
+        mode_profile = 3
         while not self.config.user_broke_game and not self.config.exit_flag:
             self.logger.write(f"Main Instlaocker fonksiyonu çalıştı Mod: {mode}, Ajan: {agent if mode != 3 else "macro için debug aç"}", level="info")
             if mode == 3:
@@ -172,12 +173,20 @@ class GameController:
                                     time.sleep(3)
                                     self.config.exit_flag = True
                                     return
-                                agent = profile.get(currentMap)
+                                profile = profile.get(currentMap)
+                                agent = profile.get("agent", "null")
+                                mode_profile = profile.get("mode")
                                 if agent == "" or agent not in self.agent_service.agents.keys():
                                     self.i18n.print_lang("errors.agent_not_found_or_empty", agent=agent, map=currentMap, path=self.config.profilePath)
                                     time.sleep(60)
                                     self.config.exit_flag = True
                                     return
+                                
+                                if mode_profile is None or mode_profile > 2 or mode_profile < 1:
+                                    self.i18n.print_lang("errors.mode_not_found_or_broken_default_lock", map=currentMap, path=self.config.profilePath)
+                                    mode_profile = 1
+                                    
+                                
                                 
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
@@ -185,7 +194,7 @@ class GameController:
                             if bs(b"YmVya3dl").decode() not in self.session.player_name.lower():
                                 await asyncio.sleep(0.3)
                                 
-                            if mode == 1: 
+                            if mode == 1 or mode_profile == 1: 
                                 self.session.pregame_lock_character(agent_uuid)
                                 
                             self.logger.write(f"Ajan '{agent.capitalize()}' (UUID: {agent_uuid}) kilitlendi.", level="info")
@@ -200,7 +209,9 @@ class GameController:
                         if self.config.debug:
                             pass
                         else:
+                            detailed_exception = traceback.format_exc()
                             self.i18n.print_lang("debug.valorant_not_open")
+                            self.logger.write(f"Muhtemelen valorantın açık olmamasıyla ilgili bir hata : {detailed_exception}", "error")
                             self.config.exit_flag = True
                             time.sleep(4)
                             break
