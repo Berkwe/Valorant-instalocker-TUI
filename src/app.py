@@ -261,13 +261,14 @@ class InstalockerApp:
                         self.clear()
                     if self.config.mode == 3:
                         self.clear()
+                        isSlotPath = False
                         slots = self.config.profileSlots.keys()
                         slotNames = list(slots)
                         if agent_input.isdecimal():
                             slotNum = int(agent_input)
                             if slotNum > 0 and slotNum <= len(slotNames):
                                 path = self.config.profileSlots.get(slotNames[slotNum-1])
-
+                                isSlotPath = True
                         elif (agent_input == "" or agent_input.isspace()) and self.config.profilePath != "":
                             path = self.config.profilePath
                         else:
@@ -279,6 +280,8 @@ class InstalockerApp:
                         isValidProfile = self.profile_service.loadProfile(path)
                         if not isValidProfile:
                             self.i18n.print_lang("errors.profile_file_not_loaded")
+                            if isSlotPath:
+                                self.profile_service.removeProfileSlot(slotNames[slotNum-1])
                             continue
                         if not agent_input.isdecimal():
                             if len(slotNames) > 2:

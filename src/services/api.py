@@ -343,27 +343,44 @@ class ProfileService:
     def addProfileSlot(self, slotName: str, deleteFirstKey = False):
         """Profil dosyasını hızlı profil dosyaları kısmına ekler"""
         try:
-            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
-                with open(Constants.PROFILE_SLOT_PATH, "w", encoding="utf-8") as f:
-                    f.close()
-
-            self.logger.write("addProfileSlot çalıştı", "info")
+            
             tempJson = {
                 slotName: self.config.profilePath
             }
-            with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
-                if len(f.read()) < 5:
-                    json.dump(tempJson, f, ensure_ascii=False, indent=4)
-                else:
-                    f.seek(0)
-                    slotFileContent: dict = json.load(f)
-                    if deleteFirstKey:
-                        slotFileContent.pop(list(slotFileContent.keys())[0])
-                    slotFileContent[slotName] = self.config.profilePath
-                    f.seek(0)
-                    json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
+            tempWrited = False
+            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
+                with open(Constants.PROFILE_SLOT_PATH, "w", encoding="utf-8") as f:
+                    if len(f.read()) < 5:
+                        json.dump(tempJson, f, ensure_ascii=False, indent=4)
+                        tempWrited = True
+                    f.close()
 
+            self.logger.write("addProfileSlot çalıştı", "info")
+            if not tempWrited:
+                if deleteFirstKey:
+                    with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
+                        f.seek(0)
+                        slotFileContent: dict = json.load(f)
+                        firstSlotName = list(slotFileContent.keys())[0]
+                        f.close()
+                    self.removeProfileSlot(firstSlotName)
+                    with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
+                        slotFileContent[slotName] = self.config.profilePath
+                        f.seek(0)
+                        json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
+                else:
+                    with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
+                            f.seek(0)
+                            slotFileContent: dict = json.load(f)
+                            slotFileContent[slotName] = self.config.profilePath
+                            f.seek(0)
+                            json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
+
+            self.logger.write(f"{slotName} slotu başarıyla {Constants.PROFILE_SLOT_PATH} profiline eklendi.", "info"),
+            if deleteFirstKey:
+                self.logger.write(f"{firstSlotName} slotu (ilk slot) başarıyla silindi.", "info")
             self.i18n.print_lang("success.profile_slot_added", name=slotName, path=self.config.profilePath)
+
         except Exception as e:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"addProfilePath2slot hata oluştu : {detailed_exception}", "error")
@@ -371,7 +388,32 @@ class ProfileService:
             time.sleep(4)
             self.config.exit_flag = True
             return
-        
+    
+    def removeProfileSlot(self, slotName: str):
+        """Profil dosyasını hızlı profil dosyaları kısmından kaldırır"""
+        try:
+            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
+                return
+
+            self.logger.write("removeProfileSlot çalıştı", "info")
+
+            with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
+                f.seek(0)
+                slotFileContent = json.load(f)
+                slotFileContent.pop(slotName)
+                f.seek(0)
+                json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
+                f.truncate()
+                
+            self.logger.write(f"{slotName} slotu başarıyla {Constants.PROFILE_SLOT_PATH} profilinden silindi. {slotFileContent}", "info")
+        except Exception as e:
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"addProfilePath2slot hata oluştu : {detailed_exception}", "error")
+            self.i18n.print_lang("errors.general_error", e=e)
+            time.sleep(4)
+            self.config.exit_flag = True
+            return
+
     def getProfileSlotList(self):
         """Profil dosya yollarının listesini çeker"""
         try:
@@ -384,7 +426,7 @@ class ProfileService:
 
             if len(tempJson.keys()) < 0:
                 return False
-            
+            self.logger.write(f"slotlar : {tempJson}", "info")
             return tempJson
         except json.JSONDecodeError:
             pass
