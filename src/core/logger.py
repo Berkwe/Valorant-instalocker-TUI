@@ -29,3 +29,5 @@ class Logger:
             print(f"Logger Error: {e}")
             if hasattr(self.config, 'exit_flag'):
                 self.config.exit_flag = True
+                time.sleep(4)
+

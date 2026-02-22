@@ -52,4 +52,4 @@ class Constants:
                     os.remove(oldLanguagePath)
                 return returnedBool
             except Exception as e:
-                print("eski dosyalar temizlenirken bir hata oluştu"+str(e))
+                raise e

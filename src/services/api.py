@@ -40,17 +40,20 @@ class AgentService:
             return agents_temp
         
         except ConnectionError as e_conn:
-            self.logger.write(f"Bağlantı hatası oluştu: {str(e_conn)}", level="error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Bağlantı hatası oluştu: {detailed_exception}", level="error")
             return {"status": 0, "returned": False}
         except requests.exceptions.Timeout as e_timeout:
-            self.logger.write(f"Zaman aşımı hatası oluştu: {str(e_timeout)}", level="error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Zaman aşımı hatası oluştu: {detailed_exception}", level="error")
             return {"status": "Timeout", "returned": False}
         except requests.exceptions.RequestException as e_req:
-            self.logger.write(f"API isteği sırasında hata oluştu: {str(e_req)}", level="error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"API isteği sırasında hata oluştu: {detailed_exception}", level="error")
             return {"status": "RequestException", "returned": False}
         except Exception as e_gen:
-            self.i18n.print_lang("errors.general_error", e=str(e_gen))
             error_details = traceback.format_exc()
+            self.i18n.print_lang("errors.general_error", e=str(e_gen))
             self.logger.write(f"Ajan listesi güncellenirken bilinmeyen bir hata oluştu: {error_details}", level="error")
             return {"status": "UnknownErrorInUpdate", "returned": False}
 
@@ -126,15 +129,16 @@ class AgentService:
 
 
         except FileNotFoundError:
-             self.logger.write(f"'{os.path.dirname(Constants.AGENT_LIST_PATH)}' bulunamadı.", level="error")
-             self.i18n.print_lang("errors.valorant_folder_not_found", path=os.path.dirname(Constants.AGENT_LIST_PATH))
-             time.sleep(3)
-             self.config.exit_flag = True
+            self.logger.write(f"'{os.path.dirname(Constants.AGENT_LIST_PATH)}' bulunamadı.", level="error")
+            self.i18n.print_lang("errors.valorant_folder_not_found", path=os.path.dirname(Constants.AGENT_LIST_PATH))
+            time.sleep(3)
+            self.config.exit_flag = True
         except Exception as e:
-             error_details = traceback.format_exc()
-             self.logger.write(f"Ajan listesi çekilirken bir hata oluştu: {error_details}", level="error")
-             self.i18n.print_lang("errors.general_error", e=str(e))
-             self.config.exit_flag = True
+            error_details = traceback.format_exc()
+            self.logger.write(f"Ajan listesi çekilirken bir hata oluştu: {error_details}", level="error")
+            self.i18n.print_lang("errors.general_error", e=str(e))
+            time.sleep(4)
+            self.config.exit_flag = True
 
 
 class MapService:
@@ -167,13 +171,16 @@ class MapService:
             return maps_temp
         
         except ConnectionError as e_conn:
-            self.logger.write(f"Bağlantı hatası oluştu: {str(e_conn)}", level="error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"Bağlantı hatası oluştu: {error_details}", level="error")
             return {"status": 0, "returned": False}
         except requests.exceptions.Timeout as e_timeout:
-            self.logger.write(f"Zaman aşımı hatası oluştu: {str(e_timeout)}", level="error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"Zaman aşımı hatası oluştu: {error_details}", level="error")
             return {"status": "Timeout", "returned": False}
         except requests.exceptions.RequestException as e_req:
-            self.logger.write(f"API isteği sırasında hata oluştu: {str(e_req)}", level="error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"API isteği sırasında hata oluştu: {error_details}", level="error")
             return {"status": "RequestException", "returned": False}
         except Exception as e_gen:
             self.i18n.print_lang("errors.general_error", e=str(e_gen))
@@ -254,7 +261,7 @@ class MapService:
             error_details = traceback.format_exc()
             self.logger.write(f"Map listesi çekilirken bir hata oluştu: {error_details}", level="error")
             self.i18n.print_lang("errors.general_error", e=str(e))
-            time.sleep(3)
+            time.sleep(4)
             self.config.exit_flag = True
 
 class ProfileService:
@@ -303,6 +310,7 @@ class ProfileService:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"Hata : {detailed_exception}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
+            time.sleep(4)
             self.config.exit_flag = True
             return
         
@@ -328,6 +336,7 @@ class ProfileService:
             detailed_error = traceback.format_exc()
             self.logger.write(f"janlar yüklenirken bir hata oluştu : {detailed_error}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
+            time.sleep(4)
             self.config.exit_flag = True
             return
 
@@ -359,6 +368,7 @@ class ProfileService:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"addProfilePath2slot hata oluştu : {detailed_exception}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
+            time.sleep(4)
             self.config.exit_flag = True
             return
         
@@ -383,6 +393,7 @@ class ProfileService:
             self.logger.write(f"getProfilePath2slot hata oluştu : {detailed_exception}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
             self.config.exit_flag = True
+            time.sleep(4)
             return
         
 

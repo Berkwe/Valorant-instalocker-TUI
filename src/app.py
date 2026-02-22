@@ -1,4 +1,4 @@
-import asyncio, os, argparse, time, random
+import asyncio, os, argparse, time, random, traceback
 
 from src.core.constants import Constants
 from src.core.config import Config
@@ -76,8 +76,9 @@ class InstalockerApp:
              self.i18n.print_lang("info.log_file_not_found")
              return self.find_region(False)
         except Exception as e:
+            detailed_exception = traceback.format_exc()
             if not auto_mode:
-                self.logger.write(f"Bölge hatası: {e}", "error")
+                self.logger.write(f"Bölge hatası: {detailed_exception}", "error")
                 self.config.exit_flag = True
                 self.i18n.print_lang("errors.general_error", e=str(e))
             else:
@@ -327,13 +328,15 @@ class InstalockerApp:
                      break
                      
             except asyncio.CancelledError:
-                 self.logger.write("Main loop iptal edildi.")
-                 self.config.exit_flag = True
+                self.logger.write("Main loop iptal edildi.")
+                self.config.exit_flag = True
             except Exception as e:
-                 self.logger.write(f"Ana döngü hatası: {e}", "error")
-                 print(f"Hata: {e}")
-                 await asyncio.sleep(3)
-                 self.config.exit_flag = True
+                detailed_exception = traceback.format_exc() 
+                self.logger.write(f"Ana döngü hatası: {detailed_exception}", "error")
+                print(f"Hata: {e}")
+                await asyncio.sleep(3)
+                time.sleep(4)
+                self.config.exit_flag = True
 
     def run(self):
         os.system("color a")
@@ -342,5 +345,6 @@ class InstalockerApp:
         try:
             asyncio.run(self.main_loop())
         except Exception as e:
-            self.logger.write(f"Ana fonksyionda kritik hata: {e}", "critical")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Ana fonksyionda kritik hata: {detailed_exception}", "critical")
             print(f"Critical error: {e}")

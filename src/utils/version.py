@@ -1,5 +1,4 @@
-import requests
-import re
+import requests, re, traceback
 from src.core.logger import Logger
 from src.core.config import Config
 
@@ -65,5 +64,6 @@ class Version:
             return result
             
         except Exception as e:
-            self.logger.write(f"Version Kontrolünde hata : {e}", "error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"Version Kontrolünde hata : {error_details}", "error")
             return {"ok": False}

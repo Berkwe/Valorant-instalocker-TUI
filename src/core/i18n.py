@@ -1,4 +1,4 @@
-import json, os, requests, time
+import json, os, requests, time, traceback
 from .constants import Constants
 from .logger import Logger
 from .config import Config
@@ -58,9 +58,11 @@ class LanguageManager:
                     self.config.exit_flag = True
 
         except Exception as e:
-            self.logger.write(f"Hata oluştu getUserLang() : {e}", "error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Hata oluştu getUserLang() : {detailed_exception}", "error")
             print(f"An error occurred : {e}")
             self.config.exit_flag = True
+            return
 
     def update_language_file(self):
         """Dil dosyasını günceller"""
@@ -83,12 +85,14 @@ class LanguageManager:
             return {"response": True, "data": data}
 
         except requests.exceptions.RequestException as req_err:
-            self.logger.write(f"Request hatası oluştu : {req_err}", "error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"Request hatası oluştu : {detailed_exception}", "error")
             print(f"A request error occurred : {req_err}")
             return {"response": False, "data": {}}
 
         except Exception as e:
-            self.logger.write(f"updateLanguageFile sırasında beklenmeyen hata: {e}", "error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"updateLanguageFile sırasında beklenmeyen hata: {detailed_exception}", "error")
             print(f"An error occurred during updateLanguageFile : {e}")
             return {"response": False, "data": {}}
 
@@ -128,8 +132,9 @@ class LanguageManager:
                 self.config.exit_flag = True
 
         except Exception as e:
+            detailed_exception = traceback.format_exc()
             print(f"An error occurred while reading the language file : {e}")
-            self.logger.write(f"Dil dosyası okunurken hata: {e}", "error")
+            self.logger.write(f"Dil dosyası okunurken hata: {detailed_exception}", "error")
 
     def print_lang(self, key_path: str, **kwargs):
         """Dile göre yazdırma fonksyonu"""
@@ -172,5 +177,6 @@ class LanguageManager:
             self.logger.write(f"printLang: {key_path} -> {text}", "info")
             
         except Exception as e:
-            self.logger.write(f"printLang genel hatası: {e}", "error")
+            detailed_exception = traceback.format_exc()
+            self.logger.write(f"printLang genel hatası: {detailed_exception}", "error")
             print(f"error : {e}")

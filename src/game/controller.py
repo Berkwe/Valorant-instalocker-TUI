@@ -115,6 +115,7 @@ class GameController:
                     if break_game_task and not break_game_task.done():
                         break_game_task.cancel()
                     self.config.exit_flag = True
+                    time.sleep(4)
                     break
                     
         except asyncio.CancelledError:
@@ -218,6 +219,7 @@ class GameController:
                     except Exception as e:
                         error_details = traceback.format_exc()
                         self.logger.write(f"Ajan kitlerken hata: {error_details}", level="error")
+                        time.sleep(4)
                         raise Exception(f"Ajan kitlerken hata: {e}")
 
                 if quest_shortcut_task and not quest_shortcut_task.done():

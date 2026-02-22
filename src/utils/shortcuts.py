@@ -1,4 +1,4 @@
-import os, sys, winreg, requests, asyncio, aioconsole, time
+import os, sys, winreg, requests, traceback, aioconsole, time
 from io import BytesIO
 from PIL import Image
 from win32com.client import Dispatch
@@ -107,7 +107,8 @@ class ShortcutManager:
             return 0
             
         except Exception as e:
-            self.logger.write(f"Kısayol oluşturulurken hata: {str(e)}", "error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"Kısayol oluşturulurken hata: {error_details}", "error")
             self.i18n.print_lang("errors.shortcut_creation_error")
             print(str(e))
             return 1
@@ -127,8 +128,8 @@ class ShortcutManager:
                 elif user_input.lower() in ("h", "n"):
                     break
         except Exception as e:
-            self.config.exit_flag = True
-            self.logger.write("Kısayolda hata : "+ str(e), "error")
+            error_details = traceback.format_exc()
+            self.logger.write(f"Kısayolda hata : {error_details}", "error")
             self.i18n.print_lang("errors.shortcut_creation_error")
-            print(str(e))
+            self.config.exit_flag = True
             time.sleep(4)
