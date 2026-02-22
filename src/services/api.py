@@ -343,19 +343,21 @@ class ProfileService:
     def addProfileSlot(self, slotName: str, deleteFirstKey = False):
         """Profil dosyasını hızlı profil dosyaları kısmına ekler"""
         try:
-            
+            self.logger.write("addProfileSlot çalıştı", "info")
             tempJson = {
                 slotName: self.config.profilePath
             }
             tempWrited = False
-            if not os.path.exists(Constants.PROFILE_SLOT_PATH):
+            with open(Constants.PROFILE_SLOT_PATH, "a+", encoding="utf-8") as f:
+                f.seek(0)
+                dosya = f.read()
+                if len(dosya) < 5:
+                    tempWrited = True
+                f.close()
+            if tempWrited:
                 with open(Constants.PROFILE_SLOT_PATH, "w", encoding="utf-8") as f:
-                    if len(f.read()) < 5:
-                        json.dump(tempJson, f, ensure_ascii=False, indent=4)
-                        tempWrited = True
-                    f.close()
-
-            self.logger.write("addProfileSlot çalıştı", "info")
+                    f.seek(0)
+                    json.dump(tempJson, f, ensure_ascii=False, indent=4)
             if not tempWrited:
                 if deleteFirstKey:
                     with open(Constants.PROFILE_SLOT_PATH, "r+", encoding="utf-8") as f:
@@ -380,10 +382,15 @@ class ProfileService:
             if deleteFirstKey:
                 self.logger.write(f"{firstSlotName} slotu (ilk slot) başarıyla silindi.", "info")
             self.i18n.print_lang("success.profile_slot_added", name=slotName, path=self.config.profilePath)
-
+        except json.JSONDecodeError as decode:
+            self.logger.write(f"addProfileSlot'da hata : {decode}", "error")
+            self.logger.write(f"addProfileSlot'da {Constants.PROFILE_SLOT_PATH} dosyası bozuk olduğundan sıfırlanıyor..", "info")
+            f = open(Constants.PROFILE_SLOT_PATH, "w", encoding="utf-8")
+            f.close()
+            self.addProfileSlot(slotName, deleteFirstKey)
         except Exception as e:
             detailed_exception = traceback.format_exc()
-            self.logger.write(f"addProfilePath2slot hata oluştu : {detailed_exception}", "error")
+            self.logger.write(f"addProfileSlot hata oluştu : {detailed_exception}", "error")
             self.i18n.print_lang("errors.general_error", e=e)
             time.sleep(4)
             self.config.exit_flag = True
@@ -404,7 +411,7 @@ class ProfileService:
                 f.seek(0)
                 json.dump(slotFileContent, f, ensure_ascii=False, indent=4)
                 f.truncate()
-                
+
             self.logger.write(f"{slotName} slotu başarıyla {Constants.PROFILE_SLOT_PATH} profilinden silindi. {slotFileContent}", "info")
         except Exception as e:
             detailed_exception = traceback.format_exc()
