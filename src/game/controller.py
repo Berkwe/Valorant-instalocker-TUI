@@ -150,7 +150,6 @@ class GameController:
                  quest_shortcut_task = asyncio.create_task(
                     self.shortcut_mgr.ask_for_shortcut({"agent": agent, "mode": mode, "region": region})
                  )
-
             try:
                 while True:
                     try:
@@ -175,8 +174,12 @@ class GameController:
                                     self.config.exit_flag = True
                                     return
                                 profile = profile.get(currentMap)
-                                agent = profile.get("agent", "null")
-                                mode_profile = profile.get("mode")
+                                agent = profile.get("ajan", profile.get("agent", ("bilinmeyen" if self.config.language == "turkish" else "unkown")))
+                                mode_profile = profile.get("mod", profile.get("mode", False))
+                                if not mode_profile.isdecimal():
+                                    mode_profile = 1
+                                self.logger.write(f"ajan : {agent} mod : {mode_profile if mode == 3 else mode}", "info")
+                                agent = agent.lower()
                                 if agent == "" or agent not in self.agent_service.agents.keys():
                                     self.i18n.print_lang("errors.agent_not_found_or_empty", agent=agent, map=currentMap, path=self.config.profilePath)
                                     time.sleep(60)
