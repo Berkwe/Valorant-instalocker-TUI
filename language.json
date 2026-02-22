@@ -25,7 +25,7 @@
             "mode_not_found_or_broken_default_lock": "'{path}' profilindeki '{map}' haritasındaki seç/kitle modu bozuk veya yok. Varsayılan olarak kitleniyor, lütfen düzeltin."        
         },
         "success": {
-            "language_file_updated": "Language file başarıyla güncellendi.",
+            "language_file_updated": "Dil dosyası başarıyla güncellendi.",
             "language_file_loaded": "Dil dosyası başarıyla yüklendi.",
             "agents_loaded": "Ajanlar başarıyla yüklendi",
             "agent_list_updated": "Ajan listesi başarıyla güncellendi.",
@@ -34,26 +34,26 @@
             "map_list_default_updated": "Varsayılan harita listesi başarıyla güncellendi, içeriğini görmek için yardım, manuel olarak güncellemek için githubu kontrol edin: 'github/Berkwe'",
             "map_list_updated": "Harita listesi başarıyla güncellendi.",
             "shortcut_created": "Kısayol '{path}' konumuna oluşturuldu.",
-            "clear_old_files": "Instalockerin eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
+            "clear_old_files": "Instalocker'in eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
             "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}",
             "profile_file_created": "Profil dosyası başarıyla oluşturuldu: {path}",
-            "profile_slot_added": "Profil slotu başarıyla eklendi, bi sonraki girişinizde hızlıca seçebileceksiniz."
+            "profile_slot_added": "Profil slotu başarıyla eklendi, bir sonraki girişinizde hızlıca seçebileceksiniz."
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
-            "language_help": "neyin yardımını istiyon amk",
+            "language_help": "Neyin yardımını istiyon amk",
             "invalid_language": "Dili yanlış yazdınız, sadece ingilizce/english/EN, türkçe/turkish/TR",
-            "language_attempts_exceeded": "5 kez yanlış girildi, Instalocker kapanıyor...",
+            "language_attempts_exceeded": "5 defa yanlış girildi, Instalocker kapanıyor...",
             "INPUT_select_server": "Sunucunuzu girin : ",
             "invalid_server": "Lütfen geçerli bir sunucu girin, kodları bilmiyorsanız yardım yazın!",
             "INPUT_select_agent": "Seçilecek ajan : ",
             "invalid_agent": "Lütfen ajan ismini doğru girin! Ajan isimleri ve diğer komutlar için 'yardım/help' yazın.",
-            "invalid_disrupt_command": "Bilinmeyen komut lütfen e veya y yazın. Bozmak istemiyorsanız hiçbirşey yazmayın.",
+            "invalid_disrupt_command": "Bilinmeyen komut lütfen E/H yazın. Bozmak istemiyorsanız hiçbir şey yazmayın.",
             "enter_number": "Lütfen rakam girin, açıklama ve yardım için help veya yardım yazın.",
             "enter_correct_mode": "Lütfen sadece 1, 2 veya 3 girin, açıklama ve yardım için help veya yardım yazın.",
-            "INPUT_quest_shortcut": "bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
+            "INPUT_quest_shortcut": "Bu ajan için masaüstüne kısayol oluşturmak ister misiniz? E/H : ",
             "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/H : ",
-            "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin.\nSeç : ",
+            "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin. Yeni bir tane oluşturmak için 'yardım' yazın.\nSeç : ",
             "INPUT_macro_profile_path_default": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin(varsayılan = {path})\nSeç : ",
             "profile_slots_list": "Önceki Profiller (seçmek için numarasını girin) : "
 
@@ -73,8 +73,8 @@
             "update_app_warn": "Instalocker sürümünüz eski, lütfen en güncel sürümü githubdan indirin. Güncel sürüm : {version}"
         },
         "game": {
-            "waiting_for_selection": "Ajan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
-            "waiting_for_selection_profile": "Ajan seçme ekranı bekleniyor, kullanılan profil yolu : {path}\n",
+            "waiting_for_selection": "\nAjan seçme ekranı bekleniyor, seçilecek ajan: {agent}\nMod: {mode_text}",
+            "waiting_for_selection_profile": "\nAjan seçme ekranı bekleniyor, kullanılan profil yolu : {path}\n",
             "selection_screen_detected": "Ajan seçme ekranı belirlendi..",
             "agent_selected": "Ajan başarıyla seçildi:\n{agent}",
             "crash_protection_active": "Bozulma koruması devrede, oyuna girilince instalocker kapanacak.",
@@ -108,7 +108,7 @@
             "update_language_file_error": "Error occurred during updateLanguageFile: {e}",
             "language_file_load_failed": "Failed to retrieve language file. HTTP code: {status_code}",
             "language_file_read_error": "Error occurred while reading language file: {e}",
-            "log_write_error": "An error occurred <while writing logs. Please report to the developer",
+            "log_write_error": "An error occurred while writing logs. Please report to the developer",
             "shortcut_creation_error": "An error occurred while creating the shortcut. Please report to the developer",
             "valorant_folder_not_found": "'{path}' not found, Valorant may not be installed or AppData inaccessible. If folder exists, try running Instalocker as administrator.",
             "agent_list_load_failed": "Failed to load agent list. Instalocker will close.",
@@ -124,7 +124,7 @@
             "profile_file_not_loaded": "Profile file not loaded",
             "profile_file_not_found": "The profile file could not be found at {path}.",
             "agent_not_found_or_empty": "The '{agent}' agent to be selected in the '{map}' map in the profile file is empty or incorrect (file path: {path})",
-            "mode_not_found_or_broken_default_lock": "The select/select all mode is broken or missing in the ‘{map}’ map in the ‘{path}’ profile. It is selected by default, please fix it."
+            "mode_not_found_or_broken_default_lock": "The select/lock mode is broken or missing in the '{map}' map in the '{path}' profile. It is selected by default, please fix it."
         },
         "success": {
             "language_file_updated": "Language file updated successfully.",
@@ -150,13 +150,14 @@
             "invalid_server": "Please enter a valid server, type 'help' if you don't know the codes!",
             "INPUT_select_agent": "Agent to select : ",
             "invalid_agent": "Please enter the agent name correctly! Type 'help' for agent names and other commands.",
-            "invalid_disrupt_command": "Unknown command, please type e or y. Leave blank if you don't want to disrupt.",
+            "invalid_disrupt_command": "Unknown command, please type Y/N. Leave blank if you don't want to disrupt.",
             "enter_number": "Please enter a number, type help for description and assistance.",
             "enter_correct_mode": "Please enter only 1, 2 or 3, type help for description and assistance.",
             "INPUT_quest_shortcut": "Would you like to create a shortcut on your desktop for this agent? Y/N : ",
             "INPUT_quest_breakgame": "Would you like to break game? Y/N : ",
             "INPUT_macro_profile_path": "Please enter the path to your profile file or select one from the saved ones. To create a new one, type 'help'\nSelect : ",
-            "INPUT_macro_profile_path_default": "Please enter the path to your profile file or select one from the saved ones (default = {path})\nSelect : "
+            "INPUT_macro_profile_path_default": "Please enter the path to your profile file or select one from the saved ones (default = {path})\nSelect : ",
+            "profile_slots_list": "Previous Profiles (enter the number to select) : "
         },
         "info": {
             "language_file_downloading": "Language file not found, downloading remotely...",
@@ -173,16 +174,16 @@
             "update_app_warn": "Your version of Instalocker is outdated. Please download the latest version from GitHub. Current version: {version}"
         },
         "game": {
-            "waiting_for_selection": "Waiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
-            "waiting_for_selection_profile": "Waiting for agent selection screen, profile to be used : {path}\n",
-            "selection_screen_detected": "Agent selection screen determined.",
+            "waiting_for_selection": "\nWaiting for agent selection screen, agent to be selected: {agent}\nMode: {mode_text}",
+            "waiting_for_selection_profile": "\nWaiting for agent selection screen, profile to be used : {path}\n",
+            "selection_screen_detected": "Agent selection screen detected.",
             "agent_selected": "Agent successfully selected:\n{agent}",
             "crash_protection_active": "Crash protection active, Instalocker will close when the game starts.",
-            "match_disrupted": "Match successfully breaked, Instalocker restarting...",
+            "match_disrupted": "Match successfully disrupted, Instalocker restarting...",
             "game_already_started": "Game has already started!",
-            "game_already_disrupted": "Game has already been breaked!",
-            "game_not_disrupted": "Game not breaked, closing Instalocker...",
-            "game_disrupted_reselecting": "Game breaked, Instalocker is reselecting the same agent."
+            "game_already_disrupted": "Game has already been disrupted!",
+            "game_not_disrupted": "Game not disrupted, closing Instalocker...",
+            "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent."
         },
         "mode": {
             "options_header": "Mode options : ",
