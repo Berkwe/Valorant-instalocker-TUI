@@ -147,7 +147,7 @@ class MapService:
         self.logger = logger
         self.i18n = i18n
         self.maps = {}
-        self.excluded_maps = ["district", "kasbah", "drift", "piazza"]
+        self.excluded_maps = ["district", "kasbah", "drift", "piazza", "basic training", "skirmish"]
     
     def updateApiData(self):
         """Valorant apisinden harita listesini çeker"""
@@ -162,7 +162,7 @@ class MapService:
             
             for map in data_dict.get("data"):
                 displayName = map.get("displayName").lower()
-                if displayName in self.excluded_maps:
+                if any(displayName in m for m in self.excluded_maps): # ? skirmish 3 mapden oluşuyor her birini tek tek eklesemiydim?
                     continue
                 mapUrl = map.get("mapUrl").lower()
                 maps_temp[mapUrl] = displayName
