@@ -259,6 +259,7 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("clear", "temizle", "cls"):
                         self.clear()
+                        continue
                     if self.config.mode == 3:
                         self.clear()
                         isSlotPath = False
