@@ -11,7 +11,7 @@
 Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Games’ Valorant. Often referred to as a Valorant instalock tool or agent picker. It automatically selects and locks your chosen agent using the official Valorant API. The ban risk is extremely low (I haven't been banned for 3-4 years). The program is written in Python, includes a simple CLI (console interface), and works as a lightweight instalocker script that speeds up the agent selection phase significantly. (And yes, this text was written by AI)
 
 # ❗IMPORTANT
-**This version is still in the testing phase. Please report any bugs you encounter in the [issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.**
+**This version is still in the testing phase. Please report any errors you encounter or share your development ideas in the [issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.**
 
 ---
 
