@@ -26,6 +26,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 * **Otomatik Harita Güncelleyici:** Harita listesini sunucudan otomatik olarak çeken ve her zaman güncel tutan fonksiyon eklendi.
 
 ### 🔧 Genel İyileştirmeler & Sistem Optimizasyonu
+* **Sürüm Kontrolü :** Instalocker sürümünü sürekli olarka kontrol edip yeni sürüm varsa sizi uyarır
 * **Hata Onarımları:** Uygulamanın stabilitesini bozan tüm kritik ve genel hatalar giderildi.
 * **Dosya Yapısı Düzenlemesi:** Dosya karışıklığını önlemek için tüm veriler `VALORANT/Instalocker` klasörü altında toplandı.
 * **Akıllı Temizleyici:** Eski sürümlerden kalan gereksiz "çöp" dosyaları otomatik olarak temizleyen sistem eklendi.

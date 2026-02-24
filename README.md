@@ -24,6 +24,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 * **Automatic Map Updater:** Integrated function that automatically fetches the latest map list from the server to keep data up-to-date.
 
 ### 🔧 General Improvements & System Optimization
+* **New Update Notifier :** Implemented a version check mechanism to keep users informed about the latest releases.
 * **Bug Fixes:** Resolved all critical and general issues to improve overall application stability.
 * **File Structure Reorganization:** All application data has been moved to a dedicated `VALORANT/Instalocker` directory to prevent file clutter.
 * **Smart Cleaner:** Integrated a cleanup system that automatically removes "junk" files left behind by older versions.
