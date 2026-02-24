@@ -2,7 +2,7 @@
       🌐 English | <a href="https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md">Türkçe</a>
 </p>
 
-# 🛠️ Valorant Instalocker
+# 🛠️ Valorant Instalocker V1.9.0
 
 ## Promotional Video
 <video src="https://github.com/user-attachments/assets/ff1e1677-f2c0-43a8-bd70-e4cf0cd09c0b" autoplay loop muted playsinline></video>
