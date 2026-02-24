@@ -2,7 +2,7 @@
       🌐 <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/README.md>English</a>  |  Türkçe
 </p>
 
-# 🛠️ Valorant Instalocker
+# 🛠️ Valorant Instalocker V1.9.0
 
 ## Tanıtım Videosu
 <video src="https://github.com/user-attachments/assets/ff1e1677-f2c0-43a8-bd70-e4cf0cd09c0b" autoplay loop muted playsinline></video>
@@ -288,6 +288,7 @@ Bu yazılım tamamen **eğitim ve kişisel kullanım** amacıyla geliştirilmiş
 
 ### 🔑 Anahtar kelimeler
 valorant instalocker, valorant auto lock, valorant agent locker, valorant instalock script, valorant agent picker, valorant instalocker tui
+
 
 
 
