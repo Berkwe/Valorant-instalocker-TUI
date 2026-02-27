@@ -113,24 +113,24 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 ```json
 {
     "ascent": {
-        "ajan": "", # ? agent to be selected
-        "mod": "" # ? mode to be used (enter 1 or 2, if left blank it defaults to mode 1 - lock mode)
+        "agent": "", # ? agent to be selected
+        "mode": "" # ? mode to be used (enter 1 or 2, if left blank it defaults to mode 1 - lock mode)
     },
     "split": {
-        "ajan": "", 
-        "mod": ""
+        "agent": "", 
+        "mode": ""
     },
 ```
 #### - Example Filling:
 ```json
 {
     "ascent": {
-        "ajan": "jett", 
-        "mod": "1"
+        "agent": "jett", 
+        "mode": "1"
     },
     "split": {
-        "ajan": "brimstone", # ? you cannot write 'brim' here, you must enter the full name. I probably won't add the abbreviation feature for this later.
-        "mod": "2"
+        "agent": "brimstone", # ? you cannot write 'brim' here, you must enter the full name. I probably won't add the abbreviation feature for this later.
+        "mode": "2"
     },
 ```
 
