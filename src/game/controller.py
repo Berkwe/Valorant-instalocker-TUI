@@ -25,6 +25,7 @@ class GameController:
         self.logger.write("breakGame task'ı başlatıldı.", level="info")
         try:
             while True:
+                await asyncio.sleep(0)
                 self.i18n.print_lang("prompts.INPUT_quest_breakgame")
                 user_input = await aioconsole.ainput("")
                 self.logger.write(f"Kullanıcı breakGame için giriş yaptı: '{user_input}'")
