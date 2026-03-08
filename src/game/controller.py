@@ -27,7 +27,9 @@ class GameController:
             while True:
                 await asyncio.sleep(0)
                 self.i18n.print_lang("prompts.INPUT_quest_breakgame")
-                user_input = await aioconsole.ainput("")
+                print("\n")
+                user_input = await aioconsole.ainput(" : ")
+
                 self.logger.write(f"Kullanıcı breakGame için giriş yaptı: '{user_input}'")
                 
                 if user_input.lower() in ("e", "y"):
@@ -179,6 +181,8 @@ class GameController:
                                 mode_profile = profile.get("mod", profile.get("mode", False))
                                 if not mode_profile.isdecimal():
                                     mode_profile = 1
+                                else:
+                                    mode_profile = int(mode_profile)
                                 self.logger.write(f"ajan : {agent} mod : {mode_profile if mode == 3 else mode}", "info")
                                 agent = agent.lower()
                                 if agent == "" or agent not in self.agent_service.agents.keys():
@@ -211,6 +215,7 @@ class GameController:
                             break
                             
                     except TypeError:
+                        
                         if self.config.debug:
                             pass
                         else:
@@ -227,7 +232,7 @@ class GameController:
                         raise Exception(f"Ajan kitlerken hata: {e}")
 
                 if quest_shortcut_task and not quest_shortcut_task.done():
-                     quest_shortcut_task.cancel()
+                    quest_shortcut_task.cancel()
                      
                 if self.config.exit_flag:
                     break

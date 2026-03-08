@@ -16,7 +16,7 @@ class Constants:
     SHOOTER_LOG_FILE_PATH = os.path.expandvars(r'%LocalAppData%\VALORANT\Saved\Logs\ShooterGame.log')
     LANGUAGE_FILE_PATH = os.path.join(INSTALOCKER_PATH, "language.json")
     PROFILE_SLOT_PATH = os.path.join(INSTALOCKER_PATH, "profile_shortcuts.json")
-
+    
     # ? api urls
     VALORANT_AGENTS_API_URL = "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
     VALORANT_MAPS_API_URL = "https://valorant-api.com/v1/maps"
