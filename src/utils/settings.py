@@ -1,7 +1,7 @@
 import traceback, os, time, json
-from core.constants import Constants
-from core.config import Config
-from core.logger import Logger
+from src.core.constants import Constants
+from src.core.config import Config
+from src.core.logger import Logger
 
 class SettingsManager:
     def __init__(self, config: Config, logger: Logger):
@@ -30,6 +30,8 @@ class SettingsManager:
                 return -1
 
             self.config.settings[settingKey] = settingValue
+            with open(Constants.SETTINGS_PATH, "w", encoding="utf-8") as f:
+                json.dump(self.config.settings, f, ensure_ascii=False, indent=4)
         except Exception as e:
             detailed_traceback = traceback.exc()
             self.logger.write(f"Ayarlar çekilirken bir hata oluştu : {detailed_traceback}", "error")

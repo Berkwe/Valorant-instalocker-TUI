@@ -81,7 +81,7 @@
             "match_disrupted": "Maç başarıyla bozuldu, Instalocker yeniden başlıyor...",
             "game_already_started": "Oyun zaten başlamış!",
             "game_already_disrupted": "Oyun zaten bozulmuş!",
-            "game_not_disrupted": "Oyun bozulmadı, Instalocker kapanıyor...",
+            "game_not_disrupted": "Oyun bozulmadı, Instalocker yeniden başlıyor...",
             "game_disrupted_reselecting": "Oyun bozuldu, Instalocker aynı ajanı tekrardan seçiyor."
         },
         "mode": {
@@ -182,7 +182,7 @@
             "match_disrupted": "Match successfully disrupted, Instalocker restarting...",
             "game_already_started": "Game has already started!",
             "game_already_disrupted": "Game has already been disrupted!",
-            "game_not_disrupted": "Game not disrupted, closing Instalocker...",
+            "game_not_disrupted": "Game not disrupted, Instalocker restarting...",
             "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent."
         },
         "mode": {

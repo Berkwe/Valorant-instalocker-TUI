@@ -319,6 +319,7 @@ class InstalockerApp:
                             continue
 
                 if self.config.exit_flag: break
+
                 if self.config.reboot_flag:
                     self.config.reboot_flag = False
                     self.clear()
@@ -332,7 +333,12 @@ class InstalockerApp:
                     self.write_animated_text("Instalocker For Valorant")
                     continue
                 elif self.config.exit_flag:
-                     break
+                    break
+                elif self.config.reboot_flag:
+                    self.config.reboot_flag = False
+                    self.config.mode = 0
+                    self.config.agent = None
+                    continue
                      
             except asyncio.CancelledError:
                 self.logger.write("Main loop iptal edildi.")

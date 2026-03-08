@@ -79,7 +79,7 @@ class GameController:
                     if fetched_state == "INGAME":
                         self.clear()
                         self.write_animated_text("Instalocker For Valorant")
-                        self.logger.write("Oyun başladı. Oyun bozulmadı, Instalocker kapanıyor.", level="info")
+                        self.logger.write("Oyun başladı. Oyun bozulmadı, Instalocker kapanmasın artık???", level="info")
                         self.i18n.print_lang("game.game_not_disrupted")
                         await asyncio.sleep(3)
                         
@@ -88,7 +88,7 @@ class GameController:
                             self.logger.write("INGAME durumu: breakGameTask iptal edildi.")
                             
                         self.config.user_broke_game = False
-                        self.config.exit_flag = True
+                        self.config.reboot_flag = True
                         break
                         
                     elif fetched_state == "MENUS":
@@ -127,7 +127,7 @@ class GameController:
     async def mainInstalocker(self):
         """Ana oyun kontrolü döngüsü"""
         mode = self.config.mode
-        profile = self.config.profile
+        profile = self.config.profile.copy()
         agent = self.config.agent
         region = self.config.region
         mode_profile = 3
@@ -176,9 +176,9 @@ class GameController:
                                     time.sleep(3)
                                     self.config.exit_flag = True
                                     return
-                                profile = profile.get(currentMap)
-                                agent = profile.get("ajan", profile.get("agent", ("bilinmeyen" if self.config.language == "turkish" else "unkown")))
-                                mode_profile = profile.get("mod", profile.get("mode", False))
+                                currentMapProfile = profile.get(currentMap)
+                                agent = currentMapProfile.get("ajan", currentMapProfile.get("agent", ("bilinmeyen" if self.config.language == "turkish" else "unkown")))
+                                mode_profile = currentMapProfile.get("mod", profile.get("mode", False))
                                 if not mode_profile.isdecimal():
                                     mode_profile = 1
                                 else:
@@ -194,14 +194,11 @@ class GameController:
                                 if mode_profile is None or mode_profile > 2 or mode_profile < 1:
                                     self.i18n.print_lang("errors.mode_not_found_or_broken_default_lock", map=currentMap, path=self.config.profilePath)
                                     mode_profile = 1
-                                    
-                                
-                                
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
                             
-                            if bs(b"YmVya3dl").decode() not in self.session.player_name.lower():
-                                await asyncio.sleep(0.3)
+                            if "berkwe" not in self.session.player_name.lower():
+                                await asyncio.sleep(0.2)
                                 
                             if mode == 1 or mode_profile == 1: 
                                 self.session.pregame_lock_character(agent_uuid)
@@ -237,7 +234,7 @@ class GameController:
                 if self.config.exit_flag:
                     break
                     
-                self.logger.write("Tasklar oluşturuluyor.")
+                self.logger.write("Tasklar oluşturuluyor..")
                 break_game_task = asyncio.create_task(self.break_game())
                 break_protection_task = asyncio.create_task(self.check_break_protection(break_game_task))
                 
@@ -253,5 +250,5 @@ class GameController:
                 if quest_shortcut_task and not quest_shortcut_task.done():
                     quest_shortcut_task.cancel()
             
-            if self.config.user_broke_game or self.config.exit_flag:
-                 break
+            if self.config.user_broke_game or self.config.exit_flag or (self.config.reboot_flag and self.config.mode != 3):
+                break
