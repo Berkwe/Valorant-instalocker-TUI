@@ -1,5 +1,6 @@
 import asyncio, os, argparse, time, random, traceback
 
+from src.utils.settings import SettingsManager
 from src.core.constants import Constants
 from src.core.config import Config
 from src.core.logger import Logger
@@ -16,7 +17,8 @@ class InstalockerApp:
     def __init__(self):
         self.config = Config()
         self.logger = Logger(self.config)
-        self.i18n = LanguageManager(self.config, self.logger)
+        self.settingManager = SettingsManager(self.config, self.logger)
+        self.i18n = LanguageManager(self.config, self.logger, self.settingManager)
         self.agent_service = AgentService(self.config, self.logger, self.i18n)
         self.map_service = MapService(self.config, self.logger, self.i18n)
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
@@ -86,9 +88,9 @@ class InstalockerApp:
 
 
     async def main_loop(self):
+        self.settingManager.getSettings()
         self.i18n.load_user_language()
         self.i18n.load_language_file()
-        
         while not self.config.exit_flag:
             self.logger.write("Ana döngü başlatılıyor.", level="info")
             try:
@@ -106,7 +108,7 @@ class InstalockerApp:
                     break
                     
                 self.logger.write(f"Bölge '{self.config.region}' olarak ayarlandı.", level="info")
-                
+                 
                 if Constants.clearOldFiles():
                     self.i18n.print_lang("success.clear_old_files")
 
@@ -248,6 +250,7 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("english", "türkçe"):
                         self.config.language = "english" if agent_input == "english" else "turkish"
+                        self.settingManager.setSetting("language", self.config.language)
                         self.clear()
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue

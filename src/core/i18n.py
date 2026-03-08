@@ -2,17 +2,21 @@ import json, os, requests, time, traceback
 from .constants import Constants
 from .logger import Logger
 from .config import Config
-
+from src.utils.settings import SettingsManager
 class LanguageManager:
-    def __init__(self, config: Config, logger: Logger):
+    def __init__(self, config: Config, logger: Logger, settingsManager: SettingsManager):
         self.config = config
         self.logger = logger
+        self.settingsManager = settingsManager
         self.language_file = {}
         self.decode_error_count = 0
 
     def load_user_language(self, auto_mode=True):
         """Kullanıcı dilini logdan çekmeye çalışır"""
         try:
+            if not self.config.settings.get("first_exec"):
+                self.config.language = self.config.settings.get("language")
+                return
             if auto_mode:
                 if not os.path.exists(Constants.SHOOTER_LOG_FILE_PATH):
                     self.logger.write("Otomatik dil belirlenemedi, kullanıcıya dil sorulacak.", "warning")
@@ -27,7 +31,6 @@ class LanguageManager:
                 else:
                     self.config.language = "english"
                     self.logger.write("Otomatik dil tespit edildi: İngilizce", "info")
-                return
 
             else:
                 for _ in range(5):
@@ -56,7 +59,8 @@ class LanguageManager:
                     self.logger.write("Kullanıcı 5 kez yanlış dil girdi, Instalocker kapanıyor.", "error")
                     print("Incorrect entry attempted 5 times, Instalocker is shutting down...")
                     self.config.exit_flag = True
-
+            self.settingsManager.setSetting("first_exec", False)
+            self.settingsManager.setSetting("language", self.config.language)
         except Exception as e:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"Hata oluştu getUserLang() : {detailed_exception}", "error")

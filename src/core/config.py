@@ -12,8 +12,8 @@ class Config:
         self.exit_flag = False
         self.is_shortcut = False
         self.user_broke_game = False
-        
-        self.language = "english" 
+        self.language = "english"
+        self.settings = {}
 
     def set_args(self, args_dict):
         """verilen dicten argümanları pars eder"""
