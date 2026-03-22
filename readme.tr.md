@@ -27,7 +27,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 * **Ayarlar Güncellemesi:** Dil Değiştirdiğinizde instalocker bunu kaydedebilecek (gereksizdi ama içimde kalırdı eklemesem)
 
 ### 🔧 Genel İyileştirmeler & Sistem Optimizasyonu
-* **Sürüm Kontrolü :** Instalocker sürümünü sürekli olarka kontrol edip yeni sürüm varsa sizi uyarır
+* **Sürüm Kontrolü :** Instalocker sürümünü sürekli olarak kontrol edip yeni sürüm varsa sizi uyarır
 * **İnatcı Veled :** Instalocker artık oyun başladıkdan sonra kapanmıyor, yeniden başlıyor. Haritaya göre sçeim modundaysa otomatik olarak aynı profili tekrar uyguluyor.
 * **Hata Onarımları:** Uygulamanın stabilitesini bozan tüm kritik ve genel hatalar giderildi.
 * **Dosya Yapısı Düzenlemesi:** Dosya karışıklığını önlemek için tüm veriler `VALORANT/Instalocker` klasörü altında toplandı.
