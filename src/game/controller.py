@@ -197,9 +197,6 @@ class GameController:
                             agent_uuid = self.agent_service.agents.get(agent)
                             self.session.pregame_select_character(agent_uuid)
                             
-                            if "berkwe" not in self.session.player_name.lower():
-                                await asyncio.sleep(0.2)
-                                
                             if mode == 1 or mode_profile == 1: 
                                 self.session.pregame_lock_character(agent_uuid)
                                 
