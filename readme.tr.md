@@ -1,5 +1,5 @@
 <p align="center">
-      🌐 <a href=https://github.com/Berkwe/Valorant-instalocker/blob/main/README.md>English</a>  |  Türkçe
+      🌐 <a href=https://github.com/Berkwe/Valorant-instalocker-TUI/blob/main/README.md>English</a>  |  Türkçe
 </p>
 
 # 🛠️ Valorant Instalocker V1.9.0
@@ -13,7 +13,7 @@
 Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir bir otomatik ajan kilitleme aracıdır. Genellikle Valorant instalock aracı veya ajan seçici olarak adlandırılır. Seçtiğiniz ajanı resmi Valorant API’sini kullanarak otomatik olarak seçer ve kilitler. Ban riski çok düşüktür(3-4 yıldır ban yemedim) Program Python ile yazılmıştır, basit bir CLI (konsol arayüzü) içerir ve ajan seçme aşamasını önemli ölçüde hızlandıran hafif bir instalocker betiği olarak çalışır. (ve evet bu yazı ai ile yazıldı)
 
 # ❗ÖNEMLİ
-**Bu sürüm hala deneme aşamasındadır hatalarınız veya isteklerinizi [sorunlar](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından iletin lütfen.**
+**Bu sürüm hala deneme aşamasındadır hatalarınız veya isteklerinizi [sorunlar](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) kısmından iletin lütfen.**
 
 ---
 
@@ -48,7 +48,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 * **Oyun Bozulma Koruması:** Maç bozulursa Instalocker, aynı ajan ve modu tekrardan seçecektir.
 * **[Bozma Mekaniği](#-ma%C3%A7-bozma-mekani%C4%9Fi-kullan%C4%B1m%C4%B1):** Ajan kitlendikten sonra tek tuşla maç bozabilir, ana menüye dönülür.
 * **[Masaüstü Kısayol Oluşturma](#-k%C4%B1sayol-kullan%C4%B1m%C4%B1):** Belirli ajanlar ve modlar için masaüstüne kısayol oluşturabilirsiniz. Kısayolu çalıştırarak hızlıca instalock atabilirsiniz.
-* **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) kısmından bildirebilirsiniz.
+* **Dil Desteği:** Instalocker artık birden fazla dil destekliyor, yalnız deneysel bir özellik bu sebeple hataları [Issues](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) kısmından bildirebilirsiniz.
 * **Otomatik Dil Algılama:** Dil desteği için otomatik dili algılar, valorant ayarlarına göre değişebilir. Yine de [belirli komutlarla](#-komutlar%C4%B1n-kullan%C4%B1m%C4%B1) değiştirebilirsiniz.
 * **[Ajan İsim Kısaltma](#%EF%B8%8F-ajan-i%CC%87sim-k%C4%B1saltmalar%C4%B1-kullan%C4%B1m%C4%B1):** Uzun isimlere sahip ajanların isimlerini kısaltarak hızlı seçim yapabilirsiniz.
 * **[Otomatik Ajan Güncellemesi](#%EF%B8%8F-otomatik-ajan-g%C3%BCncellemesi-kullan%C4%B1m%C4%B1):** Yeni ajanlar eklendiğinde otomatik olarak eklenir.
@@ -61,7 +61,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 ### 💾 Exe ile:
 
 1. **Exe'yi İndirin:**
-   [Instalocker.exe](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker.exe)
+   [Instalocker.exe](https://github.com/Berkwe/Valorant-instalocker-TUI/releases/latest/download/Instalocker.exe)
 2. **Çalıştırın:** İki kez tıkla ve çalıştır?
 
 ### 🐍 Python ile:
@@ -75,14 +75,14 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 1. **Projeyi İndirin:**
 
-   - **[Zip Dosyasını İndirin](https://github.com/Berkwe/Valorant-instalocker/archive/refs/heads/main.zip)**  
+   - **[Zip Dosyasını İndirin](https://github.com/Berkwe/Valorant-instalocker-TUI/archive/refs/heads/main.zip)**  
 
    **VEYA**  
 
    - **Git ile Klonlayın:**
    ```
-   git clone https://github.com/Berkwe/Valorant-instalocker
-   cd Valorant-instalocker
+   git clone https://github.com/Berkwe/Valorant-instalocker-TUI
+   cd Valorant-instalocker-TUI
    ```
 2. **Modülleri Kurun:**
 
@@ -237,7 +237,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
     #### - 2. adım 
     - **Aşşağıdaki kodu yapıştırın :**
     ####
-      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker-TUI/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
 ---
 ### 🪲 Log Sistemi Açıklaması
 
@@ -255,7 +255,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ## ⓘ Performans ve Geri Bildirim
 
-* **Performans sorunları veya önerileriniz için** [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) **sayfasını kullanabilirsiniz.**
+* **Performans sorunları veya önerileriniz için** [Issues](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) **sayfasını kullanabilirsiniz.**
 
 ---
 
@@ -279,7 +279,7 @@ Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir
 
 ## 📝 Lisans
 
-Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE) altında lisanslanmıştır.
+Bu proje [MIT Lisansı](https://github.com/Berkwe/Valorant-instalocker-TUI/blob/main/LICENSE) altında lisanslanmıştır.
 
 ---
 
