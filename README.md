@@ -22,9 +22,11 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 * **Profile Creation Feature:** Customizable profile system implemented to save and manage your map-based configurations.
 * **Quick Profile Selector & Shortcuts:** New fast-access mechanism added for seamless switching between saved profiles.
 * **Automatic Map Updater:** Integrated function that automatically fetches the latest map list from the server to keep data up-to-date.
+* **Settings Update:** Instalocker can now save your language preference when you change it (unnecessary but would have bothered me if I didn't add it)
 
 ### 🔧 General Improvements & System Optimization
-* **New Update Notifier :** Implemented a version check mechanism to keep users informed about the latest releases.
+* **Version Control:** Instalocker continuously checks its version and alerts you if a new release is available.
+* **Stubborn Persistence:** Instalocker no longer closes after the game starts—it restarts itself. If you're in map-based selection mode, it automatically re-applies the same profile.
 * **Bug Fixes:** Resolved all critical and general issues to improve overall application stability.
 * **File Structure Reorganization:** All application data has been moved to a dedicated `VALORANT/Instalocker` directory to prevent file clutter.
 * **Smart Cleaner:** Integrated a cleanup system that automatically removes "junk" files left behind by older versions.

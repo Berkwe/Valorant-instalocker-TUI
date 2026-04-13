@@ -17,7 +17,7 @@ Docstring for Instalocker
 - valclient kullanılarak yapılmıştır.
 
 
-Version : V1.9.0--alpha-1.0
+Version : V1.9.0--beta-2.0
 Version-Path : src/utils/version
 Author/Maintainer : berkwe
 
