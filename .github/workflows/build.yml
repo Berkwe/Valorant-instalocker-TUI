@@ -21,10 +21,10 @@ jobs:
           pip install pyinstaller -r requirements.txt
 
       - name: Build with PyInstaller
-        run: pyinstaller --onefile --clean --add-data ./src:src -i instalocker.ico Instalocker.py
+        run: pyinstaller --onefile --clean --add-data "src;src" -i "instalocker.ico" Instalocker.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-exe
+          name: Instalocker.exe
           path: dist/*.exe 
