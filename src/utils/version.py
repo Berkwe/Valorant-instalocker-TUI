@@ -4,7 +4,11 @@ from src.core.config import Config
 
 class Version:
     def __init__(self):
+<<<<<<< HEAD
         self.__version__ = "1.9.0--beta-2.0"#?0$
+=======
+        self.__version__ = "1.9.0--alpha-2.0"#?0$
+>>>>>>> 405328d7cf1414776f8e1c166a3701d6700e5825
         self.__author__ = "Berkwe_"
         self.REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/src/utils/version.py"
         self.config = Config()
