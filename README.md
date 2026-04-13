@@ -1,5 +1,5 @@
 <p align="center">
-      🌐 English | <a href="https://github.com/Berkwe/Valorant-instalocker/blob/main/readme.tr.md">Türkçe</a>
+      🌐 English | <a href="https://github.com/Berkwe/Valorant-instalocker-TUI/blob/main/readme.tr.md">Türkçe</a>
 </p>
 
 # 🛠️ Valorant Instalocker V1.9.0
@@ -11,7 +11,7 @@
 Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Games’ Valorant. Often referred to as a Valorant instalock tool or agent picker. It automatically selects and locks your chosen agent using the official Valorant API. The ban risk is extremely low (I haven't been banned for 3-4 years). The program is written in Python, includes a simple CLI (console interface), and works as a lightweight instalocker script that speeds up the agent selection phase significantly. (And yes, this text was written by AI)
 
 # ❗IMPORTANT
-**This version is still in the testing phase. Please report any errors you encounter or share your development ideas in the [issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.**
+**This version is still in the testing phase. Please report any errors you encounter or share your development ideas in the [issues](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) section.**
 
 ---
 
@@ -46,7 +46,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 * **Game Disruption Protection:** If the match is dodged/disrupted, Instalocker will automatically re-select the same agent and mode.
 * **[Match Dodge Mechanic](#-match-dodge-mechanic-usage):** After an agent is locked, you can dodge the match with a single key and return to the main menu.
 * **[Desktop Shortcut Creation](#-shortcut-usage):** You can create desktop shortcuts for specific agents and modes. Running the shortcut allows for a quick instalock.
-* **Language Support:** Instalocker now supports multiple languages. This is an experimental feature, so please report bugs in the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) section.
+* **Language Support:** Instalocker now supports multiple languages. This is an experimental feature, so please report bugs in the [Issues](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) section.
 * **Automatic Language Detection:** Automatically detects the language for language support (may vary based on Valorant settings). You can still change it manually using [specific commands](#%EF%B8%8F-usage-of-commands).
 * **[Agent Name Shortening](#%EF%B8%8F-agent-name-shortening-usage):** You can quickly select agents by typing the shortened versions of their long names.
 * **[Automatic Agent Updates](#%EF%B8%8F-automatic-agent-update-usage):** New agents are added automatically when released.
@@ -59,7 +59,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 ### 💾 With the EXE:
 
 1. **Download the EXE:**
-   [Instalocker.exe](https://github.com/Berkwe/Valorant-instalocker/releases/latest/download/Instalocker.exe)
+   [Instalocker.exe](https://github.com/Berkwe/Valorant-instalocker-TUI/releases/latest/download/Instalocker.exe)
 2. **Run it:** Double-click and run.
 
 ### 🐍 With Python:
@@ -74,10 +74,10 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 
 1. **Download the project:**
 
-   - **[Download the ZIP file](https://github.com/Berkwe/Valorant-instalocker/archive/refs/heads/main.zip)** **OR** - **Clone with Git:**
+   - **[Download the ZIP file](https://github.com/Berkwe/Valorant-instalocker-TUI/archive/refs/heads/main.zip)** **OR** - **Clone with Git:**
    ```bash
-   git clone https://github.com/Berkwe/Valorant-instalocker
-   cd Valorant-instalocker
+   git clone https://github.com/Berkwe/Valorant-instalocker-TUI
+   cd Valorant-instalocker-TUI
    ```
 2. **Install dependencies:**
 
@@ -233,7 +233,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
     #### - Step 2: 
     - **Paste the following code:**
     ####
-      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
+      curl "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker-TUI/refs/heads/main/agents.json" > %LOCALAPPDATA%\VALORANT\agents.json
 ---
 ### 🪲 Log System Explanation
 
@@ -273,7 +273,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 
 ## 📝 License
 
-This project is licensed under the [MIT License](https://github.com/Berkwe/Valorant-instalocker/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/Berkwe/Valorant-instalocker-TUI/blob/main/LICENSE).
 
 ---
 
