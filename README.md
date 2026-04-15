@@ -249,7 +249,7 @@ Valorant Instalocker is a fast and reliable auto agent locking tool for Riot Gam
 
 ## ⓘ Performance and Feedback
 
-* For performance issues or suggestions, please use the [Issues](https://github.com/Berkwe/Valorant-instalocker/issues) page.
+* For performance issues or suggestions, please use the [Issues](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) page.
 
 ---
 

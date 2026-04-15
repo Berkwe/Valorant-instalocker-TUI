@@ -21,7 +21,7 @@ class Constants:
     # ? api urls
     VALORANT_AGENTS_API_URL = "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
     VALORANT_MAPS_API_URL = "https://valorant-api.com/v1/maps"
-    LANGUAGE_FILE_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/language.json"
+    LANGUAGE_FILE_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker-TUI/refs/heads/main/language.json"
     # ? default jsons
     PROFILE_FILE_DEFAULT_PROP_TR = {
         "ajan": "",
