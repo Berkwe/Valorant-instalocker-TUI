@@ -6,7 +6,7 @@ class Version:
     def __init__(self):
         self.__version__ = "1.9.0--beta-2.0"#?0$
         self.__author__ = "Berkwe_"
-        self.REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker/refs/heads/main/src/utils/version.py"
+        self.REMOTE_VERSION_URL = "https://raw.githubusercontent.com/Berkwe/Valorant-instalocker-TUI/refs/heads/main/src/utils/version.py"
         self.config = Config()
         self.logger = Logger(self.config)
     
