@@ -336,8 +336,9 @@ class InstalockerApp:
                     break
                 elif self.config.reboot_flag:
                     self.config.reboot_flag = False
-                    self.config.mode = 0
-                    self.config.agent = None
+                    if not self.config.is_shortcut:
+                        self.config.mode = 0
+                        self.config.agent = None
                     continue
                      
             except asyncio.CancelledError:
