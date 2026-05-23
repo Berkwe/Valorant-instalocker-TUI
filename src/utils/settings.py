@@ -13,6 +13,7 @@ class SettingsManager:
         try:
             with open(Constants.SETTINGS_PATH, "w", encoding="utf-8") as f:
                 json.dump(Constants.SETTINGS_DEFAULT_PROP, f, ensure_ascii=False, indent=4)
+            return Constants.SETTINGS_DEFAULT_PROP
         except Exception as e:
             detailed_traceback = traceback.exc()
             self.logger.write(f"Ayar dosyası oluşturulurken bir hata oluştu : {detailed_traceback}", "error")
@@ -20,7 +21,7 @@ class SettingsManager:
             time.sleep(4)
             return
 
-    def setSetting(self, settingKey, settingValue):
+    def setSettings(self, settingKey, settingValue):
         try:
             if not self.config.settings:
                 self.getSettings()
@@ -46,7 +47,11 @@ class SettingsManager:
             
             with open(Constants.SETTINGS_PATH, "r", encoding="utf-8") as f:
                 tempJson = json.load(f)
-
+            
+            for setting in Constants.SETTINGS_DEFAULT_PROP.keys():
+                if setting not in tempJson.keys():
+                    self.logger.write(f"Ayarlar dosyasının bozuk olduğu belirlendi, tamir ediliyor. Bozuk anahtar : {setting}", "info")
+                    tempJson = self.createSettings()
             self.config.settings = tempJson
         except Exception as e:
             detailed_traceback = traceback.exc()

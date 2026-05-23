@@ -34,7 +34,7 @@ class Constants:
     SETTINGS_DEFAULT_PROP = {
         "is_exec": False,
         "language": "",
-        "auto_exit": ""
+        "instaloop": False
     }
 
     def clearOldFiles():

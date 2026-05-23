@@ -22,7 +22,7 @@
             "profile_file_not_loaded": "Profil dosyası yüklenemedi.",
             "profile_file_not_found": "Profil dosyası {path} konumunda bulunamadı.",
             "agent_not_found_or_empty": "Profil dosyasındaki '{map}' haritasında seçilecek '{agent}' ajanı boş veya yanlış (dosya yolu : {path})",
-            "mode_not_found_or_broken_default_lock": "'{path}' profilindeki '{map}' haritasındaki seç/kitle modu bozuk veya yok. Varsayılan olarak kitleniyor, lütfen düzeltin."        
+            "mode_not_found_or_broken_default_lock": "'{path}' profilindeki '{map}' haritasındaki seç/kitle modu bozuk veya yok. Varsayılan olarak kitleniyor, lütfen düzeltin."
         },
         "success": {
             "language_file_updated": "Dil dosyası başarıyla güncellendi.",
@@ -37,7 +37,8 @@
             "clear_old_files": "Instalocker'in eski sürümlerdeki kalıntıları bulundu, başarıyla temizlendi.",
             "profile_file_loaded": "Profil dosyası başarıyla yüklendi: {path}",
             "profile_file_created": "Profil dosyası başarıyla oluşturuldu: {path}",
-            "profile_slot_added": "Profil slotu başarıyla eklendi, bir sonraki girişinizde hızlıca seçebileceksiniz."
+            "profile_slot_added": "Profil slotu başarıyla eklendi, bir sonraki girişinizde hızlıca seçebileceksiniz.",
+            "instaloop_changed": "Döngü Kilidi ayarı {instaloop_state} olarak ayarlandı."
         },
         "prompts": {
             "select_language": "Dil (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -55,7 +56,8 @@
             "INPUT_quest_breakgame": "Oyunu bozmak ister misin? E/Y : ",
             "INPUT_macro_profile_path": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin. Yeni bir tane oluşturmak için 'yardım' yazın.\nSeç : ",
             "INPUT_macro_profile_path_default": "Lütfen profil dosyanızın yolunu girin veya kayıtlı olanlardan seçin(varsayılan = {path})\nSeç : ",
-            "profile_slots_list": "Önceki Profiller (seçmek için numarasını girin) : "
+            "profile_slots_list": "Önceki Profiller (seçmek için numarasını girin) : ",
+            "only_on_off": "Lütfen açmak için '{prompt} aç/on', kapatmak için '{prompt} kapat/off' yazın. Şu anki döngü kilidi durumu : {instaloop_state}"
 
         },
         "info": {
@@ -77,12 +79,13 @@
             "waiting_for_selection_profile": "\nAjan seçme ekranı bekleniyor, kullanılan profil yolu : {path}\n",
             "selection_screen_detected": "Ajan seçme ekranı belirlendi..",
             "agent_selected": "Ajan başarıyla seçildi:\n{agent}",
-            "crash_protection_active": "Bozulma koruması devrede, oyuna girilince instalocker kapanacak.",
+            "crash_protection_active": "Bozulma koruması devrede, oyuna girilince instalocker yeniden başlayacak.",
             "match_disrupted": "Maç başarıyla bozuldu, Instalocker yeniden başlıyor...",
             "game_already_started": "Oyun zaten başlamış!",
             "game_already_disrupted": "Oyun zaten bozulmuş!",
             "game_not_disrupted": "Oyun bozulmadı, Instalocker yeniden başlıyor...",
-            "game_disrupted_reselecting": "Oyun bozuldu, Instalocker aynı ajanı tekrardan seçiyor."
+            "game_disrupted_reselecting": "Oyun bozuldu, Instalocker aynı ajanı tekrardan seçiyor.",
+            "instaloop_state": "Kilit tekrarı durumu : {instaloop_state}"
         },
         "mode": {
             "options_header": "Mod seçenekleri : ",
@@ -93,7 +96,7 @@
             "set_to_macro": "Mod Harita Makrosu olarak ayarlandı!"
         },
         "help": {
-            "agent_select_message": "--- AJAN SEÇİM KOMUTLARI ---\n-profil-oluştur/create-profile/cp/po : Profil dosyası oluşturur ve konumunu döndürür.\n-r/rastgele/random : Ajanı rastgele seçer.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n\n--- GENEL KOMUTLAR ---\n-clear/temizle/cls : Terminali temizler.\n-güncelle/update : Ajan, Harita ve Dil dosyalarını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili değiştirir.\n-liste-konumu/agents-folder : Ajan listesi konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyası konumunu döndürür.\n-yardım/help : Bu mesajı görüntüler.\n\n",
+            "agent_select_message": "--- AJAN SEÇİM KOMUTLARI ---\n-profil-oluştur/create-profile/cp/po : Profil dosyası oluşturur ve konumunu döndürür.\n-r/rastgele/random : Ajanı rastgele seçer.\n-ajanlar/agents : Ajan listesini okunaklı biçimde döndürür.\n-ajanlar-l/agents-l : Ajan listesini 'liste' biçiminde döndürür.\n-döngü-kilidi/instaloop/dk/il {on/aç, off/kapat} : Döngü kilidini açar veya kapatır. Döngü kilidi, sürekli ajan ismini tekrar yazmaktan sizi kurtarır. Her seferinde ilk girdiğiniz ajanı seçmeye devam eder.\n\n--- GENEL KOMUTLAR ---\n-clear/temizle/cls : Terminali temizler.\n-güncelle/update : Ajan, Harita ve Dil dosyalarını günceller.\n-yb/re : Uygulamayı hızlıca yeniden başlatır.\n-türkçe/english : Dili değiştirir.\n-liste-konumu/agents-folder : Ajan listesi konumunu döndürür.\n-kayıt-konumu/logs-folder : Kayıt dosyası konumunu döndürür.\n-yardım/help : Bu mesajı görüntüler.\n\n",
             "mode_select_message": "- 1  : Ajanı seçer ve kilitler, normal moddur. Hızlıca geçmek için entere basın.\n- 2 : Ajanı sadece seçer, kilitlemez. Bu şekilde rekabetci maçlarda, instalock atmak istemediğinizde bile Instalocker'i kullanabilirsiniz.\n- 3 : Oluşturacağınız profil dosyası ile haritalara göre özelleştirilmiş ajanları otomatik biçimde kilitlemenize olanak tanır, profil dosyasını ajan seçim ekranında belirlersiniz. Seçilen son 3 profil dosyası veya isteğe bağlı 3 profil dosyası kısayol olarak eklenebilir(sadece devam et anlayacaksın :D).\n- 4 yardım/help : bu mesajı gösterir.\n\n"
         },
         "debug": {
@@ -139,7 +142,8 @@
             "clear_old_files": "Remnants of older versions of Instalocker were found and successfully cleaned.",
             "profile_file_loaded": "Profile file successfully uploaded: {path}",
             "profile_file_created": "Profile file successfully created: {path}",
-            "profile_slot_added": "The profile slot has been successfully added. You will be able to select it quickly on your next time."
+            "profile_slot_added": "The profile slot has been successfully added. You will be able to select it quickly on your next time.",
+            "instaloop_changed": "Loop lock setting has been set to {instaloop_state}."
         },
         "prompts": {
             "select_language": "Language (ingilizce/english/EN, türkçe/turkish/TR): ",
@@ -157,7 +161,8 @@
             "INPUT_quest_breakgame": "Would you like to break game? Y/E : ",
             "INPUT_macro_profile_path": "Please enter the path to your profile file or select one from the saved ones. To create a new one, type 'help'\nSelect : ",
             "INPUT_macro_profile_path_default": "Please enter the path to your profile file or select one from the saved ones (default = {path})\nSelect : ",
-            "profile_slots_list": "Previous Profiles (enter the number to select) : "
+            "profile_slots_list": "Previous Profiles (enter the number to select) : ",
+            "only_on_off": "Please type '{prompt} on/aç' to enable or '{prompt} off/kapat' to disable. Current loop lock state: {instaloop_state}"
         },
         "info": {
             "language_file_downloading": "Language file not found, downloading remotely...",
@@ -178,12 +183,13 @@
             "waiting_for_selection_profile": "\nWaiting for agent selection screen, profile to be used : {path}\n",
             "selection_screen_detected": "Agent selection screen detected.",
             "agent_selected": "Agent successfully selected:\n{agent}",
-            "crash_protection_active": "Crash protection active, Instalocker will close when the game starts.",
+            "crash_protection_active": "Crash protection active, Instalocker will restart when the game starts.",
             "match_disrupted": "Match successfully disrupted, Instalocker restarting...",
             "game_already_started": "Game has already started!",
             "game_already_disrupted": "Game has already been disrupted!",
             "game_not_disrupted": "Game not disrupted, Instalocker restarting...",
-            "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent."
+            "game_disrupted_reselecting": "Game disrupted, Instalocker is reselecting the same agent.",
+            "instaloop_state": "Loop lock state: {instaloop_state}"
         },
         "mode": {
             "options_header": "Mode options : ",
