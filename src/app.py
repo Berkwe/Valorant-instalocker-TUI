@@ -17,8 +17,8 @@ class InstalockerApp:
     def __init__(self):
         self.config = Config()
         self.logger = Logger(self.config)
-        self.settingManager = SettingsManager(self.config, self.logger)
-        self.i18n = LanguageManager(self.config, self.logger, self.settingManager)
+        self.settingsManager = SettingsManager(self.config, self.logger)
+        self.i18n = LanguageManager(self.config, self.logger, self.settingsManager)
         self.agent_service = AgentService(self.config, self.logger, self.i18n)
         self.map_service = MapService(self.config, self.logger, self.i18n)
         self.shortcut_mgr = ShortcutManager(self.config, self.logger, self.i18n, self.agent_service)
@@ -88,7 +88,7 @@ class InstalockerApp:
 
 
     async def main_loop(self):
-        self.settingManager.getSettings()
+        self.settingsManager.getSettings()
         self.i18n.load_user_language()
         self.i18n.load_language_file()
         while not self.config.exit_flag:
@@ -116,10 +116,13 @@ class InstalockerApp:
                 self.agent_service.loadAgents()
                 if self.config.exit_flag:
                     break
+
+
                 if not self.agent_service.agents:
                     self.i18n.print_lang("errors.agent_list_load_failed")
                     self.config.exit_flag = True
                     break
+
                 self.logger.write(f"Ajan listesi yüklendi. {len(self.agent_service.agents)} ajan.", level="info")
                 
                 self.map_service.loadMaps()
@@ -131,7 +134,7 @@ class InstalockerApp:
                     break
                 self.logger.write(f"Harita listesi yüklendi. {len(self.map_service.maps)} harita.", level="info")
 
-                while not self.config.is_shortcut:
+                while not self.config.is_shortcut and self.config.mode == 0:
                     if self.versionResponse.get("isOld"):
                         self.i18n.print_lang("info.update_app_warn", version=self.versionResponse.get("apiVersion"))
                     self.i18n.print_lang("mode.options_header")
@@ -186,7 +189,7 @@ class InstalockerApp:
                     self.config.exit_flag = True
                     break
                     
-                while not self.config.is_shortcut:
+                while not self.config.is_shortcut and self.config.agent is None:
                     last = self.dt.today() - self.dt.strptime(self.agent_service.lastCheck, "%d.%m.%Y")
                     if last.days > 3:
                         self.i18n.print_lang("info.last_update_check", day=last.days)
@@ -250,7 +253,7 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("english", "türkçe"):
                         self.config.language = "english" if agent_input == "english" else "turkish"
-                        self.settingManager.setSetting("language", self.config.language)
+                        self.settingsManager.setSettings("language", self.config.language)
                         self.clear()
                         self.i18n.print_lang("info.language_changed", language=self.config.language)
                         continue
@@ -262,6 +265,18 @@ class InstalockerApp:
                         continue
                     elif agent_input in ("clear", "temizle", "cls"):
                         self.clear()
+                        continue
+                    elif any(ainput in agent_input for ainput in ("döngü-kilidi", "instaloop", "dk", "il")):
+                        ainput = agent_input.split(" ")
+                        self.clear()
+                        if ainput[-1] in ("on", "aç"):
+                            self.settingsManager.setSettings("instaloop", True)
+                        elif ainput[-1] in ("off", "kapat"):
+                            self.settingsManager.setSettings("instaloop", False)
+                        else:
+                            self.i18n.print_lang("prompts.only_on_off", prompt=ainput[0], instaloop_state=("açık" if self.config.settings.get("instaloop") else "kapalı"))
+                            continue
+                        self.i18n.print_lang("success.instaloop_changed", instaloop_state=("açık" if self.config.settings.get("instaloop") else "kapalı"))
                         continue
                     if self.config.mode == 3:
                         self.clear()
@@ -317,6 +332,10 @@ class InstalockerApp:
                             self.clear()
                             self.i18n.print_lang("prompts.invalid_agent")
                             continue
+                else:
+                    if not self.config.is_shortcut:
+                        self.logger.write(f"Instaloop tespit edildi yeniden seçiliyor, ajan : {self.config.agent}, Mod : {self.config.mode}", "info")
+
 
                 if self.config.exit_flag: break
 
@@ -337,8 +356,9 @@ class InstalockerApp:
                 elif self.config.reboot_flag:
                     self.config.reboot_flag = False
                     if not self.config.is_shortcut:
-                        self.config.mode = 0
-                        self.config.agent = None
+                        if not self.config.settings["instaloop"]:
+                            self.config.mode = 0
+                            self.config.agent = None
                     continue
                      
             except asyncio.CancelledError:

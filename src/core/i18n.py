@@ -59,8 +59,8 @@ class LanguageManager:
                     self.logger.write("Kullanıcı 5 kez yanlış dil girdi, Instalocker kapanıyor.", "error")
                     print("Incorrect entry attempted 5 times, Instalocker is shutting down...")
                     self.config.exit_flag = True
-            self.settingsManager.setSetting("first_exec", False)
-            self.settingsManager.setSetting("language", self.config.language)
+            self.settingsManager.setSettings("first_exec", False)
+            self.settingsManager.setSettings("language", self.config.language)
         except Exception as e:
             detailed_exception = traceback.format_exc()
             self.logger.write(f"Hata oluştu getUserLang() : {detailed_exception}", "error")

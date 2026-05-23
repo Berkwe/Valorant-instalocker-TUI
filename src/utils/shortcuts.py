@@ -1,4 +1,4 @@
-import os, sys, winreg, requests, traceback, aioconsole, time
+import os, sys, winreg, requests, traceback, aioconsole, time, asyncio
 from io import BytesIO
 from PIL import Image
 from win32com.client import Dispatch
@@ -114,7 +114,7 @@ class ShortcutManager:
             return 1
 
     async def ask_for_shortcut(self, agent_info: dict):
-        """Asynchronously asks the user if they want to create a shortcut."""
+        """Asynchronously asks the user if they want to create a shortcut. aynen en ingilizce bilen sensin"""
         self.logger.write("questShortCut task'ı başlatıldı", level="info")
         try:
             while True:
@@ -127,6 +127,8 @@ class ShortcutManager:
                         break
                 elif user_input.lower() in ("h", "n"):
                     break
+        except asyncio.CancelledError:
+            self.logger.write("questShortCut task'ı iptal edildi.")
         except Exception as e:
             error_details = traceback.format_exc()
             self.logger.write(f"Kısayolda hata : {error_details}", "error")

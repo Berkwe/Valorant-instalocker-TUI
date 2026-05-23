@@ -25,9 +25,8 @@ class GameController:
         self.logger.write("breakGame task'ı başlatıldı.", level="info")
         try:
             while True:
-                await asyncio.sleep(0)
+                await asyncio.sleep(0.1)
                 self.i18n.print_lang("prompts.INPUT_quest_breakgame")
-                print("\n")
                 user_input = await aioconsole.ainput(" : ")
 
                 self.logger.write(f"Kullanıcı breakGame için giriş yaptı: '{user_input}'")
@@ -142,16 +141,16 @@ class GameController:
                     mode_text = "seç ve kilitle" if mode == 1 else "sadece seç"
                     
                 self.i18n.print_lang("game.waiting_for_selection", agent=agent, mode_text=mode_text)
-
+                self.i18n.print_lang("game.instaloop_state", instaloop_state=("açık" if self.config.settings.get("instaloop") else "kapalı"))
             else:
                 self.i18n.print_lang('game.waiting_for_selection_profile', path=self.config.profilePath)
             break_protection_task = None
             break_game_task = None
             quest_shortcut_task = None
             
-            if not self.config.is_shortcut and mode != 3: # ? şimdilik bypass sonra düzeltirim
+            if not self.config.is_shortcut and mode != 3: # ? şimdilik bypass sonra düzeltirim (asla düzeltmeyeceğim)
                  quest_shortcut_task = asyncio.create_task(
-                    self.shortcut_mgr.ask_for_shortcut({"agent": agent, "mode": mode, "region": region})
+                    self.shortcut_mgr.ask_for_shortcut({"agent": agent, "mode": mode, "region": region}), name="quest_shortcut"
                  )
             try:
                 while True:
@@ -159,7 +158,6 @@ class GameController:
                         await asyncio.sleep(0)
                         fetched_request = self.session.fetch_presence()['matchPresenceData']
                         fetched_state = fetched_request['sessionLoopState']
-                        
                         if (fetched_state == "PREGAME" and 
                             self.session.pregame_fetch_match()['ID'] not in self.session.matches and 
                             self.session.is_logged_in):
@@ -195,10 +193,12 @@ class GameController:
                                     self.i18n.print_lang("errors.mode_not_found_or_broken_default_lock", map=currentMap, path=self.config.profilePath)
                                     mode_profile = 1
                             agent_uuid = self.agent_service.agents.get(agent)
-                            self.session.pregame_select_character(agent_uuid)
+                            
                             
                             if mode == 1 or mode_profile == 1: 
                                 self.session.pregame_lock_character(agent_uuid)
+                            else:
+                                self.session.pregame_select_character(agent_uuid)
                                 
                             self.logger.write(f"Ajan '{agent.capitalize()}' (UUID: {agent_uuid}) kilitlendi.", level="info")
                             self.session.matches.append(self.session.pregame_fetch_match()['ID'])
@@ -231,21 +231,20 @@ class GameController:
                 if self.config.exit_flag:
                     break
                     
-                self.logger.write("Tasklar oluşturuluyor..")
-                break_game_task = asyncio.create_task(self.break_game())
-                break_protection_task = asyncio.create_task(self.check_break_protection(break_game_task))
+                self.logger.write(f"Tasklar oluşturuluyor, loop id : {id(asyncio.get_event_loop())}", "info")
+                break_game_task = asyncio.create_task(self.break_game(), name="break_game")
+                break_protection_task = asyncio.create_task(self.check_break_protection(break_game_task), name="break_protection")
                 
                 await asyncio.gather(break_game_task, break_protection_task, return_exceptions=True)
                 
             except asyncio.CancelledError:
                 self.logger.write("State fonksiyonu iptal edildi.", level="info")
             finally:
-                if break_protection_task and not break_protection_task.done():
-                    break_protection_task.cancel()
-                if break_game_task and not break_game_task.done():
-                    break_game_task.cancel()
-                if quest_shortcut_task and not quest_shortcut_task.done():
-                    quest_shortcut_task.cancel()
+                tasks_to_cancel = [t for t in [break_protection_task, break_game_task, quest_shortcut_task] if t and not t.done()]
+                for task in tasks_to_cancel:
+                    task.cancel()
+                if tasks_to_cancel:
+                    await asyncio.gather(*tasks_to_cancel, return_exceptions=True)
             
             if self.config.user_broke_game or self.config.exit_flag or (self.config.reboot_flag and self.config.mode != 3):
                 break
