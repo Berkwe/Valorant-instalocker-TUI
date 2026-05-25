@@ -11,6 +11,10 @@
 
 
 Valorant Instalocker, Riot Games’in Valorant oyunu için hızlı ve güvenilir bir otomatik ajan kilitleme aracıdır. Genellikle Valorant instalock aracı veya ajan seçici olarak adlandırılır. Seçtiğiniz ajanı resmi Valorant API’sini kullanarak otomatik olarak seçer ve kilitler. Ban riski çok düşüktür(3-4 yıldır ban yemedim) Program Python ile yazılmıştır, basit bir CLI (konsol arayüzü) içerir ve ajan seçme aşamasını önemli ölçüde hızlandıran hafif bir instalocker betiği olarak çalışır. (ve evet bu yazı ai ile yazıldı)
+---
+# 🆕 Yeni Instalocker
+## Terminalden kontrol havalı olsa da herkes bir buton ister. Instalocker artık arayüzlü ve birkaç kat daha hızlı şekilde çalışıyor. Yeni Instalockeri [buradan](https://github.com/Berkwe/Valorant-instalocker) indirebilirsiniz. 
+![Dashboard](https://github.com/Berkwe/Valorant-Instalocker/blob/master/Assets/screenshots/dashboard.png)
 
 # ❗ÖNEMLİ
 **Bu sürüm hala deneme aşamasındadır hatalarınız veya isteklerinizi [sorunlar](https://github.com/Berkwe/Valorant-instalocker-TUI/issues) kısmından iletin lütfen.**
