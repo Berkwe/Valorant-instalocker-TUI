@@ -8,6 +8,10 @@ from src.utils.shortcuts import ShortcutManager
 from src.utils.utils import AnimateText
 from src.services.api import AgentService, MapService
 
+POLL_DELAY = 0.01  # ? local Riot Client'ı boğmamak için
+HANDLED_MATCH_DELAY = 0.1  # ? Riot sunucusuna gereksiz istek atmamak için
+WARM_INTERVAL = 20
+
 class GameController:
     def __init__(self, config: Config, logger: Logger, i18n: LanguageManager, session: GameSession, shortcut_mgr: ShortcutManager, agent_service: AgentService, map_service: MapService):
         self.config = config
@@ -152,23 +156,31 @@ class GameController:
                  quest_shortcut_task = asyncio.create_task(
                     self.shortcut_mgr.ask_for_shortcut({"agent": agent, "mode": mode, "region": region}), name="quest_shortcut"
                  )
+            agent_uuid = self.agent_service.agents.get(agent)
+            last_warm = 0.0
+            warm_task = None
             try:
                 while True:
                     try:
-                        await asyncio.sleep(0)
+                        await asyncio.sleep(POLL_DELAY)
+                        if self.session.is_logged_in and time.monotonic() - last_warm >= WARM_INTERVAL:
+                            last_warm = time.monotonic()
+                            warm_task = asyncio.create_task(asyncio.to_thread(self.session.warm_connection))
+
+                        poll_started = time.perf_counter()
                         fetched_request = self.session.fetch_presence()['matchPresenceData']
                         fetched_state = fetched_request['sessionLoopState']
-                        if (fetched_state == "PREGAME" and 
-                            self.session.pregame_fetch_match()['ID'] not in self.session.matches and 
-                            self.session.is_logged_in):
-                            
-                            self.clear()
-                            self.i18n.print_lang("game.selection_screen_detected")
+                        if fetched_state == "PREGAME" and self.session.is_logged_in:
+                            detected = time.perf_counter()
+                            match_id = self.session.pregame_fetch_match_id()
+                            if match_id is None or match_id in self.session.matches:
+                                await asyncio.sleep(HANDLED_MATCH_DELAY)
+                                continue
+                            match_id_received = time.perf_counter()
 
                             if mode == 3:
                                 currentMapUrl = fetched_request["matchMap"].lower() # ? bilerek api değişirse hata versin diye böyle bıraktım get kullanmayacak kadar eşşek değilim
                                 currentMap = self.map_service.maps.get(currentMapUrl)
-                                self.logger.write(f"{currentMap}, {currentMapUrl}", "info")
                                 if currentMap is None:
                                     self.i18n.print_lang("errors.map_file_broken")
                                     time.sleep(3)
@@ -176,12 +188,11 @@ class GameController:
                                     return
                                 currentMapProfile = profile.get(currentMap)
                                 agent = currentMapProfile.get("ajan", currentMapProfile.get("agent", ("bilinmeyen" if self.config.language == "turkish" else "unkown")))
-                                mode_profile = currentMapProfile.get("mod", profile.get("mode", False))
+                                mode_profile = currentMapProfile.get("mod", currentMapProfile.get("mode", ""))
                                 if not mode_profile.isdecimal():
                                     mode_profile = 1
                                 else:
                                     mode_profile = int(mode_profile)
-                                self.logger.write(f"ajan : {agent} mod : {mode_profile if mode == 3 else mode}", "info")
                                 agent = agent.lower()
                                 if agent == "" or agent not in self.agent_service.agents.keys():
                                     self.i18n.print_lang("errors.agent_not_found_or_empty", agent=agent, map=currentMap, path=self.config.profilePath)
@@ -192,18 +203,28 @@ class GameController:
                                 if mode_profile is None or mode_profile > 2 or mode_profile < 1:
                                     self.i18n.print_lang("errors.mode_not_found_or_broken_default_lock", map=currentMap, path=self.config.profilePath)
                                     mode_profile = 1
-                            agent_uuid = self.agent_service.agents.get(agent)
-                            
-                            
-                            if mode == 1 or mode_profile == 1: 
-                                self.session.pregame_lock_character(agent_uuid)
+                                agent_uuid = self.agent_service.agents.get(agent)
+
+                            pick_status = self.session.pregame_pick_agent(agent_uuid, match_id, mode == 1 or mode_profile == 1)
+                            pick_finished = time.perf_counter()
+                            self.session.matches.append(match_id)
+
+                            # ? buradan sonrası ajan kitlendikten sonra çalışır, hızı etkilemez
+                            self.clear()
+                            self.i18n.print_lang("game.selection_screen_detected")
+                            timing = (f"presence {(detected - poll_started) * 1000:.0f} ms, "
+                                      f"match id {(match_id_received - detected) * 1000:.0f} ms, "
+                                      f"pick {(pick_finished - match_id_received) * 1000:.0f} ms, "
+                                      f"total {(pick_finished - detected) * 1000:.0f} ms, HTTP {pick_status}")
+                            self.logger.write(f"Ajan '{agent}' (UUID: {agent_uuid}), mod: {mode_profile if mode == 3 else mode}, zamanlama: {timing}", level="info")
+                            print(timing)
+
+                            if 200 <= pick_status < 300:
+                                self.i18n.print_lang("game.agent_selected", agent=agent.capitalize())
+                            elif self.config.language == "turkish":
+                                print(f"{agent.capitalize()} seçilemedi (HTTP {pick_status}), ajan alınmış olabilir. Elle seç.")
                             else:
-                                self.session.pregame_select_character(agent_uuid)
-                                
-                            self.logger.write(f"Ajan '{agent.capitalize()}' (UUID: {agent_uuid}) kilitlendi.", level="info")
-                            self.session.matches.append(self.session.pregame_fetch_match()['ID'])
-                            
-                            self.i18n.print_lang("game.agent_selected", agent=agent.capitalize())
+                                print(f"Could not pick {agent.capitalize()} (HTTP {pick_status}), it may be taken. Pick manually.")
                             self.i18n.print_lang("game.crash_protection_active")
                             self.logger.write("Bozulma koruması başlatılacak.")
                             break
@@ -240,7 +261,7 @@ class GameController:
             except asyncio.CancelledError:
                 self.logger.write("State fonksiyonu iptal edildi.", level="info")
             finally:
-                tasks_to_cancel = [t for t in [break_protection_task, break_game_task, quest_shortcut_task] if t and not t.done()]
+                tasks_to_cancel = [t for t in [break_protection_task, break_game_task, quest_shortcut_task, warm_task] if t and not t.done()]
                 for task in tasks_to_cancel:
                     task.cancel()
                 if tasks_to_cancel:
