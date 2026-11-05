@@ -1,3 +1,4 @@
+import base64, json, requests
 from valclient.client import Client as ValClient
 from valclient.exceptions import HandshakeError
 from src.core.logger import Logger
@@ -14,6 +15,8 @@ class GameSession:
         self.matches = []
         self.player_name = ""
         self.puuid = ""
+        # ? valclient her istekte yeni bağlantı açıyor, bu oturum bağlantıyı açık tutar
+        self.http = requests.Session()
 
     def start_client(self):
         """Valclienti başlatır"""
@@ -38,16 +41,44 @@ class GameSession:
 
     ## ? basit yer tutucular
     def fetch_presence(self):
-         return self.client.fetch_presence(self.client.puuid)
+        port = self.client.lockfile['port']
+        response = self.http.get(f"https://127.0.0.1:{port}/chat/v4/presences",
+                                 headers=self.client.local_headers, verify=False, timeout=5)
+        try:
+            for presence in response.json()['presences']:
+                if presence['puuid'] == self.client.puuid:
+                    return json.loads(base64.b64decode(presence['private']))
+        except (KeyError, TypeError, ValueError):
+            return None
 
-    def pregame_fetch_match(self):
-        return self.client.pregame_fetch_match()
-    
-    def pregame_select_character(self, agent_id):
-        return self.client.pregame_select_character(agent_id)
+    def _glz_request(self, method, path):
+        """Riot pregame sunucusuna açık bağlantı üzerinden istek atar, token bittiyse yeniler"""
+        url = f"{self.client.base_url_glz}{path}"
+        response = self.http.request(method, url, headers=self.client.headers, json={}, timeout=5)
+        if response.status_code in (400, 401):
+            self.logger.write(f"{path} için {response.status_code} alındı, token yenileniyor.", "warn")
+            self.client.activate()
+            response = self.http.request(method, url, headers=self.client.headers, json={}, timeout=5)
+        return response
 
-    def pregame_lock_character(self, agent_id):
-        return self.client.pregame_lock_character(agent_id)
-    
+    def warm_connection(self):
+        """Ajan seçimi başlamadan bağlantıyı ve tokeni hazır tutar"""
+        try:
+            self._glz_request("GET", f"/pregame/v1/players/{self.client.puuid}")
+        except Exception as e:
+            self.logger.write(f"Bağlantı ısıtılamadı: {e}", "warn")
+
+    def pregame_fetch_match_id(self):
+        """Maç idsini döner, pregame'de değilse None"""
+        response = self._glz_request("GET", f"/pregame/v1/players/{self.client.puuid}")
+        if response.status_code != 200:
+            return None
+        return response.json().get("MatchID")
+
+    def pregame_pick_agent(self, agent_id, match_id, lock):
+        """Ajanı seçer veya kitler, HTTP durum kodunu döner"""
+        action = "lock" if lock else "select"
+        return self._glz_request("POST", f"/pregame/v1/matches/{match_id}/{action}/{agent_id}").status_code
+
     def pregame_quit_match(self):
         return self.client.pregame_quit_match()
